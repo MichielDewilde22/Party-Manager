@@ -2,38 +2,50 @@ package partymanager;
 import java.util.ArrayList;
 
 public class Blacklist { 
-private ArrayList<Person> BlacklistP;
-private ArrayList<Group> BlacklistG;
+private ArrayList<Object> Blacklist;
 //private Boolean BLkind;   				//true = person, false = group 
 private String owner;
-	public Blacklist(String name) {
-		owner = name;
-		BlacklistP = new ArrayList<Person>();
-		BlacklistG = new ArrayList<Group>();
-		//BLkind = true;
-	}
-	public void addEntryP(Person person) {
-		
-		BlacklistP.add(person);
-		System.out.println(person.getName() + "Has been added to the person blacklist of "+owner+"."); 
-		
-	}
-	public void removeEntryP(Person person)
+	public Blacklist(String name) 
 	{
-		int p = BlacklistP.indexOf(person);
-		Person x = BlacklistP.get(p);
-		BlacklistP.remove(p);
-		System.out.println(x.getName() + "has been removed from the person blacklist of "+owner+".");
+		owner = name;
+		Blacklist = new ArrayList<Object>();
+	}
+	public void addEntry(Object O) {
+		
+		
+		if(O instanceof Person)
+		{
+			Person p = (Person)O;
+			System.out.println(p.getName() + "Has been added to the blacklist of "+owner+".");
+			Blacklist.add(O);
+		}
+		else if(O instanceof Group)
+		{
+			Group g = (Group)O;
+			System.out.println(g.getName() + "Has been added to the  blacklist of the group: "+owner+".");
+			Blacklist.add(O);
+		}
+		else
+			System.out.println("error");
+		
+	}
+	public void removeEntry(Object O)
+	{
+		int x = Blacklist.indexOf(O);
+		if(O instanceof Person)
+		{
+			Person p = (Person)Blacklist.get(x);
+			Blacklist.remove(x);
+			System.out.println(p.getName() + "has been removed from the person blacklist of "+owner+".");
+		}
+		else if(O instanceof Group)
+		{
+			Group g = (Group)Blacklist.get(x);
+			Blacklist.remove(x);
+			System.out.println(g.getName() + "has been removed from the person blacklist of the group "+owner+".");
+		}
+		else
+			System.out.println("error");
+		
 	}	
-	public void addEntryG(Group group) {
-		BlacklistG.add(group);
-		System.out.println(group.getName() + "Has been added to the group blacklist of "+owner+".");
-	}
-	public void removeEntryG(Group group) {
-		int g = BlacklistG.indexOf(group);
-		Group y = BlacklistG.get(g);
-		BlacklistG.remove(g);
-		System.out.println(y.getName() + "Has been removed from the group blacklist of "+owner+".");
-	}
-	
 }
