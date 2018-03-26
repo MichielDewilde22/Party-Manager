@@ -2,7 +2,7 @@ package partymanager;
 
 import javax.swing.JOptionPane;
 
-public class Action { //TEST
+public class Action { 
 	public void Save() {
 		
 	}
