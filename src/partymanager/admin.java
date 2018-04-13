@@ -12,7 +12,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Andredur
  */
 public class admin extends javax.swing.JFrame {
-    Party p = new Party();
+    private Party p = new Party();
+    
     /**
      * Creates new form amdin
      */
@@ -28,6 +29,17 @@ public class admin extends javax.swing.JFrame {
         model.setValueAt(p.getAdmin()   , 3, 1);
         model.setValueAt(p.getMinPrice(), 4, 1);
         model.setValueAt(p.getMaxPrice(), 5, 1);
+    }
+    public void HidePartyRow(DefaultTableModel model, int x)
+    {
+       // DefaultTableModel model = (DefaultTableModel) Party_Table.getModel(); 
+       model.removeRow(x);
+    }
+    public void RevealPartyRow(DefaultTableModel model, int x)
+    {
+        //DefaultTableModel model = (DefaultTableModel) Party_Table.getModel();
+        String[] partydet = {"Date","Time","Place","Administrator","Minimum Price","Maximum Price"};
+        model.addRow(new Object[]{partydet[x],"",""});
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,9 +68,9 @@ public class admin extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Party_Table = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        Party_Table = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -75,9 +87,9 @@ public class admin extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        pref1_RButton = new javax.swing.JRadioButton();
+        pref2_RButton = new javax.swing.JRadioButton();
+        pref3_RButton = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -217,6 +229,16 @@ public class admin extends javax.swing.JFrame {
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jButton4.setText("edit party");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Party Details:"));
+
+        Party_Table.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         Party_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Date", null},
@@ -238,19 +260,24 @@ public class admin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        Party_Table.setIntercellSpacing(new java.awt.Dimension(4, 1));
         Party_Table.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(Party_Table);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Party_Table, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Party_Table, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         if (Party_Table.getColumnModel().getColumnCount() > 0) {
             Party_Table.getColumnModel().getColumn(0).setResizable(false);
             Party_Table.getColumnModel().getColumn(1).setResizable(false);
         }
-
-        jButton4.setText("edit party");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -258,10 +285,10 @@ public class admin extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75)
                 .addComponent(jButton4)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,8 +299,8 @@ public class admin extends javax.swing.JFrame {
                         .addComponent(jButton4))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(209, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(393, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("info", jPanel5);
@@ -316,7 +343,7 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(jButton5)
                     .addComponent(jButton6)
                     .addComponent(jButton3))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(572, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton3, jButton5, jButton6});
@@ -325,7 +352,7 @@ public class admin extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
+                .addContainerGap(229, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
@@ -395,24 +422,29 @@ public class admin extends javax.swing.JFrame {
                 .addComponent(jButton9)
                 .addGap(18, 18, 18)
                 .addComponent(jButton10)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addContainerGap(341, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Groups", jPanel7);
 
-        jRadioButton1.setText("2 persons can draw each other");
-
-        jRadioButton2.setText("Ignore blacklists");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        pref1_RButton.setText("2 persons can draw each other");
+        pref1_RButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                pref1_RButtonActionPerformed(evt);
             }
         });
 
-        jRadioButton3.setText("Minimum and maximum price");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        pref2_RButton.setText("Ignore blacklists");
+        pref2_RButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                pref2_RButtonActionPerformed(evt);
+            }
+        });
+
+        pref3_RButton.setText("No Minimum and maximum price");
+        pref3_RButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pref3_RButtonActionPerformed(evt);
             }
         });
 
@@ -423,26 +455,30 @@ public class admin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton3))
-                .addContainerGap(444, Short.MAX_VALUE))
+                    .addComponent(pref1_RButton)
+                    .addComponent(pref2_RButton)
+                    .addComponent(pref3_RButton))
+                .addContainerGap(963, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jRadioButton1)
+                .addComponent(pref1_RButton)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton2)
+                .addComponent(pref2_RButton)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton3)
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addComponent(pref3_RButton)
+                .addContainerGap(394, Short.MAX_VALUE))
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {pref1_RButton, pref2_RButton, pref3_RButton});
 
         jTabbedPane1.addTab("Prefrences", jPanel2);
 
-        jButton8.setText("jButton8");
+        jButton8.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 0, 0));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/balloons2.png"))); // NOI18N
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -453,11 +489,14 @@ public class admin extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 1151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Finish", jPanel8);
@@ -508,17 +547,9 @@ public class admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -538,6 +569,29 @@ public class admin extends javax.swing.JFrame {
     private void Min_InputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Min_InputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Min_InputActionPerformed
+
+    private void pref2_RButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pref2_RButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pref2_RButtonActionPerformed
+
+    private void pref3_RButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pref3_RButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel) Party_Table.getModel();
+        if(pref3_RButton.isSelected())
+        {
+            HidePartyRow(model,5);
+            HidePartyRow(model,4);
+        }
+        else
+        {
+            RevealPartyRow(model,4);
+            RevealPartyRow(model,5);
+            updateParty();
+        }
+    }//GEN-LAST:event_pref3_RButtonActionPerformed
+
+    private void pref1_RButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pref1_RButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pref1_RButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -612,19 +666,19 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JRadioButton pref1_RButton;
+    private javax.swing.JRadioButton pref2_RButton;
+    private javax.swing.JRadioButton pref3_RButton;
     // End of variables declaration//GEN-END:variables
 }
