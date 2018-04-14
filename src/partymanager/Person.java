@@ -13,8 +13,34 @@ public class Person {
 		blacklistP = new ArrayList<String>();
 		
 	}
-	public String getName() {
-		String nameP = name ;
-		return nameP;
-	}
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setWhishlist(ArrayList<String> whishlist) {
+        this.whishlist = whishlist;
+    }
+
+    public void setBlacklistP(ArrayList<String> blacklistP) {
+        this.blacklistP = blacklistP;
+    }
+
+    public void setRole(Boolean role) {
+        this.role = role;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<String> getWhishlist() {
+        return whishlist;
+    }
+
+    public ArrayList<String> getBlacklistP() {
+        return blacklistP;
+    }
+    
+    
 }

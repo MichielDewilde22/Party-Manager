@@ -5,6 +5,9 @@
  */
 package partymanager;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,7 +16,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class admin extends javax.swing.JFrame {
     private Party p = new Party();
-    
+    private boolean add = false;
+    private DefaultListModel persons = new DefaultListModel();
+    private int indexP;
     /**
      * Creates new form amdin
      */
@@ -40,6 +45,20 @@ public class admin extends javax.swing.JFrame {
         //DefaultTableModel model = (DefaultTableModel) Party_Table.getModel();
         String[] partydet = {"Date","Time","Place","Administrator","Minimum Price","Maximum Price"};
         model.addRow(new Object[]{partydet[x],"",""});
+    }
+    
+    public void updateEditPerson(Person person)
+    {
+        Edit_PersonName.setText(person.getName());
+        DefaultListModel EditB = new DefaultListModel();
+        Edit_PBlackList.setModel(EditB);
+        ArrayList<String> black = person.getBlacklistP();
+        for(Iterator<String> it = black.iterator(); it.hasNext(); )
+        {
+            String name = it.next();
+            EditB.addElement(name);
+        }
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,15 +87,16 @@ public class admin extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         AddPersonDialog = new javax.swing.JDialog();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        Edit_PersonName = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
+        Edit_PBlackList = new javax.swing.JList<>();
         jLabel8 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList5 = new javax.swing.JList<>();
+        Edit_PGroups = new javax.swing.JList<>();
         jButton12 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        Person_save = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -85,23 +105,24 @@ public class admin extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jButton5 = new javax.swing.JButton();
+        PersonList = new javax.swing.JList<>();
+        Person_edit = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         Person_add = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         jList3 = new javax.swing.JList<>();
         jButton7 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         pref1_RButton = new javax.swing.JRadioButton();
         pref2_RButton = new javax.swing.JRadioButton();
         pref3_RButton = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -241,29 +262,32 @@ public class admin extends javax.swing.JFrame {
 
         jLabel7.setText("Person:");
 
-        jList4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jList4.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        Edit_PersonName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Edit_PersonNameActionPerformed(evt);
+            }
         });
-        jScrollPane1.setViewportView(jList4);
+
+        Edit_PBlackList.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane1.setViewportView(Edit_PBlackList);
 
         jLabel8.setText("Blacklist:");
 
         jButton11.setText("Edit Blacklist");
 
-        jList5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jList5.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList5);
+        Edit_PGroups.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane2.setViewportView(Edit_PGroups);
 
         jButton12.setText("Edit Groups");
 
         jLabel9.setText("Groups");
+
+        Person_save.setText("Save");
+        Person_save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Person_saveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout AddPersonDialogLayout = new javax.swing.GroupLayout(AddPersonDialog.getContentPane());
         AddPersonDialog.getContentPane().setLayout(AddPersonDialogLayout);
@@ -273,49 +297,60 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                        .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1))
-                            .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(271, 271, 271)
-                                .addComponent(jLabel9)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Edit_PersonName))
                     .addGroup(AddPersonDialogLayout.createSequentialGroup()
                         .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
                             .addGroup(AddPersonDialogLayout.createSequentialGroup()
                                 .addGap(55, 55, 55)
-                                .addComponent(jButton11)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                                .addComponent(jButton11))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                                .addGap(55, 55, 55)
-                                .addComponent(jButton12)))
-                        .addGap(40, 40, 40))))
+                                .addComponent(jLabel9)
+                                .addGap(165, 165, 165))
+                            .addGroup(AddPersonDialogLayout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jButton12)
+                                .addGap(57, 57, 57))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddPersonDialogLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26)
+                        .addComponent(Person_save)))
+                .addContainerGap())
         );
+
+        AddPersonDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
+
+        AddPersonDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Person_save, jButton11, jButton12});
+
         AddPersonDialogLayout.setVerticalGroup(
             AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AddPersonDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Edit_PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton11))
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(AddPersonDialogLayout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton11))
+                            .addGroup(AddPersonDialogLayout.createSequentialGroup()
+                                .addGap(254, 254, 254)
+                                .addComponent(Person_save))))
                     .addGroup(AddPersonDialogLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton12)))
@@ -405,17 +440,17 @@ public class admin extends javax.swing.JFrame {
 
         jButton1.setText("delete");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        PersonList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PersonListMouseClicked(evt);
+            }
         });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(PersonList);
 
-        jButton5.setText("edit");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        Person_edit.setText("edit");
+        Person_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                Person_editActionPerformed(evt);
             }
         });
 
@@ -438,13 +473,13 @@ public class admin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addComponent(jButton5)
+                    .addComponent(Person_edit)
                     .addComponent(jButton6)
                     .addComponent(Person_add))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Person_add, jButton1, jButton5, jButton6});
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Person_add, Person_edit, jButton1, jButton6});
 
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,7 +490,7 @@ public class admin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Person_add)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
+                .addComponent(Person_edit)
                 .addGap(14, 14, 14)
                 .addComponent(jButton6)
                 .addGap(166, 166, 166))
@@ -463,18 +498,6 @@ public class admin extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("personen", jPanel4);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(jList2);
-
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane5.setViewportView(jList3);
 
         jButton7.setText("jButton7");
@@ -483,44 +506,47 @@ public class admin extends javax.swing.JFrame {
 
         jButton10.setText("jButton10");
 
+        jLabel10.setText("Person:");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButton7)
                         .addComponent(jButton9))
                     .addComponent(jButton10))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
-
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane4, jScrollPane5});
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton10, jButton7, jButton9});
 
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5)
-                    .addComponent(jScrollPane4))
-                .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(77, 77, 77)
+                .addGap(73, 73, 73)
                 .addComponent(jButton7)
                 .addGap(18, 18, 18)
                 .addComponent(jButton9)
                 .addGap(18, 18, 18)
                 .addComponent(jButton10)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Groups", jPanel7);
@@ -574,15 +600,17 @@ public class admin extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Prefrences", jPanel2);
 
+        jButton8.setText("jButton8");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 672, Short.MAX_VALUE)
+            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
+            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Finish", jPanel8);
@@ -613,7 +641,7 @@ public class admin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -629,12 +657,17 @@ public class admin extends javax.swing.JFrame {
         jDialog2.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void Person_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_editActionPerformed
+        String name = PersonList.getSelectedValue();
+        Person p = PartyManager.party.getAttendee(name);
+        updateEditPerson(p);
+        AddPersonDialog.setVisible(true);
+        
+    }//GEN-LAST:event_Person_editActionPerformed
 
     private void Person_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_addActionPerformed
        AddPersonDialog.setVisible(true);
+       add = true;
     }//GEN-LAST:event_Person_addActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -674,6 +707,34 @@ public class admin extends javax.swing.JFrame {
     private void pref1_RButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pref1_RButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pref1_RButtonActionPerformed
+
+    private void Person_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_saveActionPerformed
+        Person member;
+        //int index;
+        PersonList.setModel(persons);
+        String name = Edit_PersonName.getText();
+        member = new Person(name,false);
+        PartyManager.party.addPartyMember(member);
+        AddPersonDialog.setVisible(false);
+        if(add == true)
+        {
+            persons.addElement(name);
+            add = false;
+        }
+        else
+        {
+            //index = PersonList.getSelectedIndex();
+            persons.setElementAt(name, indexP);
+        }        
+    }//GEN-LAST:event_Person_saveActionPerformed
+
+    private void Edit_PersonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_PersonNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Edit_PersonNameActionPerformed
+
+    private void PersonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PersonListMouseClicked
+       indexP = PersonList.getSelectedIndex();
+    }//GEN-LAST:event_PersonListMouseClicked
 
     /**
      * @param args the command line arguments
@@ -716,11 +777,17 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JTextField Ad_Input;
     private javax.swing.JDialog AddPersonDialog;
     private javax.swing.JTextField Date_Input;
+    private javax.swing.JList<String> Edit_PBlackList;
+    private javax.swing.JList<String> Edit_PGroups;
+    private javax.swing.JTextField Edit_PersonName;
     private javax.swing.JTextField Max_Input;
     private javax.swing.JTextField Min_Input;
     private javax.swing.JTable Party_Table;
     private javax.swing.JPanel Party_det;
+    private javax.swing.JList<String> PersonList;
     private javax.swing.JButton Person_add;
+    private javax.swing.JButton Person_edit;
+    private javax.swing.JButton Person_save;
     private javax.swing.JTextField Place_Input;
     private javax.swing.JTextField Time_Input;
     private javax.swing.JButton jButton1;
@@ -729,12 +796,14 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -743,11 +812,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JList<String> jList3;
-    private javax.swing.JList<String> jList4;
-    private javax.swing.JList<String> jList5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -765,10 +830,8 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JRadioButton pref1_RButton;
     private javax.swing.JRadioButton pref2_RButton;
     private javax.swing.JRadioButton pref3_RButton;
