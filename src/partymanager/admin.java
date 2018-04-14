@@ -18,6 +18,8 @@ public class admin extends javax.swing.JFrame {
     private Party p = new Party();
     private boolean add = false;
     private DefaultListModel persons = new DefaultListModel();
+    private DefaultListModel BlackLists = new DefaultListModel();
+    private DefaultListModel BlackListEdit = new DefaultListModel();
     private int indexP;
     /**
      * Creates new form amdin
@@ -60,6 +62,15 @@ public class admin extends javax.swing.JFrame {
         }
         
     }
+    public void setupBlackList()
+    {
+        for(int i=0;i<persons.getSize();i++)
+        {
+            BlackLists.addElement(persons.elementAt(i));
+        }
+        BlackList_all.setModel(BlackLists);
+        BlackListDialog.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,11 +112,12 @@ public class admin extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         B_Owner = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        BlackList_all = new javax.swing.JList<>();
+        Add_BlackListButton = new javax.swing.JButton();
+        Remove_BlacklistButton = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        BlackList_P = new javax.swing.JList<>();
+        jButton5 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -377,25 +389,39 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        BlackListDialog.setMinimumSize(new java.awt.Dimension(577, 400));
-        BlackListDialog.setPreferredSize(new java.awt.Dimension(577, 400));
-        BlackListDialog.setSize(new java.awt.Dimension(577, 400));
+        BlackListDialog.setMaximumSize(new java.awt.Dimension(536, 385));
+        BlackListDialog.setMinimumSize(new java.awt.Dimension(536, 385));
+        BlackListDialog.setPreferredSize(new java.awt.Dimension(536, 385));
+        BlackListDialog.setResizable(false);
+        BlackListDialog.setSize(new java.awt.Dimension(536, 385));
         BlackListDialog.setType(java.awt.Window.Type.POPUP);
 
         jLabel11.setText("Blacklist:");
 
-        jScrollPane4.setViewportView(jList1);
+        jScrollPane4.setViewportView(BlackList_all);
 
-        jButton1.setText("<html>add<br/> => </html>");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Add_BlackListButton.setText("<html>add<br/> => </html>");
+        Add_BlackListButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Add_BlackListButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("<html>remove<br/>&nbsp&nbsp&nbsp&lt=</html> ");
+        Remove_BlacklistButton.setText("<html>remove<br/>&nbsp&nbsp&nbsp&lt=</html> ");
+        Remove_BlacklistButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Remove_BlacklistButtonActionPerformed(evt);
+            }
+        });
 
-        jScrollPane6.setViewportView(jList2);
+        jScrollPane7.setViewportView(BlackList_P);
+
+        jButton5.setText("Save");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BlackListDialogLayout = new javax.swing.GroupLayout(BlackListDialog.getContentPane());
         BlackListDialog.getContentPane().setLayout(BlackListDialogLayout);
@@ -406,26 +432,28 @@ public class admin extends javax.swing.JFrame {
                 .addGroup(BlackListDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BlackListDialogLayout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addGroup(BlackListDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(BlackListDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(BlackListDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Add_BlackListButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Remove_BlacklistButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton5))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BlackListDialogLayout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(B_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        BlackListDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton3});
+        BlackListDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Add_BlackListButton, Remove_BlacklistButton, jButton5});
 
-        BlackListDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane4, jScrollPane6});
+        BlackListDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane4, jScrollPane7});
 
         BlackListDialogLayout.setVerticalGroup(
             BlackListDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BlackListDialogLayout.createSequentialGroup()
+            .addGroup(BlackListDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(BlackListDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -433,19 +461,21 @@ public class admin extends javax.swing.JFrame {
                 .addGroup(BlackListDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BlackListDialogLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(BlackListDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4))
-                        .addContainerGap())
+                        .addGroup(BlackListDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(25, Short.MAX_VALUE))
                     .addGroup(BlackListDialogLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(Add_BlackListButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(Remove_BlacklistButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5)
+                        .addGap(51, 51, 51))))
         );
 
-        BlackListDialogLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton3});
+        BlackListDialogLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Add_BlackListButton, Remove_BlacklistButton});
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -523,7 +553,7 @@ public class admin extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addContainerGap(310, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("info", jPanel5);
@@ -585,7 +615,7 @@ public class admin extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(152, Short.MAX_VALUE)
+                .addContainerGap(146, Short.MAX_VALUE)
                 .addComponent(Person_delete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Person_add)
@@ -693,7 +723,7 @@ public class admin extends javax.swing.JFrame {
                 .addComponent(pref2_RButton)
                 .addGap(18, 18, 18)
                 .addComponent(pref3_RButton)
-                .addContainerGap(317, Short.MAX_VALUE))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {pref1_RButton, pref2_RButton, pref3_RButton});
@@ -710,7 +740,7 @@ public class admin extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Finish", jPanel8);
@@ -851,20 +881,42 @@ public class admin extends javax.swing.JFrame {
 
     private void Add_PBlackListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_PBlackListActionPerformed
        B_Owner.setText(Edit_PersonName.getText());
-       BlackListDialog.setVisible(true);
+       setupBlackList();
     }//GEN-LAST:event_Add_PBlackListActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void Add_BlackListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_BlackListButtonActionPerformed
+       if(BlackList_all.getSelectedValue() != null)
+       {
+            BlackList_P.setModel(BlackListEdit);
+            int adding = BlackList_all.getSelectedIndex();
+            String name = BlackList_all.getSelectedValue();
+            BlackListEdit.addElement(name);
+            BlackLists.removeElementAt(adding);
+       } 
+    }//GEN-LAST:event_Add_BlackListButtonActionPerformed
 
     private void BlacklistPButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlacklistPButtonActionPerformed
         if(PersonList.getSelectedValue() != null)
         {
         B_Owner.setText(PersonList.getSelectedValue());
-        BlackListDialog.setVisible(true);
+        setupBlackList();
         }
     }//GEN-LAST:event_BlacklistPButtonActionPerformed
+
+    private void Remove_BlacklistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Remove_BlacklistButtonActionPerformed
+        if(BlackList_P.getSelectedValue() != null)
+        {
+            int removing = BlackList_P.getSelectedIndex();
+            String name = BlackList_P.getSelectedValue();
+            BlackLists.addElement(name);
+            BlackListEdit.removeElementAt(removing);
+        }
+    }//GEN-LAST:event_Remove_BlacklistButtonActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        Edit_PBlackList.setModel(BlackListEdit);
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -906,10 +958,13 @@ public class admin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Ad_Input;
     private javax.swing.JDialog AddPersonDialog;
+    private javax.swing.JButton Add_BlackListButton;
     private javax.swing.JButton Add_PBlackList;
     private javax.swing.JButton Add_PGroup;
     private javax.swing.JLabel B_Owner;
     private javax.swing.JDialog BlackListDialog;
+    private javax.swing.JList<String> BlackList_P;
+    private javax.swing.JList<String> BlackList_all;
     private javax.swing.JButton BlacklistPButton;
     private javax.swing.JTextField Date_Input;
     private javax.swing.JList<String> Edit_PBlackList;
@@ -925,12 +980,12 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton Person_edit;
     private javax.swing.JButton Person_save;
     private javax.swing.JTextField Place_Input;
+    private javax.swing.JButton Remove_BlacklistButton;
     private javax.swing.JTextField Time_Input;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -947,8 +1002,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JList<String> jList3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -969,7 +1022,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JRadioButton pref1_RButton;
     private javax.swing.JRadioButton pref2_RButton;
