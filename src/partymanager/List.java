@@ -22,4 +22,10 @@ public class List {
              p = null;
          return p;
      }
+     public void deletepartyMember(String name)
+     {
+         Person p = Attendees.get(name);
+         Attendees.remove(name, p);
+     }
+
 }

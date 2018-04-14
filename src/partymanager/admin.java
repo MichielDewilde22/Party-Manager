@@ -103,7 +103,7 @@ public class admin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         Party_Table = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        Person_delete = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         PersonList = new javax.swing.JList<>();
         Person_edit = new javax.swing.JButton();
@@ -257,7 +257,6 @@ public class admin extends javax.swing.JFrame {
 
         AddPersonDialog.setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         AddPersonDialog.setMinimumSize(new java.awt.Dimension(577, 400));
-        AddPersonDialog.setPreferredSize(new java.awt.Dimension(573, 360));
         AddPersonDialog.setSize(new java.awt.Dimension(577, 355));
 
         jLabel7.setText("Person:");
@@ -438,7 +437,12 @@ public class admin extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("info", jPanel5);
 
-        jButton1.setText("delete");
+        Person_delete.setText("delete");
+        Person_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Person_deleteActionPerformed(evt);
+            }
+        });
 
         PersonList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -472,21 +476,21 @@ public class admin extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(Person_delete)
                     .addComponent(Person_edit)
                     .addComponent(jButton6)
                     .addComponent(Person_add))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Person_add, Person_edit, jButton1, jButton6});
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Person_add, Person_delete, Person_edit, jButton6});
 
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(146, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(Person_delete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Person_add)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -658,10 +662,13 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void Person_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_editActionPerformed
-        String name = PersonList.getSelectedValue();
-        Person p = PartyManager.party.getAttendee(name);
-        updateEditPerson(p);
-        AddPersonDialog.setVisible(true);
+        if(PersonList.getSelectedValue() != null)
+        {
+            String name = PersonList.getSelectedValue();
+            Person p = PartyManager.party.getAttendee(name);
+            updateEditPerson(p);
+            AddPersonDialog.setVisible(true);
+        }
         
     }//GEN-LAST:event_Person_editActionPerformed
 
@@ -725,7 +732,8 @@ public class admin extends javax.swing.JFrame {
         {
             //index = PersonList.getSelectedIndex();
             persons.setElementAt(name, indexP);
-        }        
+        }
+        Edit_PersonName.setText("");
     }//GEN-LAST:event_Person_saveActionPerformed
 
     private void Edit_PersonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_PersonNameActionPerformed
@@ -735,6 +743,15 @@ public class admin extends javax.swing.JFrame {
     private void PersonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PersonListMouseClicked
        indexP = PersonList.getSelectedIndex();
     }//GEN-LAST:event_PersonListMouseClicked
+
+    private void Person_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_deleteActionPerformed
+       if(PersonList.getSelectedValue() != null)
+       {
+        String name = PersonList.getSelectedValue();
+        persons.remove(indexP);
+        PartyManager.party.deletepartyMember(name);
+       }
+    }//GEN-LAST:event_Person_deleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -786,11 +803,11 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JPanel Party_det;
     private javax.swing.JList<String> PersonList;
     private javax.swing.JButton Person_add;
+    private javax.swing.JButton Person_delete;
     private javax.swing.JButton Person_edit;
     private javax.swing.JButton Person_save;
     private javax.swing.JTextField Place_Input;
     private javax.swing.JTextField Time_Input;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
