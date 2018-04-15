@@ -8,6 +8,7 @@ package partymanager;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +21,7 @@ public class admin extends javax.swing.JFrame {
     private DefaultListModel persons = new DefaultListModel();
     private DefaultListModel BlackLists = new DefaultListModel();
     private DefaultListModel BlackListEdit = new DefaultListModel();
+    private DefaultListModel EditB = new DefaultListModel();
     private int indexP;
     /**
      * Creates new form amdin
@@ -52,7 +54,7 @@ public class admin extends javax.swing.JFrame {
     public void updateEditPerson(Person person)
     {
         Edit_PersonName.setText(person.getName());
-        DefaultListModel EditB = new DefaultListModel();
+        
         Edit_PBlackList.setModel(EditB);
         ArrayList<String> black = person.getBlacklistP();
         for(Iterator<String> it = black.iterator(); it.hasNext(); )
@@ -62,13 +64,28 @@ public class admin extends javax.swing.JFrame {
         }
         
     }
-    public void setupBlackList()
+    public void setupBlackList(String name)
     {
         for(int i=0;i<persons.getSize();i++)
         {
             BlackLists.addElement(persons.elementAt(i));
         }
         BlackList_all.setModel(BlackLists);
+        if(PartyManager.party.contains(name))
+        {
+            for(int j=0;j<BlackLists.getSize();j++)
+            {
+                if(PartyManager.party.getAttendee(name).getBlacklistP().contains(BlackLists.elementAt(j).toString()))
+                {
+                   BlackListEdit.addElement(BlackLists.getElementAt(j)); 
+                   BlackLists.remove(j);
+                }
+                if(BlackLists.getElementAt(j).toString().equals(name))
+                    BlackLists.remove(j);
+            }        
+        
+        }
+        
         BlackListDialog.setVisible(true);
     }
     /**
@@ -117,7 +134,7 @@ public class admin extends javax.swing.JFrame {
         Remove_BlacklistButton = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         BlackList_P = new javax.swing.JList<>();
-        jButton5 = new javax.swing.JButton();
+        Save_Blacklist = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -283,6 +300,11 @@ public class admin extends javax.swing.JFrame {
         AddPersonDialog.setPreferredSize(new java.awt.Dimension(589, 400));
         AddPersonDialog.setResizable(false);
         AddPersonDialog.setSize(new java.awt.Dimension(589, 400));
+        AddPersonDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                AddPersonDialogWindowClosing(evt);
+            }
+        });
 
         jLabel7.setText("Person:");
 
@@ -397,6 +419,11 @@ public class admin extends javax.swing.JFrame {
         BlackListDialog.setResizable(false);
         BlackListDialog.setSize(new java.awt.Dimension(536, 385));
         BlackListDialog.setType(java.awt.Window.Type.POPUP);
+        BlackListDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                BlackListDialogWindowClosing(evt);
+            }
+        });
 
         jLabel11.setText("Blacklist:");
 
@@ -418,10 +445,10 @@ public class admin extends javax.swing.JFrame {
 
         jScrollPane7.setViewportView(BlackList_P);
 
-        jButton5.setText("Save");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        Save_Blacklist.setText("Save");
+        Save_Blacklist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                Save_BlacklistActionPerformed(evt);
             }
         });
 
@@ -439,7 +466,7 @@ public class admin extends javax.swing.JFrame {
                             .addGroup(BlackListDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(Add_BlackListButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(Remove_BlacklistButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton5))
+                            .addComponent(Save_Blacklist))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BlackListDialogLayout.createSequentialGroup()
@@ -449,7 +476,7 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        BlackListDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Add_BlackListButton, Remove_BlacklistButton, jButton5});
+        BlackListDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Add_BlackListButton, Remove_BlacklistButton, Save_Blacklist});
 
         BlackListDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane4, jScrollPane7});
 
@@ -473,7 +500,7 @@ public class admin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Remove_BlacklistButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5)
+                        .addComponent(Save_Blacklist)
                         .addGap(51, 51, 51))))
         );
 
@@ -802,6 +829,7 @@ public class admin extends javax.swing.JFrame {
 
     private void Person_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_addActionPerformed
         add = true;
+        System.out.println("add turned on"); //checkprint
         AddPersonDialog.setVisible(true);
     }//GEN-LAST:event_Person_addActionPerformed
 
@@ -849,19 +877,26 @@ public class admin extends javax.swing.JFrame {
         PersonList.setModel(persons);
         String name = Edit_PersonName.getText();
         member = new Person(name,false);
-        PartyManager.party.addPartyMember(member);
+        ArrayList<String> memberbl = new ArrayList<>();
+        for(int i=0;i<EditB.getSize();i++)
+            memberbl.add(EditB.getElementAt(i).toString());
         AddPersonDialog.setVisible(false);
         if(add == true)
         {
             persons.addElement(name);
+            member.setBlacklistP(memberbl);
+            PartyManager.party.addPartyMember(member);
             add = false;
+            System.out.println("add turned off"); //checkprint
         }
         else
         {
             //index = PersonList.getSelectedIndex();
             persons.setElementAt(name, indexP);
+            PartyManager.party.getAttendee(name).setBlacklistP(memberbl);
         }
         Edit_PersonName.setText("");
+        EditB.removeAllElements();
     }//GEN-LAST:event_Person_saveActionPerformed
 
     private void Edit_PersonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_PersonNameActionPerformed
@@ -883,7 +918,7 @@ public class admin extends javax.swing.JFrame {
 
     private void Add_PBlackListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_PBlackListActionPerformed
        B_Owner.setText(Edit_PersonName.getText());
-       setupBlackList();
+       setupBlackList(Edit_PersonName.getText());
     }//GEN-LAST:event_Add_PBlackListActionPerformed
 
     private void Add_BlackListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_BlackListButtonActionPerformed
@@ -901,7 +936,7 @@ public class admin extends javax.swing.JFrame {
         if(PersonList.getSelectedValue() != null)
         {
         B_Owner.setText(PersonList.getSelectedValue());
-        setupBlackList();
+        setupBlackList(PersonList.getSelectedValue());
         }
     }//GEN-LAST:event_BlacklistPButtonActionPerformed
 
@@ -915,16 +950,21 @@ public class admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Remove_BlacklistButtonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Edit_PBlackList.setModel(BlackListEdit);
+    private void Save_BlacklistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_BlacklistActionPerformed
+        EditB.removeAllElements();
+        for(int k=0;k<BlackListEdit.size();k++)
+        {
+                EditB.addElement(BlackListEdit.elementAt(k));
+        }
+        Edit_PBlackList.setModel(EditB);
         BlackListDialog.setVisible(false);
         for(int i=0;i<BlackListEdit.size();i++)
         {
             if(!AddPersonDialog.isVisible())
             {
                 String name = PersonList.getSelectedValue();
-                Person p = PartyManager.party.getAttendee(name);
-                ArrayList<String> black = p.getBlacklistP();
+                Person per = PartyManager.party.getAttendee(name);
+                ArrayList<String> black = per.getBlacklistP();
                 for(Iterator<String> it = black.iterator(); it.hasNext();)
                 {
                     name = it.next();
@@ -933,12 +973,28 @@ public class admin extends javax.swing.JFrame {
                 }
                 for(int j=0; j<BlackListEdit.getSize();j++)
                 {
-                    if(!black.contains(BlackListEdit.getElementAt(j)))
+                    if(!black.contains(BlackListEdit.getElementAt(j).toString()))
                         black.add(name);
                 }
             }
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+        //DefaultListModel clear = (DefaultListModel) BlackList_all.getModel();
+        //clear.removeAllElements();
+        BlackLists.removeAllElements();
+        BlackListEdit.removeAllElements();
+    }//GEN-LAST:event_Save_BlacklistActionPerformed
+
+    private void AddPersonDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AddPersonDialogWindowClosing
+        add = false;
+        Edit_PersonName.setText("");
+        EditB.removeAllElements();
+        System.out.println("add turned off"); //checkprint
+    }//GEN-LAST:event_AddPersonDialogWindowClosing
+
+    private void BlackListDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_BlackListDialogWindowClosing
+        BlackLists.removeAllElements();
+        BlackListEdit.removeAllElements();
+    }//GEN-LAST:event_BlackListDialogWindowClosing
 
     /**
      * @param args the command line arguments
@@ -1003,11 +1059,11 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton Person_save;
     private javax.swing.JTextField Place_Input;
     private javax.swing.JButton Remove_BlacklistButton;
+    private javax.swing.JButton Save_Blacklist;
     private javax.swing.JTextField Time_Input;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;

@@ -27,5 +27,11 @@ public class List {
          Person p = Attendees.get(name);
          Attendees.remove(name, p);
      }
+     
+     public boolean contains(String name)
+     {
+         boolean exists = Attendees.containsKey(name);
+         return exists;
+     }
 
 }

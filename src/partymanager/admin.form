@@ -214,6 +214,9 @@
           <Dimension value="[589, 400]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="AddPersonDialogWindowClosing"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -419,6 +422,9 @@
           <Value id="POPUP"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="BlackListDialogWindowClosing"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -434,7 +440,7 @@
                                   <Component id="Add_BlackListButton" linkSize="10" min="-2" max="-2" attributes="0"/>
                                   <Component id="Remove_BlacklistButton" linkSize="10" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jButton5" linkSize="10" min="-2" max="-2" attributes="0"/>
+                              <Component id="Save_Blacklist" linkSize="10" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane7" linkSize="17" min="-2" pref="186" max="-2" attributes="0"/>
@@ -472,7 +478,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="Remove_BlacklistButton" linkSize="11" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                          <Component id="Save_Blacklist" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -542,12 +548,12 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="Save_Blacklist">
           <Properties>
             <Property name="text" type="java.lang.String" value="Save"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Save_BlacklistActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
