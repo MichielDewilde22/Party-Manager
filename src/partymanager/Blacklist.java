@@ -35,5 +35,13 @@ private String owner;
 		BlacklistG.remove(g);
 		System.out.println(y.getName() + "Has been removed from the group blacklist of "+owner+".");
 	}
+       
+        public ArrayList<Person> getBlacklistP() {
+            return BlacklistP;
+        }
+
+        public ArrayList<Group> getBlacklistG() {
+            return BlacklistG;
+        }
 	
 }

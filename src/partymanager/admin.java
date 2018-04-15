@@ -279,6 +279,7 @@ public class admin extends javax.swing.JFrame {
         AddPersonDialog.setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         AddPersonDialog.setMaximumSize(new java.awt.Dimension(589, 400));
         AddPersonDialog.setMinimumSize(new java.awt.Dimension(589, 400));
+        AddPersonDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         AddPersonDialog.setPreferredSize(new java.awt.Dimension(589, 400));
         AddPersonDialog.setResizable(false);
         AddPersonDialog.setSize(new java.awt.Dimension(589, 400));
@@ -391,6 +392,7 @@ public class admin extends javax.swing.JFrame {
 
         BlackListDialog.setMaximumSize(new java.awt.Dimension(536, 385));
         BlackListDialog.setMinimumSize(new java.awt.Dimension(536, 385));
+        BlackListDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         BlackListDialog.setPreferredSize(new java.awt.Dimension(536, 385));
         BlackListDialog.setResizable(false);
         BlackListDialog.setSize(new java.awt.Dimension(536, 385));
@@ -553,7 +555,7 @@ public class admin extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addContainerGap(316, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("info", jPanel5);
@@ -615,7 +617,7 @@ public class admin extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(146, Short.MAX_VALUE)
+                .addContainerGap(152, Short.MAX_VALUE)
                 .addComponent(Person_delete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Person_add)
@@ -723,7 +725,7 @@ public class admin extends javax.swing.JFrame {
                 .addComponent(pref2_RButton)
                 .addGap(18, 18, 18)
                 .addComponent(pref3_RButton)
-                .addContainerGap(311, Short.MAX_VALUE))
+                .addContainerGap(317, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {pref1_RButton, pref2_RButton, pref3_RButton});
@@ -740,7 +742,7 @@ public class admin extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Finish", jPanel8);
@@ -791,16 +793,16 @@ public class admin extends javax.swing.JFrame {
         if(PersonList.getSelectedValue() != null)
         {
             String name = PersonList.getSelectedValue();
-            Person p = PartyManager.party.getAttendee(name);
-            updateEditPerson(p);
+            Person per = PartyManager.party.getAttendee(name);
+            updateEditPerson(per);
             AddPersonDialog.setVisible(true);
         }
         
     }//GEN-LAST:event_Person_editActionPerformed
 
     private void Person_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_addActionPerformed
-       AddPersonDialog.setVisible(true);
-       add = true;
+        add = true;
+        AddPersonDialog.setVisible(true);
     }//GEN-LAST:event_Person_addActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -915,7 +917,27 @@ public class admin extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         Edit_PBlackList.setModel(BlackListEdit);
-        
+        BlackListDialog.setVisible(false);
+        for(int i=0;i<BlackListEdit.size();i++)
+        {
+            if(!AddPersonDialog.isVisible())
+            {
+                String name = PersonList.getSelectedValue();
+                Person p = PartyManager.party.getAttendee(name);
+                ArrayList<String> black = p.getBlacklistP();
+                for(Iterator<String> it = black.iterator(); it.hasNext();)
+                {
+                    name = it.next();
+                    if(!BlackListEdit.contains(name))
+                        it.remove(); 
+                }
+                for(int j=0; j<BlackListEdit.getSize();j++)
+                {
+                    if(!black.contains(BlackListEdit.getElementAt(j)))
+                        black.add(name);
+                }
+            }
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

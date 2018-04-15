@@ -5,13 +5,11 @@ public class Person {
 	private ArrayList<String> wishlist;
 	private ArrayList<String> blacklistP;
 	private Boolean role;
-	
 	public Person(String name, Boolean role) {
 		this.name = name;
 		this.role = role;
-		wishlist = new ArrayList<String>();
-		blacklistP = new ArrayList<String>();
-		
+		wishlist = new ArrayList<>();
+		blacklistP = new ArrayList<>();
 	}
     public void AddWhishlistItem(String item)
     {
@@ -27,6 +25,7 @@ public class Person {
     public void setName(String name) {
         this.name = name;
     }
+
 
     public void setWhishlist(ArrayList<String> whishlist) {
         this.wishlist = whishlist;
