@@ -27,38 +27,134 @@ public class chooseParty extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        FileChooser = new javax.swing.JFileChooser();
+        New_Party = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        AdminName = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        AdminPassword = new javax.swing.JPasswordField();
+        Create = new javax.swing.JButton();
+        ExistingButton = new javax.swing.JButton();
+        NewButton = new javax.swing.JButton();
+
+        New_Party.setTitle("Create new party");
+        New_Party.setPreferredSize(new java.awt.Dimension(600, 400));
+
+        jLabel1.setText("Admin:");
+
+        jLabel2.setText("Password:");
+
+        Create.setText("Create");
+        Create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout New_PartyLayout = new javax.swing.GroupLayout(New_Party.getContentPane());
+        New_Party.getContentPane().setLayout(New_PartyLayout);
+        New_PartyLayout.setHorizontalGroup(
+            New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(New_PartyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(New_PartyLayout.createSequentialGroup()
+                        .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AdminName, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                            .addComponent(AdminPassword)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, New_PartyLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Create)))
+                .addContainerGap())
+        );
+        New_PartyLayout.setVerticalGroup(
+            New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(New_PartyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(AdminName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(AdminPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Create)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        ExistingButton.setText("Use existing party");
+        ExistingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExistingButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        NewButton.setText("Create new party");
+        NewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NewButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addGap(95, 95, 95)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NewButton)
+                    .addComponent(ExistingButton))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ExistingButton, NewButton});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jButton1)
-                .addGap(75, 75, 75)
-                .addComponent(jButton2)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(ExistingButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(NewButton)
+                .addGap(38, 38, 38))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {ExistingButton, NewButton});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void NewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewButtonActionPerformed
+        New_Party.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_NewButtonActionPerformed
+
+    private void ExistingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistingButtonActionPerformed
+        this.setVisible(false);
+        FileChooser.setVisible(true);
+        System.out.println("Filechooser openened");
+    }//GEN-LAST:event_ExistingButtonActionPerformed
+
+    private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
+        this.setVisible(false);
+        String name = AdminName.getText();
+        String password = AdminPassword.getText();
+        System.out.println("Naam: "+name+"\nPassword: "+password);
+        List list = new List();
+        Person admin = new Person(name,true);
+        list.addPartyMember(admin);
+        admin ad = new admin();
+        New_Party.setVisible(false);
+        ad.setVisible(true);
+    }//GEN-LAST:event_CreateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -96,7 +192,14 @@ public class chooseParty extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField AdminName;
+    private javax.swing.JPasswordField AdminPassword;
+    private javax.swing.JButton Create;
+    private javax.swing.JButton ExistingButton;
+    private javax.swing.JFileChooser FileChooser;
+    private javax.swing.JButton NewButton;
+    private javax.swing.JDialog New_Party;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
