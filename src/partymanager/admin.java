@@ -304,10 +304,8 @@ public class admin extends javax.swing.JFrame {
         );
 
         AddPersonDialog.setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        AddPersonDialog.setMaximumSize(new java.awt.Dimension(589, 400));
         AddPersonDialog.setMinimumSize(new java.awt.Dimension(589, 400));
         AddPersonDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        AddPersonDialog.setPreferredSize(new java.awt.Dimension(589, 400));
         AddPersonDialog.setResizable(false);
         AddPersonDialog.setSize(new java.awt.Dimension(589, 400));
         AddPersonDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -422,10 +420,8 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        BlackListDialog.setMaximumSize(new java.awt.Dimension(536, 385));
         BlackListDialog.setMinimumSize(new java.awt.Dimension(536, 385));
         BlackListDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        BlackListDialog.setPreferredSize(new java.awt.Dimension(536, 385));
         BlackListDialog.setResizable(false);
         BlackListDialog.setSize(new java.awt.Dimension(536, 385));
         BlackListDialog.setType(java.awt.Window.Type.POPUP);
@@ -548,22 +544,14 @@ public class admin extends javax.swing.JFrame {
                 {"Date", null},
                 {"Time", null},
                 {"Place", null},
-                {"Administartor", null},
+                {"Administrator", null},
                 {"Minimum Price", null},
                 {"Maximum Price", null}
             },
             new String [] {
                 "Party:", ""
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         Party_Table.setIntercellSpacing(new java.awt.Dimension(4, 1));
         Party_Table.getTableHeader().setReorderingAllowed(false);
 
