@@ -26,7 +26,6 @@ public class Person {
         this.name = name;
     }
 
-
     public void setWhishlist(ArrayList<String> whishlist) {
         this.wishlist = whishlist;
     }
@@ -41,6 +40,10 @@ public class Person {
     
     public String getName() {
         return name;
+    }
+    
+    public boolean getRole() {
+        return role;
     }
 
     public ArrayList<String> getWhishlist() {
