@@ -27,7 +27,7 @@ public class chooseParty extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        FileChooser = new javax.swing.JFileChooser();
+        File_Chooser = new javax.swing.JFileChooser();
         New_Party = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         AdminName = new javax.swing.JTextField();
@@ -138,8 +138,8 @@ public class chooseParty extends javax.swing.JFrame {
     }//GEN-LAST:event_NewButtonActionPerformed
 
     private void ExistingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistingButtonActionPerformed
+        File_Chooser.setVisible(true);
         this.setVisible(false);
-        FileChooser.setVisible(true);
         System.out.println("Filechooser openened");
     }//GEN-LAST:event_ExistingButtonActionPerformed
 
@@ -196,7 +196,7 @@ public class chooseParty extends javax.swing.JFrame {
     private javax.swing.JPasswordField AdminPassword;
     private javax.swing.JButton Create;
     private javax.swing.JButton ExistingButton;
-    private javax.swing.JFileChooser FileChooser;
+    private javax.swing.JFileChooser File_Chooser;
     private javax.swing.JButton NewButton;
     private javax.swing.JDialog New_Party;
     private javax.swing.JLabel jLabel1;

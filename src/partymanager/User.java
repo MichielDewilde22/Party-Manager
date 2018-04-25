@@ -6,13 +6,13 @@
 package partymanager;
 
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Andredur
  */
 public class User extends javax.swing.JFrame {
- 
     private Party p = new Party();
     private String name;
     private Person person;
@@ -226,6 +226,17 @@ public class User extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void updateParty()
+    {
+        DefaultTableModel model = (DefaultTableModel) Party_Table.getModel();
+        model.setValueAt(p.getDate()    , 0, 1);
+        model.setValueAt(p.getHour()    , 1, 1);
+        model.setValueAt(p.getPlace()   , 2, 1);
+        model.setValueAt(p.getAdmin()   , 3, 1);
+        model.setValueAt(p.getMinPrice(), 4, 1);
+        model.setValueAt(p.getMaxPrice(), 5, 1);
+    }
+    
     private void PersonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PersonNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PersonNameActionPerformed
@@ -246,6 +257,7 @@ public class User extends javax.swing.JFrame {
     private void Wishlist_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_DeleteActionPerformed
         if(Wishlist.getSelectedValue() != null)
         {
+            Wishlist.setModel(WishListEdit);
             int removing = Wishlist.getSelectedIndex();
             String name = Wishlist.getSelectedValue();
             WishListEdit.removeElementAt(removing);
