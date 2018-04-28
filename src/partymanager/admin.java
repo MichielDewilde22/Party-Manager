@@ -17,7 +17,9 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.ListModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,6 +34,7 @@ public class admin extends javax.swing.JFrame {
     private DefaultListModel BlackListEdit = new DefaultListModel();
     private DefaultListModel EditB = new DefaultListModel();
     private int indexP;
+    private Action action = new Action();
     /**
      * Creates new form amdin
      */
@@ -59,7 +62,14 @@ public class admin extends javax.swing.JFrame {
         String[] partydet = {"Date","Time","Place","Administrator","Minimum Price","Maximum Price"};
         model.addRow(new Object[]{partydet[x],"",""});
     }
-    
+    public void updateAllpersons()
+    {
+        persons.clear();
+        PersonList.setModel(persons);
+        ArrayList<String> Allattendees = PartyManager.party.getNames();
+        for(String name : Allattendees)
+            persons.addElement(name);
+    }
     public void updateEditPerson(Person person)
     {
         Edit_PersonName.setText(person.getName());
@@ -145,6 +155,8 @@ public class admin extends javax.swing.JFrame {
         BlackList_P = new javax.swing.JList<>();
         Save_Blacklist = new javax.swing.JButton();
         jDialog1 = new javax.swing.JDialog();
+        ExportFileFrame = new javax.swing.JFileChooser();
+        ImportFileFrame = new javax.swing.JFileChooser();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -173,9 +185,9 @@ public class admin extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        ExportAD = new javax.swing.JMenuItem();
+        ImportAd = new javax.swing.JMenuItem();
+        SaveAd = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
 
@@ -523,6 +535,16 @@ public class admin extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Serializable","ser");
+        ExportFileFrame.setFileFilter(filter);
+        ExportFileFrame.setAcceptAllFileFilterUsed(false);
+        ExportFileFrame.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        ExportFileFrame.setApproveButtonToolTipText("");
+
+        ImportFileFrame.setFileFilter(filter);
+        ImportFileFrame.setAcceptAllFileFilterUsed(false);
+        ImportFileFrame.setDialogTitle("");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -791,17 +813,32 @@ public class admin extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("export");
-        jMenu1.add(jMenuItem1);
+        ExportAD.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        ExportAD.setText("export");
+        ExportAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportADActionPerformed(evt);
+            }
+        });
+        jMenu1.add(ExportAD);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("import");
-        jMenu1.add(jMenuItem2);
+        ImportAd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        ImportAd.setText("import");
+        ImportAd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImportAdActionPerformed(evt);
+            }
+        });
+        jMenu1.add(ImportAd);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("save");
-        jMenu1.add(jMenuItem3);
+        SaveAd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        SaveAd.setText("save");
+        SaveAd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveAdActionPerformed(evt);
+            }
+        });
+        jMenu1.add(SaveAd);
 
         jMenuBar1.add(jMenu1);
 
@@ -1018,6 +1055,42 @@ public class admin extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void ExportADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportADActionPerformed
+        int result = ExportFileFrame.showSaveDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION)
+        {
+             File file = ExportFileFrame.getSelectedFile();
+             String path = file.getAbsolutePath();
+        if(path.contains("."))
+        {
+        String[] check = path.split("\\.");
+        String test = check[0];
+        path = test;
+        }
+        
+         path = path.concat(".ser");
+        action.ExportFile(path,PartyManager.party.getAttendees());
+        }
+        ImportFileFrame.setSelectedFile(new File(""));
+    }//GEN-LAST:event_ExportADActionPerformed
+
+    private void SaveAdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveAdActionPerformed
+        action.saveFile(PartyManager.party.getAttendees());
+        
+    }//GEN-LAST:event_SaveAdActionPerformed
+
+    private void ImportAdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportAdActionPerformed
+        int result = ImportFileFrame.showOpenDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION)
+        {
+            File file = ImportFileFrame.getSelectedFile();
+            action.ImportFile(file);
+            updateAllpersons();
+        }
+        ImportFileFrame.setSelectedFile(new File(""));
+        
+    }//GEN-LAST:event_ImportAdActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1070,6 +1143,10 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JList<String> Edit_PBlackList;
     private javax.swing.JList<String> Edit_PGroups;
     private javax.swing.JTextField Edit_PersonName;
+    private javax.swing.JMenuItem ExportAD;
+    private javax.swing.JFileChooser ExportFileFrame;
+    private javax.swing.JMenuItem ImportAd;
+    private javax.swing.JFileChooser ImportFileFrame;
     private javax.swing.JTextField Max_Input;
     private javax.swing.JTextField Min_Input;
     private javax.swing.JTable Party_Table;
@@ -1081,6 +1158,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton Person_save;
     private javax.swing.JTextField Place_Input;
     private javax.swing.JButton Remove_BlacklistButton;
+    private javax.swing.JMenuItem SaveAd;
     private javax.swing.JButton Save_Blacklist;
     private javax.swing.JTextField Time_Input;
     private javax.swing.JButton jButton10;
@@ -1107,9 +1185,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

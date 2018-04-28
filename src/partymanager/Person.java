@@ -1,6 +1,7 @@
 package partymanager;
+import java.io.Serializable;
 import java.util.ArrayList;
-public class Person {
+public class Person implements Serializable{
 	private String name;
 	private ArrayList<String> wishlist;
 	private ArrayList<String> blacklistP;
