@@ -6,11 +6,15 @@ public class Person implements Serializable{
 	private ArrayList<String> wishlist;
 	private ArrayList<String> blacklistP;
 	private Boolean role;
+        private Boolean ischosen;
+        private String chosen;
 	public Person(String name, Boolean role) {
 		this.name = name;
 		this.role = role;
 		wishlist = new ArrayList<>();
 		blacklistP = new ArrayList<>();
+                chosen = "";
+                ischosen = false;
 	}
     public void AddWhishlistItem(String item)
     {
@@ -54,6 +58,26 @@ public class Person implements Serializable{
     public ArrayList<String> getBlacklistP() {
         return blacklistP;
     }
+    public void setChosen(String name) {
+        this.chosen=name;
+    }
     
+    public String getChosen() {
+        return chosen;
+    }
+    public boolean hasChosen() {
+        if (!chosen.equals("")&& chosen !=null)
+            return true;
+        else 
+            return false;
+    }
+
+    public Boolean isChosen() {
+        return ischosen;
+    }
+
+    public void setIschosen(Boolean ischosen) {
+        this.ischosen = ischosen;
+    }
     
 }

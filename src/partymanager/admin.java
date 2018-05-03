@@ -318,7 +318,6 @@ public class admin extends javax.swing.JFrame {
         AddPersonDialog.setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         AddPersonDialog.setMinimumSize(new java.awt.Dimension(589, 400));
         AddPersonDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        AddPersonDialog.setResizable(false);
         AddPersonDialog.setSize(new java.awt.Dimension(589, 400));
         AddPersonDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

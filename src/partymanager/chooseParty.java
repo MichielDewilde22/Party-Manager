@@ -5,12 +5,16 @@
  */
 package partymanager;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Andredur
  */
 public class chooseParty extends javax.swing.JFrame {
-
+    private Action action = new Action();
     /**
      * Creates new form chooseParty
      */
@@ -37,8 +41,11 @@ public class chooseParty extends javax.swing.JFrame {
         ExistingButton = new javax.swing.JButton();
         NewButton = new javax.swing.JButton();
 
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Serializable","ser");
+        File_Chooser.setFileFilter(filter);
+        File_Chooser.setAcceptAllFileFilterUsed(false);
+
         New_Party.setTitle("Create new party");
-        New_Party.setPreferredSize(new java.awt.Dimension(600, 400));
 
         jLabel1.setText("Admin:");
 
@@ -138,9 +145,19 @@ public class chooseParty extends javax.swing.JFrame {
     }//GEN-LAST:event_NewButtonActionPerformed
 
     private void ExistingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistingButtonActionPerformed
-        File_Chooser.setVisible(true);
+        int result = File_Chooser.showOpenDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION)
+        {
+            File file = File_Chooser.getSelectedFile();
+            action.ImportFile(file);
+            
+        }
+        
+        File_Chooser.setSelectedFile(new File(""));
         this.setVisible(false);
         System.out.println("Filechooser openened");
+        login log = new login();
+        log.setVisible(true);
     }//GEN-LAST:event_ExistingButtonActionPerformed
 
     private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
@@ -148,10 +165,10 @@ public class chooseParty extends javax.swing.JFrame {
         String name = AdminName.getText();
         String password = AdminPassword.getText();
         System.out.println("Naam: "+name+"\nPassword: "+password);
-        List list = new List();
         Person admin = new Person(name,true);
-        list.addPartyMember(admin);
+        PartyManager.party.addPartyMember(admin);
         admin ad = new admin();
+        ad.updateAllpersons();
         New_Party.setVisible(false);
         ad.setVisible(true);
     }//GEN-LAST:event_CreateActionPerformed
