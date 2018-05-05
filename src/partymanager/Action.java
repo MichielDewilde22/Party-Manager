@@ -7,14 +7,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import static java.util.Collections.shuffle;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Action {
     
+    public static ArrayList<String> give;
+    public static ArrayList<String> get;
+    public Person giver;
+    public Person getter;
+    
     public Action()
-    {}
+    {
+        give = new ArrayList<>();
+        get = new ArrayList<>();
+        
+    }
     /*public boolean export(String path)
     {
         try {
@@ -41,8 +53,8 @@ public class Action {
     
     public void ImportFile(File file)
     {
-        PartyManager.party.clear();
-        HashMap<String,Person> map = PartyManager.party.getAttendees();
+        PartyManager.list.clear();
+        HashMap<String,Person> map = PartyManager.list.getAttendees();
         //File file = new File(filename);
         try {
             FileInputStream fileIn = new FileInputStream(file);
@@ -53,7 +65,7 @@ public class Action {
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Action.class.getName()).log(Level.SEVERE, null, ex);
         }
-        PartyManager.party.setAttendees(map);
+        PartyManager.list.setAttendees(map);
     }
     
     public void ExportFile(String Path,HashMap X)
@@ -70,6 +82,38 @@ public class Action {
         } catch (IOException ex) {
             Logger.getLogger(Action.class.getName()).log(Level.SEVERE, null, ex);
         }  
+    }
+    
+    public static List divide(List list) {
+        List temporary = new List();
+        temporary = list;
+        boolean busy = true;
+        Random rand = new Random();
+        int count = 0;
+        int i = 0;
+        
+        give = list.getNames();
+        get = list.getNames();
+        
+        do {
+            Person giver = temporary.getAttendee(give.get(i));
+            Person getter = temporary.getAttendee(get.get(i));
+            if (giver.getName().equals(getter.getName()) || getter.getChosen().equals(giver.getName()) || (giver.onBlacklistP(getter.getName()) && PartyManager.party.blacklistEnabled())) {
+                shuffle(get);
+                temporary = list;
+                i=0;
+            }
+            else
+            {
+                giver.setChosen(getter.getName());
+                getter.setIschosen(true);
+                i++;
+            }
+            if (i>=give.size())
+                busy = false;
+        } while (busy);
+        
+        return temporary;
     }
     
 }

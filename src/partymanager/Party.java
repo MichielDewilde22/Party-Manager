@@ -3,6 +3,7 @@ package partymanager;
 public class Party {
 	private String date,place,hour,admin;
 	private int minPrice,maxPrice;
+        private boolean blacklistEnabled = true;
 	
 	public Party() {
 			
@@ -55,6 +56,13 @@ public class Party {
     public void setMaxPrice(int maxPrice) {
         this.maxPrice = maxPrice;
     }
-        
+      
+    public void setBlacklistEnabled(boolean b) {
+        this.blacklistEnabled = b;
+    }
+      
+    public boolean blacklistEnabled() {
+        return blacklistEnabled;
+    }
         
 }

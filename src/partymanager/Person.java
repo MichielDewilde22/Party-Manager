@@ -8,14 +8,15 @@ public class Person implements Serializable{
 	private Boolean role;
         private Boolean ischosen;
         private String chosen;
-	public Person(String name, Boolean role) {
-		this.name = name;
-		this.role = role;
-		wishlist = new ArrayList<>();
-		blacklistP = new ArrayList<>();
-                chosen = "";
-                ischosen = false;
-	}
+        
+    public Person(String name, Boolean role) {
+            this.name = name;
+            this.role = role;
+            wishlist = new ArrayList<>();
+            blacklistP = new ArrayList<>();
+            chosen = "";
+            ischosen = false;
+    }
     public void AddWhishlistItem(String item)
     {
         wishlist.add(item);
@@ -30,6 +31,17 @@ public class Person implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
+    
+    public void AddBlacklistName(String name)
+    {
+        blacklistP.add(name);
+    }
+    
+    public void RemoveBlacklistName(String name)
+    {
+        int index = blacklistP.indexOf(name);
+        blacklistP.remove(index);
+    }
 
     public void setWhishlist(ArrayList<String> whishlist) {
         this.wishlist = whishlist;
@@ -37,6 +49,15 @@ public class Person implements Serializable{
 
     public void setBlacklistP(ArrayList<String> blacklistP) {
         this.blacklistP = blacklistP;
+    }
+    
+    public boolean onBlacklistP(String name) {
+        boolean b = false;
+        for(String n: blacklistP) {
+            if (n.equals(name))
+                b = true;
+        }
+        return b;
     }
 
     public void setRole(Boolean role) {
@@ -65,6 +86,11 @@ public class Person implements Serializable{
     public String getChosen() {
         return chosen;
     }
+        
+    public void resetChosen() {
+        chosen = "";
+    }
+    
     public boolean hasChosen() {
         if (!chosen.equals("")&& chosen !=null)
             return true;
