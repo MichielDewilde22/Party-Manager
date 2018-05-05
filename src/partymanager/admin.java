@@ -33,6 +33,7 @@ public class admin extends javax.swing.JFrame {
     private DefaultListModel BlackLists = new DefaultListModel();
     private DefaultListModel BlackListEdit = new DefaultListModel();
     private DefaultListModel EditB = new DefaultListModel();
+    private DefaultListModel selectG = new DefaultListModel();
     private int indexP;
     private Action action = new Action();
     /**
@@ -83,6 +84,14 @@ public class admin extends javax.swing.JFrame {
         }
         
     }
+    public void updateSelectGroup(Person person)
+    {
+        selectG.clear();
+        group_List.setModel(selectG);
+        ArrayList<String> groups = person.getGroups();
+        for(String name: groups)
+            selectG.addElement(name);
+    }
     public void setupBlackList(String name)
     {
         for(int i=0;i<persons.getSize();i++)
@@ -106,6 +115,14 @@ public class admin extends javax.swing.JFrame {
         }
         
         BlackListDialog.setVisible(true);
+    }
+    private void FillComboP()
+    {
+        ArrayList<String> names = PartyManager.party.getNames();
+        for(int i =0;i<names.size();i++)
+        {
+            ComboB_Person.addItem(names.get(i));
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -171,12 +188,12 @@ public class admin extends javax.swing.JFrame {
         Person_add = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
+        group_List = new javax.swing.JList<>();
         jButton7 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ComboB_Person = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         pref1_RButton = new javax.swing.JRadioButton();
         pref2_RButton = new javax.swing.JRadioButton();
@@ -548,6 +565,11 @@ public class admin extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         jButton4.setText("edit party");
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -688,15 +710,21 @@ public class admin extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("personen", jPanel4);
 
-        jScrollPane5.setViewportView(jList3);
+        jScrollPane5.setViewportView(group_List);
 
-        jButton7.setText("jButton7");
+        jButton7.setText("add");
 
-        jButton9.setText("jButton9");
+        jButton9.setText("remove");
 
-        jButton10.setText("jButton10");
+        jButton10.setText("edit");
 
         jLabel10.setText("Person:");
+
+        ComboB_Person.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboB_PersonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -707,7 +735,7 @@ public class admin extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ComboB_Person, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -715,7 +743,7 @@ public class admin extends javax.swing.JFrame {
                         .addComponent(jButton7)
                         .addComponent(jButton9))
                     .addComponent(jButton10))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton10, jButton7, jButton9});
@@ -734,9 +762,10 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboB_Person, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Groups", jPanel7);
@@ -1090,6 +1119,24 @@ public class admin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ImportAdActionPerformed
 
+    private void ComboB_PersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboB_PersonActionPerformed
+        String name = (String)ComboB_Person.getSelectedItem();
+        updateSelectGroup(PartyManager.party.getAttendee(name));
+    }//GEN-LAST:event_ComboB_PersonActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        int pane = jTabbedPane1.getSelectedIndex();
+        switch(pane)
+        {
+            case 0: updateParty();
+                    break;
+            case 1: updateAllpersons();
+                    break;
+            case 2: FillComboP();
+                    break;
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -1138,6 +1185,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JList<String> BlackList_P;
     private javax.swing.JList<String> BlackList_all;
     private javax.swing.JButton BlacklistPButton;
+    private javax.swing.JComboBox<String> ComboB_Person;
     private javax.swing.JTextField Date_Input;
     private javax.swing.JList<String> Edit_PBlackList;
     private javax.swing.JList<String> Edit_PGroups;
@@ -1160,13 +1208,13 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JMenuItem SaveAd;
     private javax.swing.JButton Save_Blacklist;
     private javax.swing.JTextField Time_Input;
+    private javax.swing.JList<String> group_List;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
@@ -1180,7 +1228,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

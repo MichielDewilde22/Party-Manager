@@ -5,6 +5,7 @@ public class Person implements Serializable{
 	private String name;
 	private ArrayList<String> wishlist;
 	private ArrayList<String> blacklistP;
+        private ArrayList<String> groups;
 	private Boolean role;
         private Boolean ischosen;
         private String chosen;
@@ -14,8 +15,17 @@ public class Person implements Serializable{
             this.role = role;
             wishlist = new ArrayList<>();
             blacklistP = new ArrayList<>();
+            groups = new ArrayList<>();
             chosen = "";
             ischosen = false;
+    }
+
+    public void setGroups(ArrayList<String> groups) {
+        this.groups = groups;
+    }
+
+    public ArrayList<String> getGroups() {
+        return groups;
     }
     public void AddWhishlistItem(String item)
     {
@@ -36,7 +46,16 @@ public class Person implements Serializable{
     {
         blacklistP.add(name);
     }
-    
+    public void AddBlackListBulk(ArrayList<String> names)
+    {
+        for(int i=0;i<names.size();i++)
+        {
+            if(!blacklistP.contains(names.get(i)))
+            {
+                blacklistP.add(names.get(i));
+            }
+        }
+    }
     public void RemoveBlacklistName(String name)
     {
         int index = blacklistP.indexOf(name);

@@ -53,8 +53,8 @@ public class Action {
     
     public void ImportFile(File file)
     {
-        PartyManager.list.clear();
-        HashMap<String,Person> map = PartyManager.list.getAttendees();
+        PartyManager.party.clear();
+        HashMap<String,Person> map = PartyManager.party.getAttendees();
         //File file = new File(filename);
         try {
             FileInputStream fileIn = new FileInputStream(file);
@@ -65,7 +65,7 @@ public class Action {
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Action.class.getName()).log(Level.SEVERE, null, ex);
         }
-        PartyManager.list.setAttendees(map);
+        PartyManager.party.setAttendees(map);
     }
     
     public void ExportFile(String Path,HashMap X)
@@ -98,7 +98,7 @@ public class Action {
         do {
             Person giver = temporary.getAttendee(give.get(i));
             Person getter = temporary.getAttendee(get.get(i));
-            if (giver.getName().equals(getter.getName()) || getter.getChosen().equals(giver.getName()) || (giver.onBlacklistP(getter.getName()) && PartyManager.party.blacklistEnabled())) {
+            if (giver.getName().equals(getter.getName()) || getter.getChosen().equals(giver.getName()) || (giver.onBlacklistP(getter.getName()) && PartyManager.partyDetails.blacklistEnabled())) {
                 shuffle(get);
                 temporary = list;
                 i=0;
