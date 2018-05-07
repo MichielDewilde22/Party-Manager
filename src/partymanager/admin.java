@@ -160,15 +160,14 @@ public class admin extends javax.swing.JFrame {
         if(per!=null)
         {
             ArrayList<String> names = per.getMembers();
-            for(int j=0;j<AllpersGroup.getSize();j++)
+            for(int j=AllpersGroup.getSize();j>0;j--)
             {
-                if(names.contains(AllpersGroup.elementAt(j).toString()))
+                if(names.contains(AllpersGroup.elementAt(j-1).toString()))
                 {
-                   newG.addElement(AllpersGroup.getElementAt(j)); 
-                   AllpersGroup.remove(j);
+                   newG.addElement(AllpersGroup.getElementAt(j-1)); 
+                   AllpersGroup.remove(j-1);
                 }
-                if(AllpersGroup.getElementAt(j).toString().equals(name))
-                    AllpersGroup.remove(j);
+                
             }        
         
         }
@@ -1562,17 +1561,29 @@ public class admin extends javax.swing.JFrame {
             group.addMember(newG.get(i).toString());
         }   
         if(groupExists == true)
-        {        
-            for(Group grp: PartyManager.groups)
+        {       
+            for(int i =0;i<PartyManager.groups.size();i++)
             {
-                if(grp.getName().equals(selectG.getElementAt(indexG)));
+                if(PartyManager.groups.get(i).getName().equals(selectG.getElementAt(indexG)));
                 {
-                    grp.setName(groupfield.getText());
-                   for(String name : group.getMembers())
-                   {
-                       if(!grp.getMembers().contains(name))
-                           grp.addMember(name);
-                   }
+                    PartyManager.groups.get(i).setName(groupfield.getText());
+                    for(int j = 0;j<group.getMembers().size();j++)
+                    {
+                        String name = group.getMembers().get(j);
+                        if(!PartyManager.groups.get(i).getMembers().contains(name))
+                                PartyManager.groups.get(i).addMember(name);
+                    }
+                    for(int j=0;j<PartyManager.groups.get(i).getMembers().size();j++)
+                    {
+                        String name2 = PartyManager.groups.get(i).getMembers().get(j);
+                        if(!group.getMembers().contains(name2))
+                            PartyManager.groups.get(i).removeMember(name2);
+                    }
+//                   for(String name : group.getMembers())
+//                   {
+//                       if(!grp.getMembers().contains(name))
+//                           grp.addMember(name);
+//                   }
                 }
             }
             selectG.removeElementAt(indexG);
@@ -1595,7 +1606,13 @@ public class admin extends javax.swing.JFrame {
         {
             int removing = New_groupL.getSelectedIndex();
             String name = New_groupL.getSelectedValue();
-            persons.addElement(name);
+            if(groupExists == true)
+            {
+                AllpersGroup.addElement(name);
+            }
+            else
+                persons.addElement(name);
+       
             newG.removeElementAt(removing);
         }
     }//GEN-LAST:event_Remove_GroupButton2ActionPerformed
