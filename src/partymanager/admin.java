@@ -29,7 +29,8 @@ import javax.swing.table.DefaultTableModel;
 public class admin extends javax.swing.JFrame {
     private Party p = new Party();
     private boolean add = false;
-    private int popup = 0;
+    private boolean groupExists = false;
+    private int indexG;
     private DefaultListModel persons = new DefaultListModel();
     private DefaultListModel BlackLists = new DefaultListModel();
     private DefaultListModel BlackListEdit = new DefaultListModel();
@@ -171,7 +172,7 @@ public class admin extends javax.swing.JFrame {
             }        
         
         }
-        
+        New_groupL.setModel(newG);
         AddGroupDialog.setVisible(true);
     }
     public void updateAllgroups()
@@ -723,6 +724,14 @@ public class admin extends javax.swing.JFrame {
                         .addGap(51, 51, 51))))
         );
 
+        WarningPopUp.setMinimumSize(new java.awt.Dimension(355, 227));
+        WarningPopUp.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        WarningPopUp.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                WarningPopUpWindowClosing(evt);
+            }
+        });
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Are you Sure you want to delete:");
 
@@ -777,6 +786,16 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(acceptrem))
                 .addGap(43, 43, 43))
         );
+
+        AddGroupDialog.setMinimumSize(new java.awt.Dimension(572, 346));
+        AddGroupDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        AddGroupDialog.setResizable(false);
+        AddGroupDialog.setType(java.awt.Window.Type.POPUP);
+        AddGroupDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                AddGroupDialogWindowClosing(evt);
+            }
+        });
 
         groupfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -935,7 +954,7 @@ public class admin extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addContainerGap(391, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("info", jPanel5);
@@ -996,7 +1015,7 @@ public class admin extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(146, Short.MAX_VALUE)
+                .addContainerGap(227, Short.MAX_VALUE)
                 .addComponent(Person_delete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Person_add)
@@ -1067,7 +1086,7 @@ public class admin extends javax.swing.JFrame {
                         .addComponent(removeGroup)
                         .addGap(27, 27, 27)
                         .addComponent(editGroups)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Groups", jPanel7);
@@ -1114,7 +1133,7 @@ public class admin extends javax.swing.JFrame {
                 .addComponent(pref2_RButton)
                 .addGap(18, 18, 18)
                 .addComponent(pref3_RButton)
-                .addContainerGap(311, Short.MAX_VALUE))
+                .addContainerGap(392, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {pref1_RButton, pref2_RButton, pref3_RButton});
@@ -1492,8 +1511,17 @@ public class admin extends javax.swing.JFrame {
         if(group_List.getSelectedValue() != null)
         {
         groupfield.setText(group_List.getSelectedValue());
+//        for(Group grp: PartyManager.groups)
+//        {
+//            if(grp.getName().equals(group_List.getSelectedValue()))
+//            {
+//                groupExists = true;
+//            }
+//        }
+        groupExists = true;
         editGroup(group_List.getSelectedValue());
-        New_groupL.setModel(newG);
+        indexG = group_List.getSelectedIndex();
+        
         }
     }//GEN-LAST:event_editGroupsActionPerformed
 
@@ -1527,14 +1555,36 @@ public class admin extends javax.swing.JFrame {
 
     private void Save_Group1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_Group1ActionPerformed
         if(!groupfield.getText().equals(""))
-        {    
-        selectG.addElement(groupfield.getText());
+        {  
         Group group = new Group(groupfield.getText());
         for(int i =0;i<newG.size();i++)
         {
             group.addMember(newG.get(i).toString());
         }   
+        if(groupExists == true)
+        {        
+            for(Group grp: PartyManager.groups)
+            {
+                if(grp.getName().equals(selectG.getElementAt(indexG)));
+                {
+                    grp.setName(groupfield.getText());
+                   for(String name : group.getMembers())
+                   {
+                       if(!grp.getMembers().contains(name))
+                           grp.addMember(name);
+                   }
+                }
+            }
+            selectG.removeElementAt(indexG);
+        }
+        else
+        {
+            PartyManager.groups.add(group);
+        }
+        selectG.addElement(groupfield.getText());
+        groupExists = false;
         newG.removeAllElements();
+        AllpersGroup.removeAllElements();
         updateAllpersons();
         AddGroupDialog.setVisible(false);
         }
@@ -1557,7 +1607,12 @@ public class admin extends javax.swing.JFrame {
             int adding = AllGroups_l.getSelectedIndex();
             String name = AllGroups_l.getSelectedValue();
             newG.addElement(name);
-            persons.removeElementAt(adding);
+            if(groupExists == true)
+            {
+                AllpersGroup.removeElementAt(adding);
+            }
+            else
+                persons.removeElementAt(adding);
        } 
     }//GEN-LAST:event_Add_GroupButton1ActionPerformed
 
@@ -1566,8 +1621,19 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_denyRemActionPerformed
 
     private void groupfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupfieldActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_groupfieldActionPerformed
+
+    private void WarningPopUpWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_WarningPopUpWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_WarningPopUpWindowClosing
+
+    private void AddGroupDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AddGroupDialogWindowClosing
+        groupExists = false;
+        newG.removeAllElements();
+        AllpersGroup.removeAllElements();
+        updateAllpersons();
+    }//GEN-LAST:event_AddGroupDialogWindowClosing
 
     /**
      * @param args the command line arguments
