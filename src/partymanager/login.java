@@ -10,15 +10,15 @@ package partymanager;
  * @author Andredur
  */
 public class login extends javax.swing.JFrame {
-    private String pswd = "test";
-    private String Username = "Admin";
-    private List list = new List();
     /**
      * Creates new form login
      */
+    //login.getRootPane().setDefaultButton(LoginButton);
+    
     public login() {
         initComponents();
         WrongPassword.setVisible(false);
+        
     }
 
     /**
@@ -47,15 +47,23 @@ public class login extends javax.swing.JFrame {
                 LoginButtonActionPerformed(evt);
             }
         });
+        LoginButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LoginButtonKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                LoginButtonKeyTyped(evt);
+            }
+        });
 
         jLabel1.setText("Name:");
 
-        jLabel2.setText("Password:");
+        jLabel2.setText("Pincode:");
 
         WrongPassword.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         WrongPassword.setForeground(new java.awt.Color(255, 0, 0));
         WrongPassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        WrongPassword.setText("Wrong Password!");
+        WrongPassword.setText("Wrong pin!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,20 +128,21 @@ public class login extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         WrongPassword.setVisible(false);
-        String checkname = Name.getText();
-        String checkpasswd = Password.getText();
-        if(checkname.equals(Username) && checkpasswd.equals(pswd) )
+        String name = Name.getText();
+        String passwd = Password.getText();
+        int pin = Integer.parseInt(passwd);
+        if(PartyManager.party.getAttendee(name).checkPin(pin) )
         {
-           Person p = list.getAttendee(checkname);
+           Person p = PartyManager.party.getAttendee(name);
            if (p.getRole()){
+                this.setVisible(false);
                 admin ad = new admin();
                 ad.setVisible(true);
-                this.setVisible(false);
            }
            else {
+               this.setVisible(false);
                User us = new User();
                us.setVisible(true);
-               this.setVisible(false);
            }
         }
         else 
@@ -141,6 +150,14 @@ public class login extends javax.swing.JFrame {
         
        
     }//GEN-LAST:event_LoginButtonActionPerformed
+
+    private void LoginButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginButtonKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoginButtonKeyPressed
+
+    private void LoginButtonKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginButtonKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoginButtonKeyTyped
 
     /**
      * @param args the command line arguments
@@ -153,7 +170,7 @@ public class login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

@@ -164,8 +164,10 @@ public class chooseParty extends javax.swing.JFrame {
         this.setVisible(false);
         String name = AdminName.getText();
         String password = AdminPassword.getText();
+        int pin = Integer.parseInt(password);
         System.out.println("Naam: "+name+"\nPassword: "+password);
         Person admin = new Person(name,true);
+        admin.changePin(pin);
         PartyManager.party.addPartyMember(admin);
         admin ad = new admin();
         ad.updateAllpersons();
@@ -184,7 +186,7 @@ public class chooseParty extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

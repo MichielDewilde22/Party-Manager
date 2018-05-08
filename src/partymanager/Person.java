@@ -1,8 +1,10 @@
 package partymanager;
 import java.io.Serializable;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 public class Person implements Serializable{
 	private String name;
+        private int pincode;
 	private ArrayList<String> wishlist;
 	private ArrayList<String> blacklistP;
         private ArrayList<String> groups;
@@ -11,13 +13,33 @@ public class Person implements Serializable{
         private String chosen;
         
     public Person(String name, Boolean role) {
-            this.name = name;
-            this.role = role;
-            wishlist = new ArrayList<>();
-            blacklistP = new ArrayList<>();
-            groups = new ArrayList<>();
-            chosen = "";
-            ischosen = false;
+        this.name = name;
+        this.role = role;
+        generatePin();
+        wishlist = new ArrayList<>();
+        blacklistP = new ArrayList<>();
+        groups = new ArrayList<>();
+        chosen = "";
+        ischosen = false;
+    }
+    
+    private void generatePin() {
+        SecureRandom random = new SecureRandom();
+        int num = random.nextInt(10000);
+        System.out.println("Random pincode for " + name + ": " + num);
+        pincode = num;
+    }
+    
+    public boolean checkPin(int pin) {
+        boolean b = false;
+        if (this.pincode==pin)
+            b = true;
+        return b;
+    }
+    
+    public void changePin(int pincode) {
+        this.pincode = pincode;
+        System.out.println("Pincode for " + name + " changed to: " + pincode);
     }
 
     public void setGroups(ArrayList<String> groups) {
