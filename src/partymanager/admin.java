@@ -1401,7 +1401,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_BlackListDialogWindowClosing
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        System.exit(0);
+       PartyManager.party = action.divide(PartyManager.party);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void ExportADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportADActionPerformed
@@ -1526,10 +1526,8 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_editGroupsActionPerformed
 
     private void addGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGroupActionPerformed
+        groupfield.setText("");
         editGroup("");
-//        AllGroups_l.setModel(AllpersGroup);
-//        groupfield.setText("");
-//        AddGroupDialog.setVisible(true);
     }//GEN-LAST:event_addGroupActionPerformed
 
     private void removeGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeGroupActionPerformed
@@ -1615,7 +1613,7 @@ public class admin extends javax.swing.JFrame {
     private void Add_GroupButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_GroupButton1ActionPerformed
         if(AllGroups_l.getSelectedValue() != null)
        {
-            New_groupL.setModel(newG);
+            //New_groupL.setModel(newG);
             int adding = AllGroups_l.getSelectedIndex();
             String name = AllGroups_l.getSelectedValue();
             newG.addElement(name);
