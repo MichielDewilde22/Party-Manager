@@ -280,7 +280,7 @@ public class admin extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         acceptrem = new javax.swing.JButton();
         denyRem = new javax.swing.JButton();
-        grouplabel = new javax.swing.JLabel();
+        RemovedItem = new javax.swing.JLabel();
         AddGroupDialog = new javax.swing.JDialog();
         groupfield = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -294,6 +294,11 @@ public class admin extends javax.swing.JFrame {
         popup = new javax.swing.JDialog();
         popupText = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        WarningPopUp2 = new javax.swing.JDialog();
+        jLabel14 = new javax.swing.JLabel();
+        acceptremPers = new javax.swing.JButton();
+        denyRemPers = new javax.swing.JButton();
+        RemovedItemPer = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -318,13 +323,12 @@ public class admin extends javax.swing.JFrame {
         pref3_RButton = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         ExportAD = new javax.swing.JMenuItem();
         ImportAd = new javax.swing.JMenuItem();
         SaveAd = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -338,6 +342,8 @@ public class admin extends javax.swing.JFrame {
         );
 
         jDialog2.setMinimumSize(new java.awt.Dimension(466, 300));
+        jDialog2.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        jDialog2.setType(java.awt.Window.Type.POPUP);
 
         Party_det.setBorder(javax.swing.BorderFactory.createTitledBorder("Party Details"));
         Party_det.setMinimumSize(new java.awt.Dimension(169, 224));
@@ -760,7 +766,7 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
-        grouplabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        RemovedItem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout WarningPopUpLayout = new javax.swing.GroupLayout(WarningPopUp.getContentPane());
         WarningPopUp.getContentPane().setLayout(WarningPopUpLayout);
@@ -778,7 +784,7 @@ public class admin extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(grouplabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(RemovedItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -790,7 +796,7 @@ public class admin extends javax.swing.JFrame {
                 .addGap(79, 79, 79)
                 .addGroup(WarningPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(grouplabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(RemovedItem, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(WarningPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(denyRem)
@@ -928,6 +934,66 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap(78, Short.MAX_VALUE))
         );
 
+        WarningPopUp2.setMinimumSize(new java.awt.Dimension(355, 227));
+        WarningPopUp2.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        WarningPopUp2.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                WarningPopUp2WindowClosing(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setText("Are you Sure you want to delete:");
+
+        acceptremPers.setText("yes");
+        acceptremPers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptremPersActionPerformed(evt);
+            }
+        });
+
+        denyRemPers.setText("no");
+        denyRemPers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                denyRemPersActionPerformed(evt);
+            }
+        });
+
+        RemovedItemPer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout WarningPopUp2Layout = new javax.swing.GroupLayout(WarningPopUp2.getContentPane());
+        WarningPopUp2.getContentPane().setLayout(WarningPopUp2Layout);
+        WarningPopUp2Layout.setHorizontalGroup(
+            WarningPopUp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(WarningPopUp2Layout.createSequentialGroup()
+                .addGroup(WarningPopUp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(WarningPopUp2Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(acceptremPers, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(denyRemPers, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 56, Short.MAX_VALUE))
+                    .addGroup(WarningPopUp2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RemovedItemPer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        WarningPopUp2Layout.setVerticalGroup(
+            WarningPopUp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(WarningPopUp2Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addGroup(WarningPopUp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(RemovedItemPer, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(WarningPopUp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(denyRemPers)
+                    .addComponent(acceptremPers))
+                .addGap(43, 43, 43))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -1005,7 +1071,7 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap(391, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("info", jPanel5);
+        jTabbedPane1.addTab("Info", jPanel5);
 
         Person_delete.setText("delete");
         Person_delete.addActionListener(new java.awt.event.ActionListener() {
@@ -1078,7 +1144,7 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("personen", jPanel4);
+        jTabbedPane1.addTab("Personen", jPanel4);
 
         jScrollPane5.setViewportView(group_List);
 
@@ -1181,7 +1247,7 @@ public class admin extends javax.swing.JFrame {
                 .addComponent(pref2_RButton)
                 .addGap(18, 18, 18)
                 .addComponent(pref3_RButton)
-                .addContainerGap(392, Short.MAX_VALUE))
+                .addContainerGap(263, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {pref1_RButton, pref2_RButton, pref3_RButton});
@@ -1207,6 +1273,19 @@ public class admin extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Finish", jPanel8);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 848, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 428, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Admin Whishlist", jPanel3);
 
         jMenu1.setText("File");
 
@@ -1238,13 +1317,6 @@ public class admin extends javax.swing.JFrame {
         jMenu1.add(SaveAd);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-
-        jMenuItem4.setText("addPerson");
-        jMenu2.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -1377,10 +1449,11 @@ public class admin extends javax.swing.JFrame {
     private void Person_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_deleteActionPerformed
        if(PersonList.getSelectedValue() != null)
        {
-        String name = PersonList.getSelectedValue();
-        persons.remove(indexP);
-        PartyManager.party.deletepartyMember(name);
-       }
+            RemovedItemPer.setText(PersonList.getSelectedValue());
+            WarningPopUp2.setVisible(true);
+        }
+        
+       
     }//GEN-LAST:event_Person_deleteActionPerformed
 
     private void Add_PBlackListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_PBlackListActionPerformed
@@ -1389,7 +1462,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Add_PBlackListActionPerformed
 
     private void Add_BlackListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_BlackListButtonActionPerformed
-       if(BlackList_all.getSelectedValue() != null)
+       if(BlackList_all.getSelectedValue() != null && (BlackLists.getSize() != 1))
        {
             BlackList_P.setModel(BlackListEdit);
             int adding = BlackList_all.getSelectedIndex();
@@ -1397,6 +1470,12 @@ public class admin extends javax.swing.JFrame {
             BlackListEdit.addElement(name);
             BlackLists.removeElementAt(adding);
        } 
+       else
+        {
+            popupText.setText("You can't blacklist everyone");
+            popup.setVisible(true);
+                
+        }
     }//GEN-LAST:event_Add_BlackListButtonActionPerformed
 
     private void BlacklistPButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlacklistPButtonActionPerformed
@@ -1441,10 +1520,22 @@ public class admin extends javax.swing.JFrame {
                 for(int j=0; j<BlackListEdit.getSize();j++)
                 {
                     if(!black.contains(BlackListEdit.getElementAt(j).toString()))
-                        black.add(name);
+                        black.add(BlackListEdit.getElementAt(j).toString());
                 }
                 PartyManager.party.getAttendee(name).setBlacklistP(black);
             }
+        }
+        if(BlackListEdit.size() == 0 && !AddPersonDialog.isVisible() )
+        {
+            String name = PersonList.getSelectedValue();
+                Person per = PartyManager.party.getAttendee(name);
+                ArrayList<String> black = per.getBlacklistP();
+                for(Iterator<String> it = black.iterator(); it.hasNext();)
+                {
+                    name = it.next();
+                    if(!BlackListEdit.contains(name))
+                        it.remove(); 
+                }
         }
         //DefaultListModel clear = (DefaultListModel) BlackList_all.getModel();
         //clear.removeAllElements();
@@ -1465,7 +1556,23 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_BlackListDialogWindowClosing
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       PartyManager.party = action.divide(PartyManager.party);
+        PartyManager.groups.forEach((grp) -> {
+            grp.groupToBlacklistP();
+        });
+        List temp = new List();
+        temp = action.divide(PartyManager.party);
+        if(temp != null)
+        {
+            PartyManager.party = temp;
+            popupText.setText("Matching succesfull");
+            popup.setVisible(true);
+        }
+        else
+        {
+            popupText.setText("Unable to find a match for each person, please edit the party");
+            popup.setVisible(true);
+        }
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void ExportADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportADActionPerformed
@@ -1597,7 +1704,7 @@ public class admin extends javax.swing.JFrame {
     private void removeGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeGroupActionPerformed
         if(group_List.getSelectedValue() != null)
         {
-            grouplabel.setText(group_List.getSelectedValue());
+            RemovedItem.setText(group_List.getSelectedValue());
             WarningPopUp.setVisible(true);
         }
     }//GEN-LAST:event_removeGroupActionPerformed
@@ -1737,6 +1844,21 @@ public class admin extends javax.swing.JFrame {
         popupText.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void acceptremPersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptremPersActionPerformed
+        String name = PersonList.getSelectedValue();
+        persons.remove(indexP);
+        PartyManager.party.deletepartyMember(name);
+        WarningPopUp2.setVisible(false);
+    }//GEN-LAST:event_acceptremPersActionPerformed
+
+    private void denyRemPersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denyRemPersActionPerformed
+        WarningPopUp2.setVisible(false);
+    }//GEN-LAST:event_denyRemPersActionPerformed
+
+    private void WarningPopUp2WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_WarningPopUp2WindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_WarningPopUp2WindowClosing
+
     /**
      * @param args the command line arguments
      */
@@ -1814,19 +1936,23 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton Remove_BlacklistButton;
     private javax.swing.JButton Remove_EditGroupB;
     private javax.swing.JButton Remove_GroupButton2;
+    private javax.swing.JLabel RemovedItem;
+    private javax.swing.JLabel RemovedItemPer;
     private javax.swing.JMenuItem SaveAd;
     private javax.swing.JButton Save_Blacklist;
     private javax.swing.JButton Save_EditGroupB;
     private javax.swing.JButton Save_Group1;
     private javax.swing.JTextField Time_Input;
     private javax.swing.JDialog WarningPopUp;
+    private javax.swing.JDialog WarningPopUp2;
     private javax.swing.JButton acceptrem;
+    private javax.swing.JButton acceptremPers;
     private javax.swing.JButton addGroup;
     private javax.swing.JButton denyRem;
+    private javax.swing.JButton denyRemPers;
     private javax.swing.JButton editGroups;
     private javax.swing.JList<String> group_List;
     private javax.swing.JTextField groupfield;
-    private javax.swing.JLabel grouplabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -1838,6 +1964,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1847,11 +1974,10 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
