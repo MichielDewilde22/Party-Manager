@@ -884,7 +884,9 @@ public class admin extends javax.swing.JFrame {
         );
 
         popup.setMinimumSize(new java.awt.Dimension(692, 431));
+        popup.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         popup.setResizable(false);
+        popup.setType(java.awt.Window.Type.POPUP);
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -1596,7 +1598,7 @@ public class admin extends javax.swing.JFrame {
             group.addMember(newG.get(i).toString());
         }   
         if(groupExists == true)
-        {       
+        {  
             for(int i =0;i<PartyManager.groups.size();i++)
             {
                 if(PartyManager.groups.get(i).getName().equals(selectG.getElementAt(indexG)));
@@ -1652,17 +1654,23 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Save_Group1ActionPerformed
 
     private void Remove_GroupButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Remove_GroupButton2ActionPerformed
-        if(New_groupL.getSelectedValue() != null)
+        if(New_groupL.getSelectedValue() != null && (newG.getSize() != 1))
         {
             int removing = New_groupL.getSelectedIndex();
             String name = New_groupL.getSelectedValue();
             AllpersGroup.addElement(name);      
             newG.removeElementAt(removing);
         }
+        else
+        {
+            popupText.setText("You can't have an empty group");
+            popup.setVisible(true);
+                
+        }
     }//GEN-LAST:event_Remove_GroupButton2ActionPerformed
 
     private void Add_GroupButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_GroupButton1ActionPerformed
-        if(AllGroups_l.getSelectedValue() != null)
+        if(AllGroups_l.getSelectedValue() != null && (AllpersGroup.getSize() != 1))
        {
             //New_groupL.setModel(newG);
             int adding = AllGroups_l.getSelectedIndex();
@@ -1671,6 +1679,12 @@ public class admin extends javax.swing.JFrame {
             AllpersGroup.removeElementAt(adding);
             
        } 
+        else
+         {
+            popupText.setText("You can't have everybody in one group");
+            popup.setVisible(true);
+                
+        }   
     }//GEN-LAST:event_Add_GroupButton1ActionPerformed
 
     private void denyRemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denyRemActionPerformed
