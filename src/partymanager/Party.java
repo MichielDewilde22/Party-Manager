@@ -64,7 +64,7 @@ public class Party {
     }
     
     public void setEachOther(boolean b) { 
-        this.eachother = b;
+        this.eachother = b; //If true, 2 persons can draw each other. If false, they cannot draw each other.
     }
     
     public boolean getEachOther() {
