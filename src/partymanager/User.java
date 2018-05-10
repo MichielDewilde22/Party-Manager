@@ -27,10 +27,10 @@ public class User extends javax.swing.JFrame {
      * Creates new form User
      */
     public User(String name) {
+        person = party.getAttendee(name);
         if (person.getPinChanged()==false) {
             ChangePin.setVisible(true);
         }
-        person = party.getAttendee(name);
         initComponents();
     }
 
@@ -387,7 +387,7 @@ public class User extends javax.swing.JFrame {
         {
             case 0: updateParty(); break;
             case 1: updateWishlist(); break;
-            case 2: break;
+            case 2: updateWishlistDrawn(); break;
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
