@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Andredur
  */
 public class admin extends javax.swing.JFrame {
-    private Party p = new Party();
+    private Party p = PartyManager.partyDetails;
     private boolean add = false;
     private boolean groupExists = false;
     private int indexG;
@@ -1574,9 +1574,9 @@ public class admin extends javax.swing.JFrame {
                         if(!PartyManager.groups.get(i).getMembers().contains(name))
                                 PartyManager.groups.get(i).addMember(name);
                     }
-                    for(int j=0;j<PartyManager.groups.get(i).getMembers().size();j++)
+                    for(int j=PartyManager.groups.get(i).getMembers().size();j>0;j--)
                     {
-                        String name2 = PartyManager.groups.get(i).getMembers().get(j);
+                        String name2 = PartyManager.groups.get(i).getMembers().get(j-1);
                         if(!group.getMembers().contains(name2))
                             PartyManager.groups.get(i).removeMember(name2);
                     }
