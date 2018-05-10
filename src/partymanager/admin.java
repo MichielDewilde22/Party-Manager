@@ -269,6 +269,9 @@ public class admin extends javax.swing.JFrame {
         Add_GroupButton1 = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
         New_groupL = new javax.swing.JList<>();
+        popup = new javax.swing.JDialog();
+        popupText = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -878,6 +881,39 @@ public class admin extends javax.swing.JFrame {
                     .addGroup(AddGroupDialogLayout.createSequentialGroup()
                         .addComponent(jScrollPane10)
                         .addContainerGap())))
+        );
+
+        popup.setMinimumSize(new java.awt.Dimension(692, 431));
+        popup.setResizable(false);
+
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout popupLayout = new javax.swing.GroupLayout(popup.getContentPane());
+        popup.getContentPane().setLayout(popupLayout);
+        popupLayout.setHorizontalGroup(
+            popupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(popupLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(popupText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(popupLayout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(225, Short.MAX_VALUE))
+        );
+        popupLayout.setVerticalGroup(
+            popupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(popupLayout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addComponent(popupText, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1586,12 +1622,27 @@ public class admin extends javax.swing.JFrame {
                 }
             }
             selectG.removeElementAt(indexG);
+            selectG.addElement(groupfield.getText());
         }
         else
         {
-            PartyManager.groups.add(group);
+            for(Group grp : PartyManager.groups)
+            {
+                if(grp.getName().equalsIgnoreCase(groupfield.getText()))
+                   groupExists = true;
+            }
+                if(!groupExists)
+                {
+                    PartyManager.groups.add(group);
+                    selectG.addElement(groupfield.getText());
+                }
+                else
+                {
+                    popupText.setText("You can't add two groups with the same name");
+                    popup.setVisible(true);
+                }
         }
-        selectG.addElement(groupfield.getText());
+        
         groupExists = false;
         newG.removeAllElements();
         AllpersGroup.removeAllElements();
@@ -1640,6 +1691,11 @@ public class admin extends javax.swing.JFrame {
         AllpersGroup.removeAllElements();
         updateAllpersons();
     }//GEN-LAST:event_AddGroupDialogWindowClosing
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        popup.setVisible(false);
+        popupText.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1732,6 +1788,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JList<String> group_List;
     private javax.swing.JTextField groupfield;
     private javax.swing.JLabel grouplabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton8;
@@ -1772,6 +1829,8 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JDialog popup;
+    private javax.swing.JLabel popupText;
     private javax.swing.JRadioButton pref1_RButton;
     private javax.swing.JRadioButton pref2_RButton;
     private javax.swing.JRadioButton pref3_RButton;
