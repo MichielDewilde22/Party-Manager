@@ -5,6 +5,7 @@
  */
 package partymanager;
 
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,9 +18,11 @@ public class User extends javax.swing.JFrame {
     private List party = PartyManager.party;
     private String name;
     private Person person;
-    private Action a;
+    private Action a = new Action();
+    private ArrayList<String> wish = new ArrayList<>();
     private DefaultListModel WishLists = new DefaultListModel();
     private DefaultListModel WishListEdit = new DefaultListModel();
+    private DefaultListModel WishListDrawn = new DefaultListModel();
     /**
      * Creates new form User
      */
@@ -50,13 +53,21 @@ public class User extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         NewItem = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        WishListDraw = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
-        RevealButton = new javax.swing.JButton();
         PersonName = new javax.swing.JLabel();
+        RevealHide = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(587, 319));
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Party Details:"));
         jPanel3.setMinimumSize(new java.awt.Dimension(500, 250));
@@ -188,25 +199,41 @@ public class User extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Whishlist", jPanel2);
 
+        jLabel2.setText("Wishlist of the drawn person:");
+
+        jScrollPane1.setViewportView(WishListDraw);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 571, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 253, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 261, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Drawn Person", jPanel4);
 
         jLabel1.setText("This is the person you drew:");
 
-        RevealButton.setText("Reveal");
-        RevealButton.addActionListener(new java.awt.event.ActionListener() {
+        RevealHide.setText("Reveal");
+        RevealHide.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RevealButtonActionPerformed(evt);
+                RevealHideActionPerformed(evt);
             }
         });
 
@@ -216,15 +243,15 @@ public class User extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RevealButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RevealHide)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,7 +261,7 @@ public class User extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RevealButton))
+                    .addComponent(RevealHide))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -253,6 +280,25 @@ public class User extends javax.swing.JFrame {
         model.setValueAt(p.getMaxPrice(), 5, 1);
     }
     
+    public void updateWishlist() {
+        WishLists.clear();
+        WishListEdit.clear();
+        wish = person.getWhishlist();
+        for (String item : wish) {
+            WishListEdit.addElement(item);
+        }
+        Wishlist.setModel(WishListEdit);
+    }
+    
+    public void updateWishlistDrawn() {
+        WishListDrawn.clear();
+        wish = PartyManager.party.getAttendee(person.getChosen()).getWhishlist();
+        for (String item : wish) {
+            WishListDrawn.addElement(item);
+        }
+        WishListDraw.setModel(WishListDrawn);
+    }
+    
     private void Wishlist_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_AddActionPerformed
         if(NewItem.getText() != null || NewItem.getText() != "") {
             Wishlist.setModel(WishListEdit);
@@ -263,15 +309,10 @@ public class User extends javax.swing.JFrame {
         NewItem.setText("");
     }//GEN-LAST:event_Wishlist_AddActionPerformed
 
-    private void RevealButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevealButtonActionPerformed
-        PersonName.setText(person.getChosen());
-        PersonName.setVisible(true);
-    }//GEN-LAST:event_RevealButtonActionPerformed
-
     private void Wishlist_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_DeleteActionPerformed
         if(Wishlist.getSelectedValue() != null)
         {
-            Wishlist.setModel(WishListEdit);
+            //Wishlist.setModel(WishListEdit);
             int removing = Wishlist.getSelectedIndex();
             String name = Wishlist.getSelectedValue();
             WishListEdit.removeElementAt(removing);
@@ -287,6 +328,28 @@ public class User extends javax.swing.JFrame {
        NewItem.setText("");
        a.saveFile(PartyManager.party.getAttendees());
     }//GEN-LAST:event_Wishlist_SaveActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        int pane = jTabbedPane1.getSelectedIndex();
+        switch(pane)
+        {
+            case 0: updateParty(); break;
+            case 1: updateWishlist(); break;
+            case 2: break;
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void RevealHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevealHideActionPerformed
+        if (RevealHide.isSelected()) {
+            PersonName.setText(person.getChosen());
+            PersonName.setVisible(true);
+            RevealHide.setText("Hide");
+        }
+        else {
+            PersonName.setVisible(false);
+            RevealHide.setText("Reveal");
+        }
+    }//GEN-LAST:event_RevealHideActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,17 +394,20 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JTextField NewItem;
     private javax.swing.JTable Party_Table;
     private javax.swing.JLabel PersonName;
-    private javax.swing.JButton RevealButton;
+    private javax.swing.JToggleButton RevealHide;
+    private javax.swing.JList<String> WishListDraw;
     private javax.swing.JList<String> Wishlist;
     private javax.swing.JButton Wishlist_Add;
     private javax.swing.JButton Wishlist_Delete;
     private javax.swing.JButton Wishlist_Save;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables

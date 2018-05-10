@@ -43,5 +43,9 @@ private ArrayList<String> members = new ArrayList<>();
         this.members = members;
     }
 
- 
+    public void groupToBlacklistP() {
+        for (int i=0; i<members.size(); i++) {
+            PartyManager.party.getAttendee(members.get(i)).addBlacklistP(members);
+        }
+    }
 }

@@ -10,6 +10,7 @@ public class Person implements Serializable{
         private ArrayList<String> groups;
 	private Boolean role;
         private Boolean ischosen;
+        private Boolean pinChanged;
         private String chosen;
         
     public Person(String name, Boolean role) {
@@ -21,6 +22,7 @@ public class Person implements Serializable{
         groups = new ArrayList<>();
         chosen = "";
         ischosen = false;
+        pinChanged = false;
     }
     
     private void generatePin() {
@@ -92,6 +94,10 @@ public class Person implements Serializable{
         this.blacklistP = blacklistP;
     }
     
+    public void addBlacklistP(ArrayList<String> blacklistP) {
+        this.blacklistP.addAll(blacklistP);
+    }
+    
     public boolean onBlacklistP(String name) {
         boolean b = false;
         for(String n: blacklistP) {
@@ -147,4 +153,11 @@ public class Person implements Serializable{
         this.ischosen = ischosen;
     }
     
+    public boolean getPinChanged() {
+        return pinChanged;
+    }
+    
+    public void setPinChanged(boolean b) {
+        this.pinChanged = b;
+    }
 }
