@@ -4,6 +4,7 @@ public class Party {
 	private String date,place,hour,admin;
 	private int minPrice,maxPrice;
         private boolean blacklistEnabled = true;
+        private boolean eachother = false;
 	
 	public Party() {
 			
@@ -60,6 +61,14 @@ public class Party {
       
     public void setBlacklistEnabled(boolean b) {
         this.blacklistEnabled = b;
+    }
+    
+    public void setEachOther(boolean b) { 
+        this.eachother = b;
+    }
+    
+    public boolean getEachOther() {
+        return eachother;
     }
       
     public boolean blacklistEnabled() {
