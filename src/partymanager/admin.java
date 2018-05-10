@@ -40,6 +40,7 @@ public class admin extends javax.swing.JFrame {
     private DefaultListModel selectG = new DefaultListModel();
     private DefaultListModel Allgroups = new DefaultListModel();
     private DefaultListModel newG = new DefaultListModel();
+    private DefaultListModel GroupsPer = new DefaultListModel();
     private int indexP;
     private Action action = new Action();
     /**
@@ -100,6 +101,8 @@ public class admin extends javax.swing.JFrame {
     }
     public void setupBlackList(String name)
     {
+        BlackLists.clear();
+        BlackListEdit.clear();
         for(int i=0;i<persons.getSize();i++)
         {
             BlackLists.addElement(persons.elementAt(i));
@@ -107,19 +110,27 @@ public class admin extends javax.swing.JFrame {
         BlackList_all.setModel(BlackLists);
         if(PartyManager.party.contains(name))
         {
-            for(int j=0;j<BlackLists.getSize();j++)
+            for(int j=BlackLists.getSize();j>0;j--)
             {
-                if(PartyManager.party.getAttendee(name).getBlacklistP().contains(BlackLists.elementAt(j).toString()))
+                ArrayList<String> test = PartyManager.party.getAttendee(name).getBlacklistP();
+                if(PartyManager.party.getAttendee(name).getBlacklistP().contains(BlackLists.elementAt(j-1).toString()))
                 {
-                   BlackListEdit.addElement(BlackLists.getElementAt(j)); 
-                   BlackLists.remove(j);
+                   BlackListEdit.addElement(BlackLists.getElementAt(j-1)); 
+                   BlackLists.remove(j-1);
+                   
                 }
-                if(BlackLists.getElementAt(j).toString().equals(name))
-                    BlackLists.remove(j);
-            }        
+                if(BlackLists.getElementAt(j-1).toString().equals(name))
+                    BlackLists.remove(j-1);
+                
+            }
+            for(int j=0;j<BlackListEdit.getSize();j++)
+            {
+                if(BlackListEdit.getElementAt(j).toString().equals(name))
+                    BlackListEdit.remove(j);
+            }
         
         }
-        
+        BlackList_P.setModel(BlackListEdit);
         BlackListDialog.setVisible(true);
     }
     public void setupGroup(String name)
@@ -186,6 +197,18 @@ public class admin extends javax.swing.JFrame {
         for(Group grp : Allgroups)
             selectG.addElement(grp.getName());
     }
+    public void updatePartOfGroup(String name)
+    {
+        GroupsPer.clear();
+        for(Group grp : PartyManager.groups)
+        {
+            if(grp.getMembers().contains(name))
+            {
+                Edit_PGroups.setModel(GroupsPer);
+                GroupsPer.addElement(grp.getName());
+            }
+        }    
+    }
 //    private void FillComboP()
 //    {
 //        ArrayList<String> names = PartyManager.party.getNames();
@@ -230,7 +253,6 @@ public class admin extends javax.swing.JFrame {
         Edit_PGroups = new javax.swing.JList<>();
         jLabel9 = new javax.swing.JLabel();
         Person_save = new javax.swing.JButton();
-        Add_PGroup = new javax.swing.JButton();
         BlackListDialog = new javax.swing.JDialog();
         jLabel11 = new javax.swing.JLabel();
         B_Owner = new javax.swing.JLabel();
@@ -429,7 +451,7 @@ public class admin extends javax.swing.JFrame {
         );
 
         AddPersonDialog.setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        AddPersonDialog.setMinimumSize(new java.awt.Dimension(589, 400));
+        AddPersonDialog.setMinimumSize(new java.awt.Dimension(600, 428));
         AddPersonDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         AddPersonDialog.setSize(new java.awt.Dimension(589, 400));
         AddPersonDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -470,19 +492,13 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
-        Add_PGroup.setText("Edit Groups");
-
         javax.swing.GroupLayout AddPersonDialogLayout = new javax.swing.GroupLayout(AddPersonDialog.getContentPane());
         AddPersonDialog.getContentPane().setLayout(AddPersonDialogLayout);
         AddPersonDialogLayout.setHorizontalGroup(
             AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AddPersonDialogLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Edit_PersonName))
+                .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(AddPersonDialogLayout.createSequentialGroup()
                         .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AddPersonDialogLayout.createSequentialGroup()
@@ -493,26 +509,22 @@ public class admin extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                                .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                                        .addGap(103, 103, 103)
-                                        .addComponent(jLabel9))
-                                    .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                                        .addGap(91, 91, 91)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(42, 42, 42)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                                .addGap(113, 113, 113)
-                                .addComponent(Add_PGroup)
-                                .addGap(75, 75, 75)
-                                .addComponent(Person_save, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)))))
-                .addContainerGap())
+                                .addGap(57, 57, 57)
+                                .addComponent(jLabel9))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddPersonDialogLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Person_save, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(AddPersonDialogLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Edit_PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         AddPersonDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
-
-        AddPersonDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Add_PBlackList, Add_PGroup});
 
         AddPersonDialogLayout.setVerticalGroup(
             AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -522,20 +534,18 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(Edit_PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(AddPersonDialogLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddPersonDialogLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Add_PBlackList)
-                    .addComponent(Add_PGroup)
-                    .addComponent(Person_save))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AddPersonDialogLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(AddPersonDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Add_PBlackList)
+                            .addComponent(Person_save)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1263,6 +1273,7 @@ public class admin extends javax.swing.JFrame {
         {
             String name = PersonList.getSelectedValue();
             Person per = PartyManager.party.getAttendee(name);
+            updatePartOfGroup(name);
             updateEditPerson(per);
             AddPersonDialog.setVisible(true);
         }
@@ -1418,6 +1429,7 @@ public class admin extends javax.swing.JFrame {
                     if(!black.contains(BlackListEdit.getElementAt(j).toString()))
                         black.add(name);
                 }
+                PartyManager.party.getAttendee(name).setBlacklistP(black);
             }
         }
         //DefaultListModel clear = (DefaultListModel) BlackList_all.getModel();
@@ -1756,7 +1768,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton Add_EditGroupB;
     private javax.swing.JButton Add_GroupButton1;
     private javax.swing.JButton Add_PBlackList;
-    private javax.swing.JButton Add_PGroup;
     private javax.swing.JList<String> AllGroups_l;
     private javax.swing.JLabel B_Owner;
     private javax.swing.JDialog BlackListDialog;
