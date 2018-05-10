@@ -4,7 +4,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 public class Person implements Serializable{
 	private String name;
-        private int pincode;
+        private String pincode;
 	private ArrayList<String> wishlist;
 	private ArrayList<String> blacklistP;
         private ArrayList<String> groups;
@@ -27,17 +27,17 @@ public class Person implements Serializable{
         SecureRandom random = new SecureRandom();
         int num = random.nextInt(10000);
         System.out.println("Random pincode for " + name + ": " + num);
-        pincode = num;
+        pincode = String.format("%04d", num);
     }
     
-    public boolean checkPin(int pin) {
+    public boolean checkPin(String pin) {
         boolean b = false;
-        if (this.pincode==pin)
+        if (this.pincode.equals(pin))
             b = true;
         return b;
     }
     
-    public void changePin(int pincode) {
+    public void changePin(String pincode) {
         this.pincode = pincode;
         System.out.println("Pincode for " + name + " changed to: " + pincode);
     }

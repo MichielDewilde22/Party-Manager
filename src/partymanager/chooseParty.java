@@ -46,6 +46,7 @@ public class chooseParty extends javax.swing.JFrame {
         File_Chooser.setAcceptAllFileFilterUsed(false);
 
         New_Party.setTitle("Create new party");
+        New_Party.setMinimumSize(new java.awt.Dimension(460, 183));
 
         jLabel1.setText("Admin:");
 
@@ -71,7 +72,7 @@ public class chooseParty extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AdminName, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                            .addComponent(AdminName, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
                             .addComponent(AdminPassword)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, New_PartyLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -163,14 +164,15 @@ public class chooseParty extends javax.swing.JFrame {
     private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
         this.setVisible(false);
         String name = AdminName.getText();
-        String password = AdminPassword.getText();
-        int pin = Integer.parseInt(password);
-        System.out.println("Naam: "+name+"\nPassword: "+password);
+        String pin = AdminPassword.getText();
+        System.out.println("Nieuwe admin aangemaakt met naam "+name+" en pincode "+pin+".");
         Person admin = new Person(name,true);
         admin.changePin(pin);
         PartyManager.party.addPartyMember(admin);
+        PartyManager.partyDetails.setAdmin(name);
         admin ad = new admin();
         ad.updateAllpersons();
+        ad.updateParty();
         New_Party.setVisible(false);
         ad.setVisible(true);
     }//GEN-LAST:event_CreateActionPerformed

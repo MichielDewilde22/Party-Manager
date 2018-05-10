@@ -47,6 +47,7 @@ public class Party {
 
     public void setAdmin(String admin) {
         this.admin = admin;
+        System.out.println("Admin set to " + admin);
     }
 
     public void setMinPrice(int minPrice) {

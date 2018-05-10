@@ -129,8 +129,7 @@ public class login extends javax.swing.JFrame {
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         WrongPassword.setVisible(false);
         String name = Name.getText();
-        String passwd = Password.getText();
-        int pin = Integer.parseInt(passwd);
+        String pin = Password.getText();
         if(PartyManager.party.getAttendee(name).checkPin(pin) )
         {
            Person p = PartyManager.party.getAttendee(name);

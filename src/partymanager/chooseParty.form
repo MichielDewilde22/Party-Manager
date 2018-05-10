@@ -13,6 +13,9 @@
     <Container class="javax.swing.JDialog" name="New_Party">
       <Properties>
         <Property name="title" type="java.lang.String" value="Create new party"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[460, 183]"/>
+        </Property>
       </Properties>
 
       <Layout>
@@ -28,7 +31,7 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="AdminName" pref="242" max="32767" attributes="0"/>
+                              <Component id="AdminName" pref="302" max="32767" attributes="0"/>
                               <Component id="AdminPassword" max="32767" attributes="0"/>
                           </Group>
                       </Group>
