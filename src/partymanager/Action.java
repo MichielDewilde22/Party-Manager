@@ -113,6 +113,7 @@ public class Action {
                 busy = false;
         } while (busy);
         
+        System.out.println("Personen zijn verdeeld!");
         return temporary;
     }
     

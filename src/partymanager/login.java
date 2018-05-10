@@ -140,7 +140,7 @@ public class login extends javax.swing.JFrame {
            }
            else {
                this.setVisible(false);
-               User us = new User();
+               User us = new User(name);
                us.setVisible(true);
            }
         }
