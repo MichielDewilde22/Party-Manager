@@ -26,8 +26,8 @@ public class Person implements Serializable{
     private void generatePin() {
         SecureRandom random = new SecureRandom();
         int num = random.nextInt(10000);
-        System.out.println("Random pincode for " + name + ": " + num);
         pincode = String.format("%04d", num);
+        System.out.println("Random pincode for " + name + ": " + pincode);
     }
     
     public boolean checkPin(String pin) {

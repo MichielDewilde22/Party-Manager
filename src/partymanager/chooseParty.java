@@ -5,6 +5,8 @@
  */
 package partymanager;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -15,6 +17,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class chooseParty extends javax.swing.JFrame {
     private Action action = new Action();
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     /**
      * Creates new form chooseParty
      */
@@ -46,7 +49,9 @@ public class chooseParty extends javax.swing.JFrame {
         File_Chooser.setAcceptAllFileFilterUsed(false);
 
         New_Party.setTitle("Create new party");
-        New_Party.setMinimumSize(new java.awt.Dimension(460, 183));
+        New_Party.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        New_Party.setMinimumSize(new java.awt.Dimension(500, 250));
+        New_Party.setPreferredSize(new java.awt.Dimension(500, 250));
 
         jLabel1.setText("Admin:");
 
@@ -66,18 +71,17 @@ public class chooseParty extends javax.swing.JFrame {
             .addGroup(New_PartyLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(New_PartyLayout.createSequentialGroup()
-                        .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AdminName, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
-                            .addComponent(AdminPassword)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, New_PartyLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(Create)))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AdminName, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                    .addComponent(AdminPassword))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, New_PartyLayout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addComponent(Create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(178, 178, 178))
         );
         New_PartyLayout.setVerticalGroup(
             New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,9 +95,12 @@ public class chooseParty extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(AdminPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Create)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(48, 48, 48))
         );
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +140,7 @@ public class chooseParty extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void NewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewButtonActionPerformed
