@@ -41,6 +41,8 @@ public class admin extends javax.swing.JFrame {
     private DefaultListModel Allgroups = new DefaultListModel();
     private DefaultListModel newG = new DefaultListModel();
     private DefaultListModel GroupsPer = new DefaultListModel();
+    private DefaultListModel WishlistAd = new DefaultListModel();
+    private DefaultListModel WishlistAdDraw = new DefaultListModel();
     private int indexP;
     private Action action = new Action();
     /**
@@ -209,6 +211,23 @@ public class admin extends javax.swing.JFrame {
             }
         }    
     }
+    public void updateWishlist() {
+        WishlistAd.clear();
+        WishlistAd.clear();
+        ArrayList<String> wish = PartyManager.party.getAttendee(p.getAdmin()).getWhishlist();
+        for (String item : wish) {
+            WishlistAd.addElement(item);
+        }
+        Wishlist.setModel(WishlistAd);
+    }
+     public void updateWishlistDrawn() {
+        WishlistAdDraw.clear();
+        ArrayList<String> wish = PartyManager.party.getAttendee(PartyManager.party.getAttendee(p.getAdmin()).getChosen()).getWhishlist();
+        for (String item : wish) {
+            WishlistAdDraw.addElement(item);
+        }
+        WishListDraw.setModel(WishlistAdDraw);
+    }
 //    private void FillComboP()
 //    {
 //        ArrayList<String> names = PartyManager.party.getNames();
@@ -324,6 +343,25 @@ public class admin extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        Wishlist = new javax.swing.JList<>();
+        Wishlist_Add = new javax.swing.JButton();
+        Wishlist_Delete = new javax.swing.JButton();
+        Wishlist_Save = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        NewItem = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        RevealHide = new javax.swing.JToggleButton();
+        PersonName = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        WishListDraw = new javax.swing.JList<>();
+        jLabel18 = new javax.swing.JLabel();
+        PersonName1 = new javax.swing.JLabel();
+        RevealHide1 = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         ExportAD = new javax.swing.JMenuItem();
@@ -1274,18 +1312,182 @@ public class admin extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Finish", jPanel8);
 
+        jScrollPane11.setViewportView(Wishlist);
+
+        Wishlist_Add.setText("Add");
+        Wishlist_Add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Wishlist_AddActionPerformed(evt);
+            }
+        });
+
+        Wishlist_Delete.setText("Delete");
+        Wishlist_Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Wishlist_DeleteActionPerformed(evt);
+            }
+        });
+
+        Wishlist_Save.setText("Save");
+        Wishlist_Save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Wishlist_SaveActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setText("Item:");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(NewItem))
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Wishlist_Add, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Wishlist_Delete, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Wishlist_Save, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
+
+        jPanel9Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Wishlist_Add, Wishlist_Delete, Wishlist_Save});
+
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(NewItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Wishlist_Add))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(Wishlist_Delete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Wishlist_Save)
+                        .addContainerGap())))
+        );
+
+        jLabel16.setText("This is the person you drew:");
+
+        RevealHide.setText("Reveal");
+        RevealHide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RevealHideActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(RevealHide)
+                        .addGap(41, 41, 41))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RevealHide))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Admin Whishlist", jPanel3);
+
+        jLabel17.setText("Wishlist of the drawn person:");
+
+        jScrollPane12.setViewportView(WishListDraw);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane12)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel18.setText("This is the person you drew:");
+
+        RevealHide1.setText("Reveal");
+        RevealHide1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RevealHide1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PersonName1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                        .addComponent(RevealHide1)))
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PersonName1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RevealHide1))
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("wishlist drawn", jPanel10);
 
         jMenu1.setText("File");
 
@@ -1621,6 +1823,9 @@ public class admin extends javax.swing.JFrame {
                     break;
             case 2: updateAllgroups();
                     break;
+            case 5: updateWishlist(); break;
+            
+            case 6: updateWishlistDrawn(); break;
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
@@ -1859,6 +2064,52 @@ public class admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_WarningPopUp2WindowClosing
 
+    private void Wishlist_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_AddActionPerformed
+        if(NewItem.getText() != null || NewItem.getText() != "") {
+            Wishlist.setModel(WishlistAd);
+            String item = NewItem.getText();
+            //person.AddWhishlistItem(item);
+            WishlistAd.addElement(item);
+        }
+        NewItem.setText("");
+    }//GEN-LAST:event_Wishlist_AddActionPerformed
+
+    private void Wishlist_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_DeleteActionPerformed
+        if(Wishlist.getSelectedValue() != null)
+        {
+            //Wishlist.setModel(WishListEdit);
+            int removing = Wishlist.getSelectedIndex();
+            String name = Wishlist.getSelectedValue();
+            WishlistAd.removeElementAt(removing);
+            //person.RemoveWhishlistItem(name);
+        }
+    }//GEN-LAST:event_Wishlist_DeleteActionPerformed
+
+    private void Wishlist_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_SaveActionPerformed
+        for(int i = 0;i<WishlistAd.size();i++)
+        {
+            PartyManager.party.getAttendee(p.getAdmin()).AddWhishlistItem(WishlistAd.getElementAt(i).toString());
+        }
+        NewItem.setText("");
+        action.saveFile(PartyManager.party.getAttendees());
+    }//GEN-LAST:event_Wishlist_SaveActionPerformed
+
+    private void RevealHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevealHideActionPerformed
+        if (RevealHide.isSelected()) {
+            PersonName.setText(PartyManager.party.getAttendee(p.getAdmin()).getChosen());
+            PersonName.setVisible(true);
+            RevealHide.setText("Hide");
+        }
+        else {
+            PersonName.setVisible(false);
+            RevealHide.setText("Reveal");
+        }
+    }//GEN-LAST:event_RevealHideActionPerformed
+
+    private void RevealHide1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevealHide1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RevealHide1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1924,10 +2175,13 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JFileChooser ImportFileFrame;
     private javax.swing.JTextField Max_Input;
     private javax.swing.JTextField Min_Input;
+    private javax.swing.JTextField NewItem;
     private javax.swing.JList<String> New_groupL;
     private javax.swing.JTable Party_Table;
     private javax.swing.JPanel Party_det;
     private javax.swing.JList<String> PersonList;
+    private javax.swing.JLabel PersonName;
+    private javax.swing.JLabel PersonName1;
     private javax.swing.JButton Person_add;
     private javax.swing.JButton Person_delete;
     private javax.swing.JButton Person_edit;
@@ -1938,6 +2192,8 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton Remove_GroupButton2;
     private javax.swing.JLabel RemovedItem;
     private javax.swing.JLabel RemovedItemPer;
+    private javax.swing.JToggleButton RevealHide;
+    private javax.swing.JToggleButton RevealHide1;
     private javax.swing.JMenuItem SaveAd;
     private javax.swing.JButton Save_Blacklist;
     private javax.swing.JButton Save_EditGroupB;
@@ -1945,6 +2201,11 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JTextField Time_Input;
     private javax.swing.JDialog WarningPopUp;
     private javax.swing.JDialog WarningPopUp2;
+    private javax.swing.JList<String> WishListDraw;
+    private javax.swing.JList<String> Wishlist;
+    private javax.swing.JButton Wishlist_Add;
+    private javax.swing.JButton Wishlist_Delete;
+    private javax.swing.JButton Wishlist_Save;
     private javax.swing.JButton acceptrem;
     private javax.swing.JButton acceptremPers;
     private javax.swing.JButton addGroup;
@@ -1965,6 +2226,10 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1976,6 +2241,8 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1983,8 +2250,11 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
