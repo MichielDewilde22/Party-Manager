@@ -17,6 +17,7 @@ public class User extends javax.swing.JFrame {
     private List party = PartyManager.party;
     private String name;
     private Person person;
+    private Action a;
     private DefaultListModel WishLists = new DefaultListModel();
     private DefaultListModel WishListEdit = new DefaultListModel();
     /**
@@ -48,6 +49,7 @@ public class User extends javax.swing.JFrame {
         Wishlist_Save = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         NewItem = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         RevealButton = new javax.swing.JButton();
         PersonName = new javax.swing.JLabel();
@@ -117,11 +119,6 @@ public class User extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Info", jPanel1);
 
-        Wishlist.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(Wishlist);
 
         Wishlist_Add.setText("Add");
@@ -139,6 +136,11 @@ public class User extends javax.swing.JFrame {
         });
 
         Wishlist_Save.setText("Save");
+        Wishlist_Save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Wishlist_SaveActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Item:");
 
@@ -185,6 +187,19 @@ public class User extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Whishlist", jPanel2);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 571, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 261, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Drawn Person", jPanel4);
 
         jLabel1.setText("This is the person you drew:");
 
@@ -239,12 +254,13 @@ public class User extends javax.swing.JFrame {
     }
     
     private void Wishlist_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_AddActionPerformed
-        if(NewItem.getText() != null) {
+        if(NewItem.getText() != null || NewItem.getText() != "") {
             Wishlist.setModel(WishListEdit);
             String item = NewItem.getText();
-            person.AddWhishlistItem(item);
+            //person.AddWhishlistItem(item);
             WishListEdit.addElement(item);
         }
+        NewItem.setText("");
     }//GEN-LAST:event_Wishlist_AddActionPerformed
 
     private void RevealButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevealButtonActionPerformed
@@ -259,9 +275,18 @@ public class User extends javax.swing.JFrame {
             int removing = Wishlist.getSelectedIndex();
             String name = Wishlist.getSelectedValue();
             WishListEdit.removeElementAt(removing);
-            person.RemoveWhishlistItem(name);
+            //person.RemoveWhishlistItem(name);
         }
     }//GEN-LAST:event_Wishlist_DeleteActionPerformed
+
+    private void Wishlist_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_SaveActionPerformed
+       for(int i = 0;i<WishListEdit.size();i++)
+       {
+           person.AddWhishlistItem(WishListEdit.getElementAt(i).toString());
+       }
+       NewItem.setText("");
+       a.saveFile(PartyManager.party.getAttendees());
+    }//GEN-LAST:event_Wishlist_SaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,6 +341,7 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables

@@ -1302,7 +1302,14 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Min_InputActionPerformed
 
     private void pref2_RButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pref2_RButtonActionPerformed
-        // TODO add your handling code here:
+        if(pref2_RButton.isSelected())
+        {
+            PartyManager.partyDetails.setBlacklistEnabled(false);
+        }
+        else
+        {
+            PartyManager.partyDetails.setBlacklistEnabled(true);
+        }
     }//GEN-LAST:event_pref2_RButtonActionPerformed
 
     private void pref3_RButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pref3_RButtonActionPerformed
@@ -1321,7 +1328,14 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_pref3_RButtonActionPerformed
 
     private void pref1_RButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pref1_RButtonActionPerformed
-        // TODO add your handling code here:
+        if(pref1_RButton.isSelected())
+        {
+            PartyManager.partyDetails.setEachOther(true);
+        }
+        else
+        {
+            PartyManager.partyDetails.setEachOther(false);
+        }
     }//GEN-LAST:event_pref1_RButtonActionPerformed
 
     private void Person_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_saveActionPerformed
