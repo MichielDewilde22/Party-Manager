@@ -92,13 +92,13 @@ public class Action {
         int count = 0;
         int i = 0;
         
-        give = temporary.getNames();
-        get = temporary.getNames();
+        give = list.getNames();
+        get = list.getNames();
         
         do {
             Person giver = temporary.getAttendee(give.get(i));
             Person getter = temporary.getAttendee(get.get(i));
-            if (giver.getName().equals(getter.getName()) || getter.getChosen().equals(giver.getName()) || (giver.onBlacklistP(getter.getName()) && PartyManager.partyDetails.blacklistEnabled())) {
+            if (giver.getName().equals(getter.getName()) || (getter.getChosen().equals(giver.getName()) && !PartyManager.partyDetails.getEachOther()) || (giver.onBlacklistP(getter.getName()) && PartyManager.partyDetails.blacklistEnabled())) {
                 shuffle(get);
                 temporary = list;
                 i=0;
@@ -111,10 +111,17 @@ public class Action {
             }
             if (i>=give.size())
                 busy = false;
+            count++;
+            if(count>10000000)
+                break;
         } while (busy);
         
-        System.out.println("Personen zijn verdeeld!");
-        return temporary;
+        if (!busy) {
+            return temporary;
+        }
+        else {
+            return null;
+        }
     }
     
 }
