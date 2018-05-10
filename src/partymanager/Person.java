@@ -42,6 +42,7 @@ public class Person implements Serializable{
     public void changePin(String pincode) {
         this.pincode = pincode;
         System.out.println("Pincode for " + name + " changed to: " + pincode);
+        pinChanged = true;
     }
 
     public void setGroups(ArrayList<String> groups) {

@@ -27,6 +27,9 @@ public class User extends javax.swing.JFrame {
      * Creates new form User
      */
     public User(String name) {
+        if (person.getPinChanged()==false) {
+            ChangePin.setVisible(true);
+        }
         person = party.getAttendee(name);
         initComponents();
     }
@@ -40,6 +43,11 @@ public class User extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ChangePin = new javax.swing.JDialog();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        NewPin = new javax.swing.JTextField();
+        ChangeButton = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -59,6 +67,50 @@ public class User extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         PersonName = new javax.swing.JLabel();
         RevealHide = new javax.swing.JToggleButton();
+
+        ChangePin.setTitle("Change pincode");
+        ChangePin.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+
+        jLabel3.setText("Please change your pincode!");
+
+        jLabel5.setText("New pin:");
+
+        ChangeButton.setText("Change");
+        ChangeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChangeButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ChangePinLayout = new javax.swing.GroupLayout(ChangePin.getContentPane());
+        ChangePin.getContentPane().setLayout(ChangePinLayout);
+        ChangePinLayout.setHorizontalGroup(
+            ChangePinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ChangePinLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ChangePinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ChangePinLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ChangePinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ChangeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .addComponent(NewPin))
+                        .addGap(73, 73, 73))
+                    .addComponent(jLabel3)))
+        );
+        ChangePinLayout.setVerticalGroup(
+            ChangePinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ChangePinLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ChangePinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(NewPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ChangeButton)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -351,6 +403,12 @@ public class User extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_RevealHideActionPerformed
 
+    private void ChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeButtonActionPerformed
+        String pin = NewPin.getText();
+        person.changePin(pin);
+        this.setVisible(false);
+    }//GEN-LAST:event_ChangeButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -391,7 +449,10 @@ public class User extends javax.swing.JFrame {
     
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ChangeButton;
+    private javax.swing.JDialog ChangePin;
     private javax.swing.JTextField NewItem;
+    private javax.swing.JTextField NewPin;
     private javax.swing.JTable Party_Table;
     private javax.swing.JLabel PersonName;
     private javax.swing.JToggleButton RevealHide;
@@ -402,7 +463,9 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JButton Wishlist_Save;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
