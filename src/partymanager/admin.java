@@ -1487,7 +1487,7 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("wishlist drawn", jPanel10);
+        jTabbedPane1.addTab("Wishlist Drawn", jPanel10);
 
         jMenu1.setText("File");
 
