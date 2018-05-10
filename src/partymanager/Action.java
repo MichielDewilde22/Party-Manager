@@ -92,8 +92,8 @@ public class Action {
         int count = 0;
         int i = 0;
         
-        give = list.getNames();
-        get = list.getNames();
+        give = temporary.getNames();
+        get = temporary.getNames();
         
         do {
             Person giver = temporary.getAttendee(give.get(i));

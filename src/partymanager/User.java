@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Andredur
  */
 public class User extends javax.swing.JFrame {
-    private Party p = new Party();
+    private Party p = PartyManager.partyDetails;
     private String name;
     private Person person;
     private DefaultListModel WishLists = new DefaultListModel();
@@ -46,13 +46,17 @@ public class User extends javax.swing.JFrame {
         Wishlist_Save = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         NewItem = new javax.swing.JTextField();
-        PersonName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         RevealButton = new javax.swing.JButton();
+        PersonName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTabbedPane1.setMinimumSize(new java.awt.Dimension(587, 341));
+
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Party Details:"));
+        jPanel3.setMinimumSize(new java.awt.Dimension(500, 250));
+        jPanel3.setPreferredSize(new java.awt.Dimension(500, 250));
 
         Party_Table.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         Party_Table.setModel(new javax.swing.table.DefaultTableModel(
@@ -60,7 +64,7 @@ public class User extends javax.swing.JFrame {
                 {"Date", null},
                 {"Time", null},
                 {"Place", null},
-                {"Administartor", null},
+                {"Administrator", null},
                 {"Minimum Price", null},
                 {"Maximum Price", null}
             },
@@ -76,18 +80,20 @@ public class User extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        Party_Table.setIntercellSpacing(new java.awt.Dimension(4, 1));
+        Party_Table.setRowHeight(30);
+        Party_Table.setRowMargin(5);
+        Party_Table.setRowSelectionAllowed(false);
         Party_Table.getTableHeader().setReorderingAllowed(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Party_Table, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+            .addComponent(Party_Table, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Party_Table, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Party_Table, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -97,14 +103,14 @@ public class User extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Info", jPanel1);
@@ -172,18 +178,11 @@ public class User extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(NewItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Wishlist_Add))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Whishlist", jPanel2);
-
-        PersonName.setEditable(false);
-        PersonName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PersonNameActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("This is the person you drew:");
 
@@ -204,8 +203,8 @@ public class User extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
+                        .addComponent(PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(RevealButton))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 10, Short.MAX_VALUE))
@@ -213,14 +212,13 @@ public class User extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PersonName)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(RevealButton)))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(PersonName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(RevealButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -237,10 +235,6 @@ public class User extends javax.swing.JFrame {
         model.setValueAt(p.getMaxPrice(), 5, 1);
     }
     
-    private void PersonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PersonNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PersonNameActionPerformed
-
     private void Wishlist_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_AddActionPerformed
         if(NewItem.getText() != null) {
             Wishlist.setModel(WishListEdit);
@@ -251,6 +245,8 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_Wishlist_AddActionPerformed
 
     private void RevealButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevealButtonActionPerformed
+        //PersonName.setText(person.getChosen());
+        PersonName.setText("Test");
         PersonName.setVisible(true);
     }//GEN-LAST:event_RevealButtonActionPerformed
 
@@ -307,7 +303,7 @@ public class User extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField NewItem;
     private javax.swing.JTable Party_Table;
-    private javax.swing.JTextField PersonName;
+    private javax.swing.JLabel PersonName;
     private javax.swing.JButton RevealButton;
     private javax.swing.JList<String> Wishlist;
     private javax.swing.JButton Wishlist_Add;
