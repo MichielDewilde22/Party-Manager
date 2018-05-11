@@ -2107,7 +2107,15 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_RevealHideActionPerformed
 
     private void RevealHide1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevealHide1ActionPerformed
-        // TODO add your handling code here:
+        if (RevealHide1.isSelected()) {
+            PersonName1.setText(PartyManager.party.getAttendee(p.getAdmin()).getChosen());
+            PersonName1.setVisible(true);
+            RevealHide1.setText("Hide");
+        }
+        else {
+            PersonName1.setVisible(false);
+            RevealHide1.setText("Reveal");
+        }
     }//GEN-LAST:event_RevealHide1ActionPerformed
 
     /**

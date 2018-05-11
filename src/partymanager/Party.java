@@ -23,6 +23,10 @@ public class Party {
     }
 
     public String getAdmin() {
+        for (String name: PartyManager.party.getNames()) {
+            if (PartyManager.party.getAttendee(name).getRole())
+                admin = name;
+        }
         return admin;
     }
 

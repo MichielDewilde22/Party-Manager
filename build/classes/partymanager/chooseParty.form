@@ -19,9 +19,6 @@
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[500, 250]"/>
         </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[500, 250]"/>
-        </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();&#xa;this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);"/>
@@ -118,11 +115,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="ExistingButton" alignment="0" max="32767" attributes="0"/>
-                  <Component id="NewButton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="SavedButton" alignment="2" max="32767" attributes="0"/>
+                  <Component id="NewButton" alignment="2" pref="199" max="32767" attributes="0"/>
+                  <Component id="ImportButton" alignment="2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
           </Group>
@@ -131,22 +129,24 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-              <Component id="ExistingButton" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="NewButton" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+              <Component id="SavedButton" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+              <Component id="ImportButton" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="ExistingButton">
+    <Component class="javax.swing.JButton" name="ImportButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Use existing party"/>
+        <Property name="text" type="java.lang.String" value="Import file"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExistingButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ImportButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="NewButton">
@@ -155,6 +155,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NewButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="SavedButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Use savefile"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SavedButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

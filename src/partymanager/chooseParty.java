@@ -41,8 +41,9 @@ public class chooseParty extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         AdminPassword = new javax.swing.JPasswordField();
         Create = new javax.swing.JButton();
-        ExistingButton = new javax.swing.JButton();
+        ImportButton = new javax.swing.JButton();
         NewButton = new javax.swing.JButton();
+        SavedButton = new javax.swing.JButton();
 
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Serializable","ser");
         File_Chooser.setFileFilter(filter);
@@ -51,7 +52,6 @@ public class chooseParty extends javax.swing.JFrame {
         New_Party.setTitle("Create new party");
         New_Party.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         New_Party.setMinimumSize(new java.awt.Dimension(500, 250));
-        New_Party.setPreferredSize(new java.awt.Dimension(500, 250));
 
         jLabel1.setText("Admin:");
 
@@ -104,10 +104,10 @@ public class chooseParty extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ExistingButton.setText("Use existing party");
-        ExistingButton.addActionListener(new java.awt.event.ActionListener() {
+        ImportButton.setText("Import file");
+        ImportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExistingButtonActionPerformed(evt);
+                ImportButtonActionPerformed(evt);
             }
         });
 
@@ -118,25 +118,35 @@ public class chooseParty extends javax.swing.JFrame {
             }
         });
 
+        SavedButton.setText("Use savefile");
+        SavedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SavedButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(95, 95, 95)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(ExistingButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(NewButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(SavedButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(NewButton, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                    .addComponent(ImportButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(106, 106, 106))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(ExistingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(74, 74, 74)
+                .addGap(37, 37, 37)
                 .addComponent(NewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(83, 83, 83))
+                .addGap(56, 56, 56)
+                .addComponent(SavedButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(54, 54, 54)
+                .addComponent(ImportButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(48, 48, 48))
         );
 
         pack();
@@ -148,7 +158,7 @@ public class chooseParty extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_NewButtonActionPerformed
 
-    private void ExistingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistingButtonActionPerformed
+    private void ImportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportButtonActionPerformed
         int result = File_Chooser.showOpenDialog(this);
         if(result == JFileChooser.APPROVE_OPTION)
         {
@@ -162,7 +172,7 @@ public class chooseParty extends javax.swing.JFrame {
         System.out.println("Filechooser openened");
         login log = new login();
         log.setVisible(true);
-    }//GEN-LAST:event_ExistingButtonActionPerformed
+    }//GEN-LAST:event_ImportButtonActionPerformed
 
     private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
         this.setVisible(false);
@@ -179,6 +189,14 @@ public class chooseParty extends javax.swing.JFrame {
         New_Party.setVisible(false);
         ad.setVisible(true);
     }//GEN-LAST:event_CreateActionPerformed
+
+    private void SavedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SavedButtonActionPerformed
+        File file = new File("SaveFile.ser");
+        action.ImportFile(file); 
+        this.setVisible(false);
+        login log = new login();
+        log.setVisible(true);
+    }//GEN-LAST:event_SavedButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,10 +237,11 @@ public class chooseParty extends javax.swing.JFrame {
     private javax.swing.JTextField AdminName;
     private javax.swing.JPasswordField AdminPassword;
     private javax.swing.JButton Create;
-    private javax.swing.JButton ExistingButton;
     private javax.swing.JFileChooser File_Chooser;
+    private javax.swing.JButton ImportButton;
     private javax.swing.JButton NewButton;
     private javax.swing.JDialog New_Party;
+    private javax.swing.JButton SavedButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
