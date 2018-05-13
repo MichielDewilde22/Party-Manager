@@ -213,20 +213,21 @@ public class admin extends javax.swing.JFrame {
     }
     public void updateWishlist() {
         WishlistAd.clear();
-        WishlistAd.clear();
+        Wishlist.setModel(WishlistAd);
         ArrayList<String> wish = PartyManager.party.getAttendee(p.getAdmin()).getWhishlist();
         for (String item : wish) {
             WishlistAd.addElement(item);
         }
-        Wishlist.setModel(WishlistAd);
+        
     }
      public void updateWishlistDrawn() {
         WishlistAdDraw.clear();
+        WishListDraw.setModel(WishlistAdDraw);
         ArrayList<String> wish = PartyManager.party.getAttendee(PartyManager.party.getAttendee(p.getAdmin()).getChosen()).getWhishlist();
         for (String item : wish) {
             WishlistAdDraw.addElement(item);
         }
-        WishListDraw.setModel(WishlistAdDraw);
+        
     }
 //    private void FillComboP()
 //    {
@@ -2086,10 +2087,19 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Wishlist_DeleteActionPerformed
 
     private void Wishlist_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_SaveActionPerformed
+        ArrayList<String> temp = PartyManager.party.getAttendee(PartyManager.partyDetails.getAdmin()).getWhishlist();
         for(int i = 0;i<WishlistAd.size();i++)
         {
-            PartyManager.party.getAttendee(p.getAdmin()).AddWhishlistItem(WishlistAd.getElementAt(i).toString());
+            if(!temp.contains(WishlistAd.getElementAt(i).toString()));
+               PartyManager.party.getAttendee(p.getAdmin()).AddWhishlistItem(WishlistAd.getElementAt(i).toString());
         }
+        Iterator<String> it = temp.iterator();
+        while(it.hasNext())
+        {
+            String item = it.next();
+            if(!WishlistAd.contains(item))
+                it.remove();
+        }           
         NewItem.setText("");
         action.saveFile(PartyManager.party.getAttendees());
     }//GEN-LAST:event_Wishlist_SaveActionPerformed
