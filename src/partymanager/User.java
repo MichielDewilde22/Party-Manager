@@ -6,6 +6,7 @@
 package partymanager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -347,21 +348,23 @@ public class User extends javax.swing.JFrame {
     public void updateWishlist() {
         WishLists.clear();
         WishListEdit.clear();
+        Wishlist.setModel(WishListEdit);
         wish = person.getWhishlist();
         for (String item : wish) {
             WishListEdit.addElement(item);
         }
-        Wishlist.setModel(WishListEdit);
+        
     }
     
     public void updateWishlistDrawn() {
         if (person.getChosen()!=null) {
             WishListDrawn.clear();
+            WishListDraw.setModel(WishListDrawn);
             wish = PartyManager.party.getAttendee(person.getChosen()).getWhishlist();
             for (String item : wish) {
                 WishListDrawn.addElement(item);
             }
-            WishListDraw.setModel(WishListDrawn);
+            
         }
     }
     
@@ -387,10 +390,25 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_Wishlist_DeleteActionPerformed
 
     private void Wishlist_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_SaveActionPerformed
-       for(int i = 0;i<WishListEdit.size();i++)
+       ArrayList<String> temp = person.getWhishlist();
+        for(int i = 0;i<WishListEdit.size();i++)
        {
-           person.AddWhishlistItem(WishListEdit.getElementAt(i).toString());
+           Boolean check = true;
+           for(String x: temp)
+           {
+               if(x.equalsIgnoreCase(WishListEdit.getElementAt(i).toString()));
+                    check = false;
+           }
+           if(check == true)
+            person.AddWhishlistItem(WishListEdit.getElementAt(i).toString());
        }
+        Iterator<String> it = temp.iterator();
+        while(it.hasNext())
+        {
+            String item = it.next();
+            if(!WishListEdit.contains(item))
+                it.remove();
+        }
        NewItem.setText("");
        a.saveFile(PartyManager.party.getAttendees());
     }//GEN-LAST:event_Wishlist_SaveActionPerformed

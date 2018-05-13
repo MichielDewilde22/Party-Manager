@@ -2090,8 +2090,14 @@ public class admin extends javax.swing.JFrame {
         ArrayList<String> temp = PartyManager.party.getAttendee(PartyManager.partyDetails.getAdmin()).getWhishlist();
         for(int i = 0;i<WishlistAd.size();i++)
         {
-            if(!temp.contains(WishlistAd.getElementAt(i).toString()));
-               PartyManager.party.getAttendee(p.getAdmin()).AddWhishlistItem(WishlistAd.getElementAt(i).toString());
+            boolean check = true;
+            for(String x : temp)
+            {
+                if(x.equalsIgnoreCase(WishlistAd.getElementAt(i).toString()));
+                    check = false;
+            }
+            if(check == true)
+                PartyManager.party.getAttendee(p.getAdmin()).AddWhishlistItem(WishlistAd.getElementAt(i).toString());
         }
         Iterator<String> it = temp.iterator();
         while(it.hasNext())
