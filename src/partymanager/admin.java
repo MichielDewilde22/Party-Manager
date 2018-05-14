@@ -135,26 +135,26 @@ public class admin extends javax.swing.JFrame {
         BlackList_P.setModel(BlackListEdit);
         BlackListDialog.setVisible(true);
     }
-    public void setupGroup(String name)
-    {
-        for (Group group : PartyManager.groups)
-        {
-            Allgroups.addElement(group.getName());
-        }
-        Groups_all.setModel(Allgroups);
-        if(PartyManager.party.contains(name))
-        {
-            Groups_P.setModel(selectG);
-            for(int j=0;j<Allgroups.getSize();j++)
-            {
-                if(PartyManager.party.getAttendee(name).getGroups().contains(Allgroups.elementAt(j).toString()))
-                { 
-                   Allgroups.remove(j);
-                }
-            }        
-        
-        }
-    }
+//    public void setupGroup(String name)
+//    {
+//        for (Group group : PartyManager.groups)
+//        {
+//            Allgroups.addElement(group.getName());
+//        }
+//        Groups_all.setModel(Allgroups);
+//        if(PartyManager.party.contains(name))
+//        {
+//            Groups_P.setModel(selectG);
+//            for(int j=0;j<Allgroups.getSize();j++)
+//            {
+//                if(PartyManager.party.getAttendee(name).getGroups().contains(Allgroups.elementAt(j).toString()))
+//                { 
+//                   Allgroups.remove(j);
+//                }
+//            }        
+//        
+//        }
+//    }
     public void editGroup(String name)
     {
         Group per = null;
@@ -282,16 +282,6 @@ public class admin extends javax.swing.JFrame {
         Save_Blacklist = new javax.swing.JButton();
         ExportFileFrame = new javax.swing.JFileChooser();
         ImportFileFrame = new javax.swing.JFileChooser();
-        EditGroupDialog = new javax.swing.JDialog();
-        jLabel12 = new javax.swing.JLabel();
-        G_Owner = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        Groups_all = new javax.swing.JList<>();
-        Add_EditGroupB = new javax.swing.JButton();
-        Remove_EditGroupB = new javax.swing.JButton();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        Groups_P = new javax.swing.JList<>();
-        Save_EditGroupB = new javax.swing.JButton();
         WarningPopUp = new javax.swing.JDialog();
         jLabel10 = new javax.swing.JLabel();
         acceptrem = new javax.swing.JButton();
@@ -483,7 +473,7 @@ public class admin extends javax.swing.JFrame {
         );
 
         AddPersonDialog.setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        AddPersonDialog.setMinimumSize(new java.awt.Dimension(600, 428));
+        AddPersonDialog.setMinimumSize(new java.awt.Dimension(620, 500));
         AddPersonDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         AddPersonDialog.setLocationRelativeTo(null);
         AddPersonDialog.setSize(new java.awt.Dimension(589, 400));
@@ -554,7 +544,7 @@ public class admin extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Edit_PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         AddPersonDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
@@ -582,7 +572,7 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        BlackListDialog.setMinimumSize(new java.awt.Dimension(536, 385));
+        BlackListDialog.setMinimumSize(new java.awt.Dimension(600, 500));
         BlackListDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         BlackListDialog.setResizable(false);
         BlackListDialog.setLocationRelativeTo(null);
@@ -685,84 +675,6 @@ public class admin extends javax.swing.JFrame {
         ImportFileFrame.setAcceptAllFileFilterUsed(false);
         ImportFileFrame.setDialogTitle("");
 
-        EditGroupDialog.setMinimumSize(new java.awt.Dimension(570, 394));
-        EditGroupDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        EditGroupDialog.setLocationRelativeTo(null);
-        EditGroupDialog.setResizable(false);
-
-        jLabel12.setText("Groups:");
-
-        jScrollPane6.setViewportView(Groups_all);
-
-        Add_EditGroupB.setText("<html>add<br/> => </html>");
-        Add_EditGroupB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Add_EditGroupBActionPerformed(evt);
-            }
-        });
-
-        Remove_EditGroupB.setText("<html>remove<br/>&nbsp&nbsp&nbsp&lt=</html> ");
-        Remove_EditGroupB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Remove_EditGroupBActionPerformed(evt);
-            }
-        });
-
-        jScrollPane8.setViewportView(Groups_P);
-
-        Save_EditGroupB.setText("Save");
-        Save_EditGroupB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Save_EditGroupBActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout EditGroupDialogLayout = new javax.swing.GroupLayout(EditGroupDialog.getContentPane());
-        EditGroupDialog.getContentPane().setLayout(EditGroupDialogLayout);
-        EditGroupDialogLayout.setHorizontalGroup(
-            EditGroupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EditGroupDialogLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(EditGroupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EditGroupDialogLayout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(EditGroupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Remove_EditGroupB, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Add_EditGroupB, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Save_EditGroupB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(EditGroupDialogLayout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(G_Owner, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        EditGroupDialogLayout.setVerticalGroup(
-            EditGroupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EditGroupDialogLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(EditGroupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(G_Owner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(EditGroupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EditGroupDialogLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(EditGroupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(EditGroupDialogLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(Add_EditGroupB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Remove_EditGroupB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Save_EditGroupB)
-                        .addGap(51, 51, 51))))
-        );
-
         WarningPopUp.setMinimumSize(new java.awt.Dimension(366, 239));
         WarningPopUp.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         WarningPopUp.setLocationRelativeTo(null);
@@ -827,7 +739,7 @@ public class admin extends javax.swing.JFrame {
                 .addGap(43, 43, 43))
         );
 
-        AddGroupDialog.setMinimumSize(new java.awt.Dimension(572, 346));
+        AddGroupDialog.setMinimumSize(new java.awt.Dimension(614, 427));
         AddGroupDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         AddGroupDialog.setResizable(false);
         AddGroupDialog.setLocationRelativeTo(null);
@@ -929,7 +841,7 @@ public class admin extends javax.swing.JFrame {
         popup.setLocationRelativeTo(null);
         popup.setType(java.awt.Window.Type.POPUP);
 
-        popupText.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        popupText.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         popupText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jButton1.setText("OK");
@@ -1592,7 +1504,7 @@ public class admin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -1830,10 +1742,11 @@ public class admin extends javax.swing.JFrame {
             PartyManager.party = temp;
             popupText.setText("Matching succesfull");
             popup.setVisible(true);
+            action.exportPassword();
         }
         else
         {
-            popupText.setText("Unable to find a match for each person, please edit the party");
+            popupText.setText("Unable to match");
             popup.setVisible(true);
         }
         
@@ -1880,10 +1793,12 @@ public class admin extends javax.swing.JFrame {
         switch(pane)
         {
             case 0: updateParty();
+                    updateAllpersons();
                     break;
             case 1: updateAllpersons();
                     break;
             case 2: updateAllgroups();
+                    updateAllpersons();
                     break;
             case 5: updateWishlist(); break;
             
@@ -1892,60 +1807,6 @@ public class admin extends javax.swing.JFrame {
                     break;
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
-
-    private void Add_EditGroupBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_EditGroupBActionPerformed
-        if(Groups_all.getSelectedValue() != null)
-       {
-            Groups_P.setModel(Allgroups);
-            int adding = Groups_all.getSelectedIndex();
-            String name = Groups_all.getSelectedValue();
-            selectG.addElement(name);
-            Allgroups.removeElementAt(adding);
-       } 
-    }//GEN-LAST:event_Add_EditGroupBActionPerformed
-
-    private void Remove_EditGroupBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Remove_EditGroupBActionPerformed
-        if(Groups_P.getSelectedValue() != null)
-        {
-            int removing = Groups_P.getSelectedIndex();
-            String name = Groups_P.getSelectedValue();
-            Allgroups.addElement(name);
-            selectG.removeElementAt(removing);
-        }
-    }//GEN-LAST:event_Remove_EditGroupBActionPerformed
-
-    private void Save_EditGroupBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_EditGroupBActionPerformed
-        EditG.removeAllElements();
-        for(int k=0;k<selectG.size();k++)
-        {
-                EditG.addElement(selectG.elementAt(k));
-        }
-        Edit_PGroups.setModel(EditG);
-        EditGroupDialog.setVisible(false);
-        for(int i=0;i<selectG.size();i++)
-        {
-            if(!AddPersonDialog.isVisible())
-            {
-                String name = "";//ComboB_Person.getSelectedItem().toString();
-                Person per = PartyManager.party.getAttendee(name);
-                ArrayList<String> grp = per.getGroups();
-                for(Iterator<String> it = grp.iterator(); it.hasNext();)
-                {
-                    name = it.next();
-                    if(!selectG.contains(name))
-                        it.remove(); 
-                }
-                for(int j=0; j<selectG.getSize();j++)
-                {
-                    if(!grp.contains(selectG.getElementAt(j).toString()))
-                        grp.add(name);
-                }
-            }
-        }
-        //DefaultListModel clear = (DefaultListModel) BlackList_all.getModel();
-        //clear.removeAllElements();
-        Allgroups.removeAllElements();
-    }//GEN-LAST:event_Save_EditGroupBActionPerformed
 
     private void editGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editGroupsActionPerformed
         if(group_List.getSelectedValue() != null)
@@ -1966,6 +1827,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_editGroupsActionPerformed
 
     private void addGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGroupActionPerformed
+        //updateAllpersons();
         groupfield.setText("");
         editGroup("");
     }//GEN-LAST:event_addGroupActionPerformed
@@ -2255,7 +2117,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JDialog AddGroupDialog;
     private javax.swing.JDialog AddPersonDialog;
     private javax.swing.JButton Add_BlackListButton;
-    private javax.swing.JButton Add_EditGroupB;
     private javax.swing.JButton Add_GroupButton1;
     private javax.swing.JButton Add_PBlackList;
     private javax.swing.JList<String> AllGroups_l;
@@ -2265,16 +2126,12 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JList<String> BlackList_all;
     private javax.swing.JButton BlacklistPButton;
     private javax.swing.JTextField Date_Input;
-    private javax.swing.JDialog EditGroupDialog;
     private javax.swing.JList<String> Edit_PBlackList;
     private javax.swing.JList<String> Edit_PGroups;
     private javax.swing.JTextField Edit_PersonName;
     private javax.swing.JDialog ExitDialog;
     private javax.swing.JMenuItem ExportAD;
     private javax.swing.JFileChooser ExportFileFrame;
-    private javax.swing.JLabel G_Owner;
-    private javax.swing.JList<String> Groups_P;
-    private javax.swing.JList<String> Groups_all;
     private javax.swing.JMenuItem ImportAd;
     private javax.swing.JFileChooser ImportFileFrame;
     private javax.swing.JTextField Max_Input;
@@ -2292,7 +2149,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton Person_save;
     private javax.swing.JTextField Place_Input;
     private javax.swing.JButton Remove_BlacklistButton;
-    private javax.swing.JButton Remove_EditGroupB;
     private javax.swing.JButton Remove_GroupButton2;
     private javax.swing.JLabel RemovedItem;
     private javax.swing.JLabel RemovedItemPer;
@@ -2300,7 +2156,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JToggleButton RevealHide1;
     private javax.swing.JMenuItem SaveAd;
     private javax.swing.JButton Save_Blacklist;
-    private javax.swing.JButton Save_EditGroupB;
     private javax.swing.JButton Save_Group1;
     private javax.swing.JTextField Time_Input;
     private javax.swing.JDialog WarningPopUp;
@@ -2328,7 +2183,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -2363,9 +2217,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JDialog popup;

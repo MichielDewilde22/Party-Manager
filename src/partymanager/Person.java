@@ -161,4 +161,9 @@ public class Person implements Serializable{
     public void setPinChanged(boolean b) {
         this.pinChanged = b;
     }
+    
+    public String getPin() {
+        return pincode;
+    }
+            
 }

@@ -4,13 +4,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import static java.util.Collections.shuffle;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,7 +86,29 @@ public class Action {
             Logger.getLogger(Action.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
-    
+    public void exportPassword() 
+    {
+        try {
+            File file = new File("sdrowssap.txt");
+            file.createNewFile();
+            FileWriter writer = new FileWriter(file);
+            Set<String> keys = PartyManager.party.getAttendees().keySet();
+            for(String x : keys)
+            {
+             String s = x+": "+ PartyManager.party.getAttendee(x).getPin()+"\n";
+             writer.write(s);
+             writer.flush();
+            }
+            writer.close();
+        }catch(FileNotFoundException ex2){
+            System.out.println("File not found error");
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(Action.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
     public static List divide(List list) {
         List temporary = new List();
         temporary = list;

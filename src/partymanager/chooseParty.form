@@ -33,7 +33,7 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="AdminName" pref="342" max="32767" attributes="0"/>
+                      <Component id="AdminName" pref="357" max="32767" attributes="0"/>
                       <Component id="AdminPassword" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -75,7 +75,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Password:"/>
+            <Property name="text" type="java.lang.String" value="Pincode:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="AdminPassword">

@@ -60,7 +60,7 @@ public class chooseParty extends javax.swing.JFrame {
 
         jLabel1.setText("Admin:");
 
-        jLabel2.setText("Password:");
+        jLabel2.setText("Pincode:");
 
         Create.setText("Create");
         Create.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +80,7 @@ public class chooseParty extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(New_PartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AdminName, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                    .addComponent(AdminName, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                     .addComponent(AdminPassword))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, New_PartyLayout.createSequentialGroup()
