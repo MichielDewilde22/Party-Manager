@@ -447,6 +447,7 @@ public class User extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         a.saveFile(PartyManager.party.getAttendees());
+        System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
     /**

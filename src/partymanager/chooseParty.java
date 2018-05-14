@@ -52,6 +52,11 @@ public class chooseParty extends javax.swing.JFrame {
         New_Party.setTitle("Create new party");
         New_Party.setLocationRelativeTo(null);
         New_Party.setMinimumSize(new java.awt.Dimension(500, 250));
+        New_Party.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                New_PartyWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Admin:");
 
@@ -100,6 +105,11 @@ public class chooseParty extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         ImportButton.setText("Import file");
         ImportButton.addActionListener(new java.awt.event.ActionListener() {
@@ -193,6 +203,14 @@ public class chooseParty extends javax.swing.JFrame {
         login log = new login();
         log.setVisible(true);
     }//GEN-LAST:event_SavedButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void New_PartyWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_New_PartyWindowClosing
+        System.exit(0);
+    }//GEN-LAST:event_New_PartyWindowClosing
 
     /**
      * @param args the command line arguments
