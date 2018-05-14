@@ -5,6 +5,8 @@
  */
 package partymanager;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Andredur
@@ -41,6 +43,8 @@ public class login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(541, 357));
+
         LoginButton.setText("Login");
         LoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,6 +64,12 @@ public class login extends javax.swing.JFrame {
 
         jLabel2.setText("Pincode:");
 
+        Name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NameActionPerformed(evt);
+            }
+        });
+
         WrongPassword.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         WrongPassword.setForeground(new java.awt.Color(255, 0, 0));
         WrongPassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -72,15 +82,15 @@ public class login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(WrongPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                    .addComponent(WrongPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Name)
-                            .addComponent(Password))))
+                            .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -130,6 +140,16 @@ public class login extends javax.swing.JFrame {
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         WrongPassword.setVisible(false);
         String name = Name.getText();
+        Boolean check = false;
+        ArrayList<String> temp = PartyManager.party.getNames();
+        for(String t : temp)
+            if(t.equalsIgnoreCase(name))
+            {
+                check = true;
+                name = t;
+            }
+       if(check == true)
+       {
         String pin = Password.getText();
         if(PartyManager.party.getAttendee(name).checkPin(pin) )
         {
@@ -147,6 +167,8 @@ public class login extends javax.swing.JFrame {
         }
         else 
             WrongPassword.setVisible(true);
+       }
+       check = false;
         
        
     }//GEN-LAST:event_LoginButtonActionPerformed
@@ -158,6 +180,10 @@ public class login extends javax.swing.JFrame {
     private void LoginButtonKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LoginButtonKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_LoginButtonKeyTyped
+
+    private void NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NameActionPerformed
 
     /**
      * @param args the command line arguments

@@ -50,7 +50,7 @@ public class chooseParty extends javax.swing.JFrame {
         File_Chooser.setAcceptAllFileFilterUsed(false);
 
         New_Party.setTitle("Create new party");
-        New_Party.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        New_Party.setLocationRelativeTo(null);
         New_Party.setMinimumSize(new java.awt.Dimension(500, 250));
 
         jLabel1.setText("Admin:");
@@ -98,9 +98,6 @@ public class chooseParty extends javax.swing.JFrame {
                 .addComponent(Create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(48, 48, 48))
         );
-
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,14 +161,13 @@ public class chooseParty extends javax.swing.JFrame {
         {
             File file = File_Chooser.getSelectedFile();
             action.ImportFile(file);
-            
+            File_Chooser.setSelectedFile(new File(""));
+            this.setVisible(false);
+            login log = new login();
+            log.setVisible(true);
         }
         
-        File_Chooser.setSelectedFile(new File(""));
-        this.setVisible(false);
-        System.out.println("Filechooser openened");
-        login log = new login();
-        log.setVisible(true);
+        
     }//GEN-LAST:event_ImportButtonActionPerformed
 
     private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
