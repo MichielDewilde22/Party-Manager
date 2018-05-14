@@ -504,7 +504,12 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_ChangePinWindowClosing
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+<<<<<<< HEAD
         ExitDialog.setVisible(true);
+=======
+        a.saveFile(PartyManager.party.getAttendees());
+        System.exit(0);
+>>>>>>> a7c25066eadc02b80b5985dd06403de261d68919
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
