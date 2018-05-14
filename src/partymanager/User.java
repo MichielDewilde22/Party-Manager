@@ -49,6 +49,10 @@ public class User extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         ChangeButton = new javax.swing.JButton();
         NewPin = new javax.swing.JPasswordField();
+        ExitDialog = new javax.swing.JDialog();
+        jLabel6 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -72,7 +76,6 @@ public class User extends javax.swing.JFrame {
         ChangePin.setTitle("Change pincode");
         ChangePin.setMinimumSize(new java.awt.Dimension(350, 250));
         ChangePin.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        ChangePin.setPreferredSize(new java.awt.Dimension(350, 250));
         ChangePin.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 ChangePinWindowClosing(evt);
@@ -120,7 +123,62 @@ public class User extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        ExitDialog.setMinimumSize(new java.awt.Dimension(852, 469));
+        ExitDialog.setLocationRelativeTo(null);
+        ExitDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                ExitDialogWindowClosing(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Do you want to save your changes");
+
+        jButton3.setText("Yes");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("No");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ExitDialogLayout = new javax.swing.GroupLayout(ExitDialog.getContentPane());
+        ExitDialog.getContentPane().setLayout(ExitDialogLayout);
+        ExitDialogLayout.setHorizontalGroup(
+            ExitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExitDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExitDialogLayout.createSequentialGroup()
+                .addGap(115, 115, 115)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(123, 123, 123))
+        );
+
+        ExitDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton3, jButton5});
+
+        ExitDialogLayout.setVerticalGroup(
+            ExitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExitDialogLayout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
+                .addGroup(ExitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(142, Short.MAX_VALUE))
+        );
+
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -446,8 +504,21 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_ChangePinWindowClosing
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        a.saveFile(PartyManager.party.getAttendees());
+        ExitDialog.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        a.saveFile(PartyManager.party.getAttendees());
+        System.exit(0);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void ExitDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_ExitDialogWindowClosing
+        this.setVisible(true);
+    }//GEN-LAST:event_ExitDialogWindowClosing
 
     /**
      * @param args the command line arguments
@@ -491,6 +562,7 @@ public class User extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ChangeButton;
     private javax.swing.JDialog ChangePin;
+    private javax.swing.JDialog ExitDialog;
     private javax.swing.JTextField NewItem;
     private javax.swing.JPasswordField NewPin;
     private javax.swing.JTable Party_Table;
@@ -501,11 +573,14 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JButton Wishlist_Add;
     private javax.swing.JButton Wishlist_Delete;
     private javax.swing.JButton Wishlist_Save;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

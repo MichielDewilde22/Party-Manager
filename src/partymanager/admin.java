@@ -315,6 +315,10 @@ public class admin extends javax.swing.JFrame {
         acceptremPers = new javax.swing.JButton();
         denyRemPers = new javax.swing.JButton();
         RemovedItemPer = new javax.swing.JLabel();
+        ExitDialog = new javax.swing.JDialog();
+        jLabel4 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -1019,8 +1023,68 @@ public class admin extends javax.swing.JFrame {
                 .addGap(43, 43, 43))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        ExitDialog.setMinimumSize(new java.awt.Dimension(852, 469));
+        ExitDialog.setLocationRelativeTo(null);
+        ExitDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                ExitDialogWindowClosing(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Do you want to save your changes");
+
+        jButton3.setText("Yes");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("No");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ExitDialogLayout = new javax.swing.GroupLayout(ExitDialog.getContentPane());
+        ExitDialog.getContentPane().setLayout(ExitDialogLayout);
+        ExitDialogLayout.setHorizontalGroup(
+            ExitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExitDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExitDialogLayout.createSequentialGroup()
+                .addGap(115, 115, 115)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(123, 123, 123))
+        );
+
+        ExitDialogLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton3, jButton5});
+
+        ExitDialogLayout.setVerticalGroup(
+            ExitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExitDialogLayout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
+                .addGroup(ExitDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(142, Short.MAX_VALUE))
+        );
+
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -2133,6 +2197,23 @@ public class admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_RevealHide1ActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        ExitDialog.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        action.saveFile(PartyManager.party.getAttendees());
+        System.exit(0);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void ExitDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_ExitDialogWindowClosing
+        this.setVisible(true);
+    }//GEN-LAST:event_ExitDialogWindowClosing
+
     /**
      * @param args the command line arguments
      */
@@ -2188,6 +2269,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JList<String> Edit_PBlackList;
     private javax.swing.JList<String> Edit_PGroups;
     private javax.swing.JTextField Edit_PersonName;
+    private javax.swing.JDialog ExitDialog;
     private javax.swing.JMenuItem ExportAD;
     private javax.swing.JFileChooser ExportFileFrame;
     private javax.swing.JLabel G_Owner;
@@ -2238,7 +2320,9 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JTextField groupfield;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton8;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
@@ -2253,6 +2337,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
