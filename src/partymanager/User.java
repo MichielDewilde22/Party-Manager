@@ -75,6 +75,7 @@ public class User extends javax.swing.JFrame {
 
         ChangePin.setTitle("Change pincode");
         ChangePin.setMinimumSize(new java.awt.Dimension(350, 250));
+        ChangePin.setLocationRelativeTo(null);
         ChangePin.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         ChangePin.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -430,7 +431,7 @@ public class User extends javax.swing.JFrame {
         if(NewItem.getText() != null || NewItem.getText() != "") {
             Wishlist.setModel(WishListEdit);
             String item = NewItem.getText();
-            //person.AddWhishlistItem(item);
+            person.AddWhishlistItem(item);
             WishListEdit.addElement(item);
         }
         NewItem.setText("");
@@ -443,7 +444,7 @@ public class User extends javax.swing.JFrame {
             int removing = Wishlist.getSelectedIndex();
             String name = Wishlist.getSelectedValue();
             WishListEdit.removeElementAt(removing);
-            //person.RemoveWhishlistItem(name);
+            person.RemoveWhishlistItem(name);
         }
     }//GEN-LAST:event_Wishlist_DeleteActionPerformed
 

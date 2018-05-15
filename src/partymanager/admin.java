@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class admin extends javax.swing.JFrame {
     private Party p = PartyManager.partyDetails;
+    private Person person;
     private boolean add = false;
     private boolean groupExists = false;
     private int indexG;
@@ -49,7 +50,9 @@ public class admin extends javax.swing.JFrame {
      * Creates new form amdin
      */
     public admin() {
+        person = PartyManager.party.getAttendee(PartyManager.partyDetails.getAdmin());
         initComponents();
+        
     }
     public void updateParty()
     {
@@ -1994,7 +1997,7 @@ public class admin extends javax.swing.JFrame {
         if(NewItem.getText() != null || NewItem.getText() != "") {
             Wishlist.setModel(WishlistAd);
             String item = NewItem.getText();
-            //person.AddWhishlistItem(item);
+            person.AddWhishlistItem(item);
             WishlistAd.addElement(item);
         }
         NewItem.setText("");
@@ -2007,7 +2010,7 @@ public class admin extends javax.swing.JFrame {
             int removing = Wishlist.getSelectedIndex();
             String name = Wishlist.getSelectedValue();
             WishlistAd.removeElementAt(removing);
-            //person.RemoveWhishlistItem(name);
+            person.RemoveWhishlistItem(name);
         }
     }//GEN-LAST:event_Wishlist_DeleteActionPerformed
 

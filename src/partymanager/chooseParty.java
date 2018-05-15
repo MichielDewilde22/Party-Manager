@@ -50,8 +50,8 @@ public class chooseParty extends javax.swing.JFrame {
         File_Chooser.setAcceptAllFileFilterUsed(false);
 
         New_Party.setTitle("Create new party");
-        New_Party.setLocationRelativeTo(null);
         New_Party.setMinimumSize(new java.awt.Dimension(500, 250));
+        New_Party.setLocationRelativeTo(null);
         New_Party.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 New_PartyWindowClosing(evt);

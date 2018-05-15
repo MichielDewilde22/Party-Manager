@@ -13,7 +13,6 @@
     <Container class="javax.swing.JDialog" name="New_Party">
       <Properties>
         <Property name="title" type="java.lang.String" value="Create new party"/>
-        <Property name="location" postCode="New_Party.setLocationRelativeTo(null);"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[500, 250]"/>
         </Property>
@@ -21,6 +20,9 @@
       <Events>
         <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="New_PartyWindowClosing"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="New_Party.setLocationRelativeTo(null);"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">

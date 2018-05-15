@@ -5,7 +5,7 @@
     <Container class="javax.swing.JDialog" name="ChangePin">
       <Properties>
         <Property name="title" type="java.lang.String" value="Change pincode"/>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor" postCode="ChangePin.setLocationRelativeTo(null);">
           <Dimension value="[350, 250]"/>
         </Property>
         <Property name="modalityType" type="java.awt.Dialog$ModalityType" editor="org.netbeans.modules.form.editors.EnumEditor">

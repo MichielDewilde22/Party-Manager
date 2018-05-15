@@ -95,7 +95,8 @@ public class Action {
             for(String x : keys)
             {
                 //String s = x+": "+ PartyManager.party.getAttendee(x).getPin()+"\n";
-                writer.write(x+": "+ PartyManager.party.getAttendee(x).getPin()+"\n\n");
+                writer.write(x+": "+ PartyManager.party.getAttendee(x).getPin());
+                writer.newLine();
             }
             writer.flush();
             writer.close();
