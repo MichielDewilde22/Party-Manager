@@ -1,5 +1,6 @@
 package partymanager;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -89,24 +90,18 @@ public class Action {
     public void exportPassword() 
     {
         try {
-            File file = new File("sdrowssap.txt");
-            file.createNewFile();
-            FileWriter writer = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(new FileWriter("sdrowssap.txt"));
             Set<String> keys = PartyManager.party.getAttendees().keySet();
             for(String x : keys)
             {
-             String s = x+": "+ PartyManager.party.getAttendee(x).getPin()+"\n";
-             writer.write(s);
-             writer.flush();
+                //String s = x+": "+ PartyManager.party.getAttendee(x).getPin()+"\n";
+                writer.write(x+": "+ PartyManager.party.getAttendee(x).getPin()+"\n\n");
             }
+            writer.flush();
             writer.close();
-        }catch(FileNotFoundException ex2){
-            System.out.println("File not found error");
-        } 
-        catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(Action.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+    }
         
     }
     public static List divide(List list) {
