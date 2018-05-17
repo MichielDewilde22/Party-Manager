@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
@@ -86,7 +87,7 @@ public class admin extends javax.swing.JFrame {
     public void updateEditPerson(Person person)
     {
         Edit_PersonName.setText(person.getName());
-        
+        EditB.clear();
         Edit_PBlackList.setModel(EditB);
         ArrayList<String> black = person.getBlacklistP();
         for(Iterator<String> it = black.iterator(); it.hasNext(); )
@@ -122,9 +123,9 @@ public class admin extends javax.swing.JFrame {
                 {
                    BlackListEdit.addElement(BlackLists.getElementAt(j-1)); 
                    BlackLists.remove(j-1);
-                   
+                          
                 }
-                if(BlackLists.getElementAt(j-1).toString().equals(name))
+                else if(BlackLists.getElementAt(j-1).toString().equals(name))
                     BlackLists.remove(j-1);
                 
             }
@@ -170,8 +171,7 @@ public class admin extends javax.swing.JFrame {
         {
             if(grp.getName().equals(name))
                 per = grp;
-            else
-                per = null;
+            
         }
         if(per!=null)
         {
@@ -345,17 +345,14 @@ public class admin extends javax.swing.JFrame {
         Wishlist_Save = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         NewItem = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        RevealHide = new javax.swing.JToggleButton();
-        PersonName = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jScrollPane12 = new javax.swing.JScrollPane();
         WishListDraw = new javax.swing.JList<>();
-        jLabel18 = new javax.swing.JLabel();
-        PersonName1 = new javax.swing.JLabel();
-        RevealHide1 = new javax.swing.JToggleButton();
+        jLabel16 = new javax.swing.JLabel();
+        RevealHide = new javax.swing.JToggleButton();
+        PersonName = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         ExportAD = new javax.swing.JMenuItem();
@@ -678,7 +675,7 @@ public class admin extends javax.swing.JFrame {
         ImportFileFrame.setAcceptAllFileFilterUsed(false);
         ImportFileFrame.setDialogTitle("");
 
-        WarningPopUp.setMinimumSize(new java.awt.Dimension(366, 239));
+        WarningPopUp.setMinimumSize(new java.awt.Dimension(692, 431));
         WarningPopUp.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         WarningPopUp.setLocationRelativeTo(null);
         WarningPopUp.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -687,8 +684,9 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("Are you Sure you want to delete:");
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Are you sure you want to delete");
 
         acceptrem.setText("yes");
         acceptrem.addActionListener(new java.awt.event.ActionListener() {
@@ -704,41 +702,39 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
-        RemovedItem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        RemovedItem.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        RemovedItem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout WarningPopUpLayout = new javax.swing.GroupLayout(WarningPopUp.getContentPane());
         WarningPopUp.getContentPane().setLayout(WarningPopUpLayout);
         WarningPopUpLayout.setHorizontalGroup(
             WarningPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WarningPopUpLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
                 .addGroup(WarningPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(WarningPopUpLayout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(acceptrem, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(denyRem, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 56, Short.MAX_VALUE))
-                    .addGroup(WarningPopUpLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RemovedItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(39, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WarningPopUpLayout.createSequentialGroup()
+                        .addGroup(WarningPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(RemovedItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(WarningPopUpLayout.createSequentialGroup()
+                                .addComponent(acceptrem, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(denyRem, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(54, 54, 54))))
         );
-
-        WarningPopUpLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {acceptrem, denyRem});
-
         WarningPopUpLayout.setVerticalGroup(
             WarningPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WarningPopUpLayout.createSequentialGroup()
                 .addGap(79, 79, 79)
-                .addGroup(WarningPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(RemovedItem, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addGroup(WarningPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(denyRem)
-                    .addComponent(acceptrem))
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(RemovedItem, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(WarningPopUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(denyRem, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(acceptrem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(43, 43, 43))
         );
 
@@ -877,7 +873,7 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap(78, Short.MAX_VALUE))
         );
 
-        WarningPopUp2.setMinimumSize(new java.awt.Dimension(355, 227));
+        WarningPopUp2.setMinimumSize(new java.awt.Dimension(692, 431));
         WarningPopUp2.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         WarningPopUp2.setLocationRelativeTo(null);
         WarningPopUp2.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -886,8 +882,11 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel14.setText("Are you Sure you want to delete:");
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Are you sure you want to delete");
+        jLabel14.setMaximumSize(new java.awt.Dimension(202, 17));
+        jLabel14.setMinimumSize(new java.awt.Dimension(202, 17));
 
         acceptremPers.setText("yes");
         acceptremPers.addActionListener(new java.awt.event.ActionListener() {
@@ -903,38 +902,40 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
-        RemovedItemPer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        RemovedItemPer.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        RemovedItemPer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout WarningPopUp2Layout = new javax.swing.GroupLayout(WarningPopUp2.getContentPane());
         WarningPopUp2.getContentPane().setLayout(WarningPopUp2Layout);
         WarningPopUp2Layout.setHorizontalGroup(
             WarningPopUp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WarningPopUp2Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
                 .addGroup(WarningPopUp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(WarningPopUp2Layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(acceptremPers, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(denyRemPers, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 56, Short.MAX_VALUE))
+                        .addComponent(RemovedItemPer, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(WarningPopUp2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RemovedItemPer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(acceptremPers, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(denyRemPers, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WarningPopUp2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
         WarningPopUp2Layout.setVerticalGroup(
             WarningPopUp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WarningPopUp2Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addGap(83, 83, 83)
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RemovedItemPer, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(WarningPopUp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(RemovedItemPer, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addGroup(WarningPopUp2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(denyRemPers)
-                    .addComponent(acceptremPers))
+                    .addComponent(denyRemPers, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(acceptremPers, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43))
         );
 
@@ -1136,7 +1137,7 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(Person_edit)
                     .addComponent(BlacklistPButton)
                     .addComponent(Person_add))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {BlacklistPButton, Person_add, Person_delete, Person_edit});
@@ -1191,7 +1192,7 @@ public class admin extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(removeGroup, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(addGroup)
@@ -1251,7 +1252,7 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(pref1_RButton)
                     .addComponent(pref2_RButton)
                     .addComponent(pref3_RButton))
-                .addContainerGap(446, Short.MAX_VALUE))
+                .addContainerGap(489, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1280,7 +1281,7 @@ public class admin extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 672, Short.MAX_VALUE)
+            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1319,14 +1320,16 @@ public class admin extends javax.swing.JFrame {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(NewItem))
-                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addComponent(NewItem, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Wishlist_Add, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Wishlist_Delete, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1338,32 +1341,23 @@ public class admin extends javax.swing.JFrame {
 
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(NewItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Wishlist_Add))
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(NewItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Wishlist_Add))
                         .addGap(67, 67, 67)
                         .addComponent(Wishlist_Delete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Wishlist_Save)
-                        .addContainerGap())))
+                        .addComponent(Wishlist_Save))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addContainerGap(98, Short.MAX_VALUE)
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
-
-        jLabel16.setText("This is the person you drew:");
-
-        RevealHide.setText("Reveal");
-        RevealHide.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RevealHideActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1371,29 +1365,15 @@ public class admin extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RevealHide)
-                        .addGap(41, 41, 41))))
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RevealHide))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Admin Whishlist", jPanel3);
@@ -1412,7 +1392,7 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(jScrollPane12)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel17)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 531, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -1421,18 +1401,9 @@ public class admin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jLabel18.setText("This is the person you drew:");
-
-        RevealHide1.setText("Reveal");
-        RevealHide1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RevealHide1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1440,31 +1411,27 @@ public class admin extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PersonName1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
-                        .addComponent(RevealHide1)))
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PersonName1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RevealHide1))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Wishlist Drawn", jPanel10);
+
+        jLabel16.setText("This is the person you drew:");
+
+        RevealHide.setText("Reveal");
+        RevealHide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RevealHideActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -1504,12 +1471,25 @@ public class admin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RevealHide)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PersonName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RevealHide))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         pack();
@@ -1533,6 +1513,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Person_editActionPerformed
 
     private void Person_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_addActionPerformed
+        EditB.clear();
         add = true;
         System.out.println("add turned on"); //checkprint
         AddPersonDialog.setVisible(true);
@@ -1590,6 +1571,8 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_pref1_RButtonActionPerformed
 
     private void Person_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_saveActionPerformed
+    if(!Edit_PersonName.getText().equals(""))
+    {
         Person member;
         //int index;
         PersonList.setModel(persons);
@@ -1613,6 +1596,12 @@ public class admin extends javax.swing.JFrame {
             persons.setElementAt(name, indexP);
             PartyManager.party.getAttendee(name).setBlacklistP(memberbl);
         }
+    }
+    else
+    {
+        popupText.setText("A person needs a name");
+        popup.setVisible(true);
+    }
         Edit_PersonName.setText("");
         EditB.removeAllElements();
     }//GEN-LAST:event_Person_saveActionPerformed
@@ -1628,8 +1617,16 @@ public class admin extends javax.swing.JFrame {
     private void Person_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_deleteActionPerformed
        if(PersonList.getSelectedValue() != null)
        {
+           if(!PartyManager.partyDetails.getAdmin().equalsIgnoreCase(PersonList.getSelectedValue()))
+           {
             RemovedItemPer.setText(PersonList.getSelectedValue());
             WarningPopUp2.setVisible(true);
+           }
+           else
+           {
+               popupText.setText("You cannot delete the Admin");
+               popup.setVisible(true);
+           }
         }
         
        
@@ -1823,8 +1820,9 @@ public class admin extends javax.swing.JFrame {
 //            }
 //        }
         groupExists = true;
-        editGroup(group_List.getSelectedValue());
         indexG = group_List.getSelectedIndex();
+        editGroup(group_List.getSelectedValue());
+        
         
         }
     }//GEN-LAST:event_editGroupsActionPerformed
@@ -1982,6 +1980,19 @@ public class admin extends javax.swing.JFrame {
         String name = PersonList.getSelectedValue();
         persons.remove(indexP);
         PartyManager.party.deletepartyMember(name);
+        Set<String> k = PartyManager.party.getAttendees().keySet();
+        Iterator<String> it = k.iterator();
+        while(it.hasNext())
+        {
+            Person p = PartyManager.party.getAttendee(it.next());
+            if(p.getBlacklistP().contains(name))
+                p.getBlacklistP().remove(name);
+        }
+        for(int i = 0;i<PartyManager.groups.size();i++)
+        {
+            if(PartyManager.groups.get(i).containsMember(name))
+                PartyManager.groups.get(i).removeMember(name);
+        }
         WarningPopUp2.setVisible(false);
     }//GEN-LAST:event_acceptremPersActionPerformed
 
@@ -2049,18 +2060,6 @@ public class admin extends javax.swing.JFrame {
             RevealHide.setText("Reveal");
         }
     }//GEN-LAST:event_RevealHideActionPerformed
-
-    private void RevealHide1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevealHide1ActionPerformed
-        if (RevealHide1.isSelected()) {
-            PersonName1.setText(PartyManager.party.getAttendee(p.getAdmin()).getChosen());
-            PersonName1.setVisible(true);
-            RevealHide1.setText("Hide");
-        }
-        else {
-            PersonName1.setVisible(false);
-            RevealHide1.setText("Reveal");
-        }
-    }//GEN-LAST:event_RevealHide1ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         ExitDialog.setVisible(true);
@@ -2145,7 +2144,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JPanel Party_det;
     private javax.swing.JList<String> PersonList;
     private javax.swing.JLabel PersonName;
-    private javax.swing.JLabel PersonName1;
     private javax.swing.JButton Person_add;
     private javax.swing.JButton Person_delete;
     private javax.swing.JButton Person_edit;
@@ -2156,7 +2154,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel RemovedItem;
     private javax.swing.JLabel RemovedItemPer;
     private javax.swing.JToggleButton RevealHide;
-    private javax.swing.JToggleButton RevealHide1;
     private javax.swing.JMenuItem SaveAd;
     private javax.swing.JButton Save_Blacklist;
     private javax.swing.JButton Save_Group1;
@@ -2191,7 +2188,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

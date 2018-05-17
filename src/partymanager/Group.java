@@ -48,4 +48,12 @@ private ArrayList<String> members = new ArrayList<>();
             PartyManager.party.getAttendee(members.get(i)).addBlacklistP(members);
         }
     }
+    
+    public boolean containsMember(String name)
+    {
+        if(members.contains(name))
+            return true;
+        else
+            return false;
+    }
 }
