@@ -44,8 +44,17 @@ private ArrayList<String> members = new ArrayList<>();
     }
 
     public void groupToBlacklistP() {
+        ArrayList<String> temp = members;
         for (int i=0; i<members.size(); i++) {
-            PartyManager.party.getAttendee(members.get(i)).addBlacklistP(members);
+            for(String n : temp)
+            {
+                if(!PartyManager.party.getAttendee(members.get(i)).getName().equalsIgnoreCase(n))
+                {
+                    if(!PartyManager.party.getAttendee(members.get(i)).getBlacklistP().contains(n))
+                        PartyManager.party.getAttendee(members.get(i)).AddBlacklistName(n);
+                }
+            }
+            
         }
     }
     

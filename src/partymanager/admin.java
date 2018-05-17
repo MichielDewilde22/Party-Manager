@@ -1084,7 +1084,7 @@ public class admin extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Info", jPanel5);
@@ -1263,7 +1263,7 @@ public class admin extends javax.swing.JFrame {
                 .addComponent(pref2_RButton)
                 .addGap(18, 18, 18)
                 .addComponent(pref3_RButton)
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addContainerGap(424, Short.MAX_VALUE))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {pref1_RButton, pref2_RButton, pref3_RButton});
@@ -1373,7 +1373,7 @@ public class admin extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Admin Whishlist", jPanel3);
@@ -1419,7 +1419,7 @@ public class admin extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Wishlist Drawn", jPanel10);
@@ -1575,7 +1575,7 @@ public class admin extends javax.swing.JFrame {
     {
         Person member;
         //int index;
-        PersonList.setModel(persons);
+        //PersonList.setModel(persons);
         String name = Edit_PersonName.getText();
         member = new Person(name,false);
         ArrayList<String> memberbl = new ArrayList<>();
@@ -1592,7 +1592,7 @@ public class admin extends javax.swing.JFrame {
         }
         else
         {
-            //index = PersonList.getSelectedIndex();
+            indexP = PersonList.getSelectedIndex();
             persons.setElementAt(name, indexP);
             PartyManager.party.getAttendee(name).setBlacklistP(memberbl);
         }
@@ -1609,10 +1609,6 @@ public class admin extends javax.swing.JFrame {
     private void Edit_PersonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_PersonNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Edit_PersonNameActionPerformed
-
-    private void PersonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PersonListMouseClicked
-       indexP = PersonList.getSelectedIndex();
-    }//GEN-LAST:event_PersonListMouseClicked
 
     private void Person_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_deleteActionPerformed
        if(PersonList.getSelectedValue() != null)
@@ -1865,8 +1861,8 @@ public class admin extends javax.swing.JFrame {
         if(groupExists == true)
         {  
             for(int i =0;i<PartyManager.groups.size();i++)
-            {
-                if(PartyManager.groups.get(i).getName().equals(selectG.getElementAt(indexG)));
+            {                
+                if(PartyManager.groups.get(i).getName().equals((selectG.getElementAt(indexG).toString())))
                 {
                     PartyManager.groups.get(i).setName(groupfield.getText());
                     for(int j = 0;j<group.getMembers().size();j++)
@@ -1888,8 +1884,8 @@ public class admin extends javax.swing.JFrame {
 //                   }
                 }
             }
-            selectG.removeElementAt(indexG);
-            selectG.addElement(groupfield.getText());
+            selectG.setElementAt(groupfield.getText(),indexG);
+            
         }
         else
         {
@@ -1978,6 +1974,7 @@ public class admin extends javax.swing.JFrame {
 
     private void acceptremPersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptremPersActionPerformed
         String name = PersonList.getSelectedValue();
+        indexP = PersonList.getSelectedIndex();
         persons.remove(indexP);
         PartyManager.party.deletepartyMember(name);
         Set<String> k = PartyManager.party.getAttendees().keySet();
@@ -2077,6 +2074,10 @@ public class admin extends javax.swing.JFrame {
     private void ExitDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_ExitDialogWindowClosing
         this.setVisible(true);
     }//GEN-LAST:event_ExitDialogWindowClosing
+
+    private void PersonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PersonListMouseClicked
+        indexP = PersonList.getSelectedIndex();
+    }//GEN-LAST:event_PersonListMouseClicked
 
     /**
      * @param args the command line arguments

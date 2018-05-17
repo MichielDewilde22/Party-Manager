@@ -1,5 +1,4 @@
-barry: 9359
 Bert: 8507
+ju: 5309
 Admin: 0000
 Andreas: 1836
-Michiel: 3449
