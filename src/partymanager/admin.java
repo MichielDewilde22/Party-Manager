@@ -1607,6 +1607,15 @@ public class admin extends javax.swing.JFrame {
                         grp.removeMember(name1);
                     }
                 }
+                Set<String> k = PartyManager.party.getAttendees().keySet();
+                for(String n : k)
+                {
+                    if(PartyManager.party.getAttendee(n).getBlacklistP().contains(name1))
+                    {
+                        PartyManager.party.getAttendee(n).getBlacklistP().remove(name1);
+                        PartyManager.party.getAttendee(n).getBlacklistP().add(name);
+                    }
+                }
             }
             persons.setElementAt(name, indexP);
             PartyManager.party.getAttendee(name).setBlacklistP(memberbl);
