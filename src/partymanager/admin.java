@@ -1838,15 +1838,26 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_removeGroupActionPerformed
 
     private void acceptremActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptremActionPerformed
-        int remove = group_List.getSelectedIndex();
+        int removing = group_List.getSelectedIndex();
         Iterator<Group> it = PartyManager.groups.iterator();
         while(it.hasNext()) 
         {
-            if(it.next().getName().equals(group_List.getSelectedValue()))
-                it.remove();
+            Group group = it.next();
+            if(group.getName().equals(group_List.getSelectedValue())) {
+                for (int i=0;i<group.getMembers().size();i++) {
+                    String name = group.getMembers().get(i);
+                    for (int j=0;j<group.getMembers().size();j++) {
+                       String remove = group.getMembers().get(j);
+                       if (!remove.equals(name)) {
+                           PartyManager.party.getAttendee(name).RemoveBlacklistName(remove);
+                       }
+                    }
+                }
                 
+                it.remove();
+            }   
         }
-        selectG.remove(remove);       
+        selectG.remove(removing);       
         WarningPopUp.setVisible(false);
     }//GEN-LAST:event_acceptremActionPerformed
 
@@ -1915,12 +1926,24 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Save_Group1ActionPerformed
 
     private void Remove_GroupButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Remove_GroupButton2ActionPerformed
-        if(New_groupL.getSelectedValue() != null && (newG.getSize() != 1))
-        {
+        if(New_groupL.getSelectedValue() != null && (newG.getSize() != 1)) {
             int removing = New_groupL.getSelectedIndex();
             String name = New_groupL.getSelectedValue();
             AllpersGroup.addElement(name);      
             newG.removeElementAt(removing);
+            
+            for(int i =0;i<PartyManager.groups.size();i++) {                
+                if(PartyManager.groups.get(i).getName().equals(groupfield.getText())) {
+                    Group group = PartyManager.groups.get(i);
+                    for(int j = 0;j<group.getMembers().size();j++) {
+                        Person member = PartyManager.party.getAttendee(group.getMembers().get(j));
+                        if (!member.getName().equals(name)) {
+                            member.RemoveBlacklistName(name);
+                            PartyManager.party.getAttendee(name).RemoveBlacklistName(member.getName());
+                        }
+                    }
+                }
+            }
         }
         else
         {
