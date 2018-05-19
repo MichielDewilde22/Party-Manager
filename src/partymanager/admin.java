@@ -1593,8 +1593,25 @@ public class admin extends javax.swing.JFrame {
         else
         {
             indexP = PersonList.getSelectedIndex();
+            String name1 = PersonList.getSelectedValue();
+            Person p = PartyManager.party.getAttendees().get(name1);
+            if(!name.equalsIgnoreCase(name1))
+            {
+                PartyManager.party.getAttendees().put(name, p);
+                PartyManager.party.getAttendees().remove(name1, p);
+                for(Group grp : PartyManager.groups)
+                {
+                    if(grp.containsMember(name1))
+                    {
+                        grp.addMember(name);
+                        grp.removeMember(name1);
+                    }
+                }
+            }
             persons.setElementAt(name, indexP);
             PartyManager.party.getAttendee(name).setBlacklistP(memberbl);
+            PartyManager.party.getAttendee(name).setName(name);
+            
         }
     }
     else
