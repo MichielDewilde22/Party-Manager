@@ -17,7 +17,11 @@ import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * This class defines the global actions an admin can execute
+ * including: saving,importing,exporting list and passwords and dividing the names
+ * @author Andreas Durt, Michiel Dewilde
+ */
 public class Action {
     
     public static ArrayList<String> give;
@@ -25,6 +29,9 @@ public class Action {
     public Person giver;
     public Person getter;
     
+    /**
+     * Creates an action object with two empty arraylists
+     */
     public Action()
     {
         give = new ArrayList<>();
@@ -39,6 +46,10 @@ public class Action {
             Logger.getLogger(Action.class.getName()).log(Level.SEVERE, null, ex);
         }
     }*/
+    /**
+     * This method saves the given hashmap to a savefile in the src directory
+     * @param X the hashmap that will be saved to a the savefile
+     */
     public void saveFile(HashMap X)
     {
         File file = new File("SaveFile.ser");
@@ -54,7 +65,10 @@ public class Action {
             Logger.getLogger(Action.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
-    
+    /**
+     * Import a serialized file that contains a hashmap.
+     * @param file the serialize file of the hashmap: key = String, Value = Person
+     */
     public void ImportFile(File file)
     {
         PartyManager.party.clear();
@@ -71,7 +85,11 @@ public class Action {
         }
         PartyManager.party.setAttendees(map);
     }
-    
+    /**
+     * Export the current hashmap to a chosen directory
+     * @param Path the path to the directory where the file needs to be saved
+     * @param X the hashmap tha will be exported
+     */
     public void ExportFile(String Path,HashMap X)
     {
         File file = new File(Path);
@@ -87,6 +105,9 @@ public class Action {
             Logger.getLogger(Action.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
+    /**
+     * Export a list of users and passwords tot a .txt file in the src directory
+     */
     public void exportPassword() 
     {
         try {
@@ -105,6 +126,11 @@ public class Action {
     }
         
     }
+    /**
+     * Divid names among the persons of the party randomly.
+     * @param list the list of attendees
+     * @return the divided list of attendees
+     */
     public static List divide(List list) {
         List temporary = new List();
         temporary = list;
