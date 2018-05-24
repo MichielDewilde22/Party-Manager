@@ -12,7 +12,7 @@ public class PartyManager {
         {
             try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) { //set theme to "Windows"
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

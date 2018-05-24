@@ -31,7 +31,7 @@ public class User extends javax.swing.JFrame {
         person = party.getAttendee(name);
         initComponents();
         if (person.getPinChanged()==false) {
-            ChangePin.setVisible(true);
+            ChangePin.setVisible(true); //Users must change their pincode if not already changed!
         }
     }
 
@@ -440,7 +440,6 @@ public class User extends javax.swing.JFrame {
     private void Wishlist_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_DeleteActionPerformed
         if(Wishlist.getSelectedValue() != null)
         {
-            //Wishlist.setModel(WishListEdit);
             int removing = Wishlist.getSelectedIndex();
             String name = Wishlist.getSelectedValue();
             WishListEdit.removeElementAt(removing);

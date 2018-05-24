@@ -38,14 +38,6 @@ public class Action {
         get = new ArrayList<>();
         
     }
-    /*public boolean export(String path)
-    {
-        try {
-            FileOutputStream fileout = new FileOutputStream(path);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Action.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
     /**
      * This method saves the given hashmap to a savefile in the src directory
      * @param X the hashmap that will be saved to a the savefile
@@ -115,7 +107,6 @@ public class Action {
             Set<String> keys = PartyManager.party.getAttendees().keySet();
             for(String x : keys)
             {
-                //String s = x+": "+ PartyManager.party.getAttendee(x).getPin()+"\n";
                 writer.write(x+": "+ PartyManager.party.getAttendee(x).getPin());
                 writer.newLine();
             }
@@ -133,8 +124,8 @@ public class Action {
      */
     public static List divide(List list) {
         List temporary = new List();
-        temporary = list;
-        boolean busy = true;
+        temporary = list; //Make a temporary list
+        boolean busy = true; //Busy is true until a match is succesfull
         Random rand = new Random();
         int count = 0;
         int i = 0;
@@ -146,28 +137,28 @@ public class Action {
             Person giver = temporary.getAttendee(give.get(i));
             Person getter = temporary.getAttendee(get.get(i));
             if (giver.getName().equals(getter.getName()) || (getter.getChosen().equals(giver.getName()) && !PartyManager.partyDetails.getEachOther()) || (giver.onBlacklistP(getter.getName()) && PartyManager.partyDetails.blacklistEnabled())) {
-                shuffle(get);
-                temporary = list;
-                i=0;
+                shuffle(get); //if no succesfull match: shuffle again
+                temporary = list; //temporary is reset to list: all matches are reset
+                i=0; //start again in the beginning of the arraylist
             }
             else
             {
-                giver.setChosen(getter.getName());
-                getter.setIschosen(true);
-                i++;
+                giver.setChosen(getter.getName()); //if succesfull match: set the getter in the giver
+                getter.setIschosen(true); //set chosen
+                i++; //go to next person in the arraylist
             }
             if (i>=give.size())
-                busy = false;
+                busy = false; //if everyone has a match: matching done
             count++;
-            if(count>10000000)
+            if(count>10000000) //stop after 10 millions tries
                 break;
         } while (busy);
         
         if (!busy) {
-            return temporary;
+            return temporary; //return the new list if matching was succesfull
         }
         else {
-            return null;
+            return null; //return null if matching was not succesfull
         }
     }
     
