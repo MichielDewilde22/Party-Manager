@@ -277,9 +277,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Edit_PersonName">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Edit_PersonNameActionPerformed"/>
-          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>

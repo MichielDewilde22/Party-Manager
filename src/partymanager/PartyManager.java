@@ -2,7 +2,11 @@ package partymanager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * This is the main class of the program
+ * Here the first window is opened and the choice of the window theme is made
+ * @author Andreas Durt, Michiel Dewilde
+ */
 public class PartyManager {
     public static List party = new List();
     public static Party partyDetails = new Party();

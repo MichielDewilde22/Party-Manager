@@ -12,8 +12,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
- * @author Andredur
+ * Defines the choose party GUI
+ * @author Michiel Dewilde, Andreas Durt
  */
 public class chooseParty extends javax.swing.JFrame {
     private Action action = new Action();

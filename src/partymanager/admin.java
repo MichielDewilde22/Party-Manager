@@ -24,8 +24,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Andredur
+ *Defines the GUI for the admin 
+ * @author Andreas Durt, Michiel Dewilde
  */
 public class admin extends javax.swing.JFrame {
     private Party p = PartyManager.partyDetails;
@@ -55,6 +55,9 @@ public class admin extends javax.swing.JFrame {
         initComponents();
         
     }
+    /**
+     * Updates the defaultlistmodel of the partydetails list
+     */
     public void updateParty()
     {
         DefaultTableModel model = (DefaultTableModel) Party_Table.getModel();
@@ -65,17 +68,30 @@ public class admin extends javax.swing.JFrame {
         model.setValueAt(p.getMinPrice(), 4, 1);
         model.setValueAt(p.getMaxPrice(), 5, 1);
     }
+    /**
+     * Hide a row in the given listmodel at the given index
+     * @param model the model that needs to be modified
+     * @param x the index of the row that needs to be removed/hidden
+     */
     public void HidePartyRow(DefaultTableModel model, int x)
     {
        // DefaultTableModel model = (DefaultTableModel) Party_Table.getModel(); 
        model.removeRow(x);
     }
+    /**
+     * Reveal a row in the given listmodel at a given index
+     * @param model the model that needs to be modified
+     * @param x the index of the row that needs to be reavealed/added
+     */
     public void RevealPartyRow(DefaultTableModel model, int x)
     {
         //DefaultTableModel model = (DefaultTableModel) Party_Table.getModel();
         String[] partydet = {"Date","Time","Place","Administrator","Minimum Price","Maximum Price"};
         model.addRow(new Object[]{partydet[x],"",""});
     }
+    /**
+     * Updates the defaultlistmodel of the list with all the persons of the party 
+     */
     public void updateAllpersons()
     {
         persons.clear();
@@ -84,6 +100,10 @@ public class admin extends javax.swing.JFrame {
         for(String name : Allattendees)
             persons.addElement(name);
     }
+    /**
+     * Update the lists of the edit person frame with the details of the chosen person
+     * @param person person that is being edited
+     */
     public void updateEditPerson(Person person)
     {
         Edit_PersonName.setText(person.getName());
@@ -97,6 +117,10 @@ public class admin extends javax.swing.JFrame {
         }
         
     }
+    /**
+     * Updates the defaultlistmodel of the group list of a person
+     * @param person the person whose groups are being shown
+     */
     public void updateSelectGroup(Person person)
     {
         selectG.clear();
@@ -105,60 +129,48 @@ public class admin extends javax.swing.JFrame {
         for(String name: groups)
             selectG.addElement(name);
     }
+    /**
+     * Setup the blacklistmodels for a certain person
+     * @param name the person whos blacklist needs to be shown
+     */
     public void setupBlackList(String name)
     {
         BlackLists.clear();
         BlackListEdit.clear();
-        for(int i=0;i<persons.getSize();i++)
+        for(int i=0;i<persons.getSize();i++)            //fill Blacklists with the names from persons
         {
             BlackLists.addElement(persons.elementAt(i));
         }
         BlackList_all.setModel(BlackLists);
-        if(PartyManager.party.contains(name))
+        if(PartyManager.party.contains(name))           //check if the person you want to update exists
         {
-            for(int j=BlackLists.getSize();j>0;j--)
+            for(int j=BlackLists.getSize();j>0;j--)     //iterate over the blacklists in reverse order
             {
                 ArrayList<String> test = PartyManager.party.getAttendee(name).getBlacklistP();
-                if(PartyManager.party.getAttendee(name).getBlacklistP().contains(BlackLists.elementAt(j-1).toString()))
+                if(PartyManager.party.getAttendee(name).getBlacklistP().contains(BlackLists.elementAt(j-1).toString())) //check if a person is on the blacklist of the person being edited
                 {
-                   BlackListEdit.addElement(BlackLists.getElementAt(j-1)); 
-                   BlackLists.remove(j-1);
+                   BlackListEdit.addElement(BlackLists.getElementAt(j-1));      //add to the list of blacklisted people
+                   BlackLists.remove(j-1);                                      // remove from the list of not balcklisted peopel
                           
                 }
-                else if(BlackLists.getElementAt(j-1).toString().equals(name))
+                else if(BlackLists.getElementAt(j-1).toString().equals(name))   //check if the name is yours then remove it
                     BlackLists.remove(j-1);
                 
             }
-            for(int j=0;j<BlackListEdit.getSize();j++)
+            for(int j=0;j<BlackListEdit.getSize();j++)                          //check if you are on your own blacklist if correct remove yourself from it
             {
                 if(BlackListEdit.getElementAt(j).toString().equals(name))
                     BlackListEdit.remove(j);
             }
         
         }
-        BlackList_P.setModel(BlackListEdit);
-        BlackListDialog.setVisible(true);
+        BlackList_P.setModel(BlackListEdit);                                    // set model of the list with blacklisted persons
+        BlackListDialog.setVisible(true);                                       //make dialog visible
     }
-//    public void setupGroup(String name)
-//    {
-//        for (Group group : PartyManager.groups)
-//        {
-//            Allgroups.addElement(group.getName());
-//        }
-//        Groups_all.setModel(Allgroups);
-//        if(PartyManager.party.contains(name))
-//        {
-//            Groups_P.setModel(selectG);
-//            for(int j=0;j<Allgroups.getSize();j++)
-//            {
-//                if(PartyManager.party.getAttendee(name).getGroups().contains(Allgroups.elementAt(j).toString()))
-//                { 
-//                   Allgroups.remove(j);
-//                }
-//            }        
-//        
-//        }
-//    }
+    /**
+     * Edit the details of a group 
+     * @param name group that is being edited
+     */
     public void editGroup(String name)
     {
         Group per = null;
@@ -166,34 +178,37 @@ public class admin extends javax.swing.JFrame {
         {
             AllpersGroup.addElement(persons.elementAt(i));
         }
-        AllGroups_l.setModel(AllpersGroup);
+        AllGroups_l.setModel(AllpersGroup);                            //set up list with all persons
         for(Group grp: PartyManager.groups)
         {
-            if(grp.getName().equals(name))
+            if(grp.getName().equals(name))                             // get the group corresponding to the given name
                 per = grp;
             
         }
         if(per!=null)
         {
             ArrayList<String> names = per.getMembers();
-            for(int j=AllpersGroup.getSize();j>0;j--)
+            for(int j=AllpersGroup.getSize();j>0;j--)                           
             {
-                if(names.contains(AllpersGroup.elementAt(j-1).toString()))
+                if(names.contains(AllpersGroup.elementAt(j-1).toString()))  // if person is part of the group 
                 {
-                   newG.addElement(AllpersGroup.getElementAt(j-1)); 
-                   AllpersGroup.remove(j-1);
+                   newG.addElement(AllpersGroup.getElementAt(j-1));         // add to list of people in the group
+                   AllpersGroup.remove(j-1);                                // remove from list with all people not in the group
                 }
                 
             }        
         
         }
-        else
+        else                                                                
         {
-            newG.clear();
+            newG.clear();    //clear the list with people who are in the group
         }
         New_groupL.setModel(newG);
         AddGroupDialog.setVisible(true);
     }
+    /**
+     * update the list,defaultlistmodel that displays all the groups 
+     */
     public void updateAllgroups()
     {
         selectG.clear();
@@ -202,6 +217,10 @@ public class admin extends javax.swing.JFrame {
         for(Group grp : Allgroups)
             selectG.addElement(grp.getName());
     }
+    /**
+     * update the list,defaultlistmodel of groupmembers
+     * @param name name of the group
+     */
     public void updatePartOfGroup(String name)
     {
         GroupsPer.clear();
@@ -214,6 +233,9 @@ public class admin extends javax.swing.JFrame {
             }
         }    
     }
+    /**
+     * update and show the wishlist,defaultlistmodel the wishlist of the admin
+     */
     public void updateWishlist() {
         WishlistAd.clear();
         Wishlist.setModel(WishlistAd);
@@ -223,6 +245,9 @@ public class admin extends javax.swing.JFrame {
         }
         
     }
+    /**
+     * update and show the wishlist,defaultlistmodel of the person that the admin has drawn
+     */
      public void updateWishlistDrawn() {
         WishlistAdDraw.clear();
         WishListDraw.setModel(WishlistAdDraw);
@@ -232,14 +257,7 @@ public class admin extends javax.swing.JFrame {
         }
         
     }
-//    private void FillComboP()
-//    {
-//        ArrayList<String> names = PartyManager.party.getNames();
-//        for(int i =0;i<names.size();i++)
-//        {
-//            ComboB_Person.addItem(names.get(i));
-//        }
-//    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -484,12 +502,6 @@ public class admin extends javax.swing.JFrame {
         });
 
         jLabel7.setText("Person:");
-
-        Edit_PersonName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Edit_PersonNameActionPerformed(evt);
-            }
-        });
 
         Edit_PBlackList.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jScrollPane1.setViewportView(Edit_PBlackList);
@@ -1402,7 +1414,7 @@ public class admin extends javax.swing.JFrame {
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -1418,8 +1430,8 @@ public class admin extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Wishlist Drawn", jPanel10);
@@ -1514,7 +1526,7 @@ public class admin extends javax.swing.JFrame {
 
     private void Person_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_addActionPerformed
         EditB.clear();
-        add = true;
+        add = true;     //boolean that checks if you are adding or edititng a person
         System.out.println("add turned on"); //checkprint
         AddPersonDialog.setVisible(true);
     }//GEN-LAST:event_Person_addActionPerformed
@@ -1534,7 +1546,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Min_InputActionPerformed
 
     private void pref2_RButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pref2_RButtonActionPerformed
-        if(pref2_RButton.isSelected())
+        if(pref2_RButton.isSelected())          //enable or disable blacklists
         {
             PartyManager.partyDetails.setBlacklistEnabled(false);
         }
@@ -1545,7 +1557,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_pref2_RButtonActionPerformed
 
     private void pref3_RButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pref3_RButtonActionPerformed
-        DefaultTableModel model = (DefaultTableModel) Party_Table.getModel();
+        DefaultTableModel model = (DefaultTableModel) Party_Table.getModel(); //hide or show maximum and minimum prices
         if(pref3_RButton.isSelected())
         {
             HidePartyRow(model,5);
@@ -1560,7 +1572,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_pref3_RButtonActionPerformed
 
     private void pref1_RButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pref1_RButtonActionPerformed
-        if(pref1_RButton.isSelected())
+        if(pref1_RButton.isSelected())          //enable of disable poeple drawing each other
         {
             PartyManager.partyDetails.setEachOther(true);
         }
@@ -1571,7 +1583,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_pref1_RButtonActionPerformed
 
     private void Person_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_saveActionPerformed
-    if(!Edit_PersonName.getText().equals(""))
+    if(!Edit_PersonName.getText().equals(""))   //if the persons name is not empty save the edits
     {
         Person member;
         //int index;
@@ -1582,7 +1594,7 @@ public class admin extends javax.swing.JFrame {
         for(int i=0;i<EditB.getSize();i++)
             memberbl.add(EditB.getElementAt(i).toString());
         AddPersonDialog.setVisible(false);
-        if(add == true)
+        if(add == true) //if add is true create a new person with the given details
         {
             persons.addElement(name);
             member.setBlacklistP(memberbl);
@@ -1590,16 +1602,16 @@ public class admin extends javax.swing.JFrame {
             add = false;
             System.out.println("add turned off"); //checkprint
         }
-        else
+        else           //if add is not true edit the details of the person
         {
             indexP = PersonList.getSelectedIndex();
             String name1 = PersonList.getSelectedValue();
             Person p = PartyManager.party.getAttendees().get(name1);
-            if(!name.equalsIgnoreCase(name1))
+            if(!name.equalsIgnoreCase(name1))       //check if the name has been edited
             {
-                PartyManager.party.getAttendees().put(name, p);
-                PartyManager.party.getAttendees().remove(name1, p);
-                for(Group grp : PartyManager.groups)
+                PartyManager.party.getAttendees().put(name, p);     //put new person in hashmap
+                PartyManager.party.getAttendees().remove(name1, p); //remove old person from hashmap
+                for(Group grp : PartyManager.groups)                //if the group contained the old member change it to the new memebr
                 {
                     if(grp.containsMember(name1))
                     {
@@ -1608,7 +1620,7 @@ public class admin extends javax.swing.JFrame {
                     }
                 }
                 Set<String> k = PartyManager.party.getAttendees().keySet();
-                for(String n : k)
+                for(String n : k)                                   //if a blacklist contained the old name change it         
                 {
                     if(PartyManager.party.getAttendee(n).getBlacklistP().contains(name1))
                     {
@@ -1617,34 +1629,30 @@ public class admin extends javax.swing.JFrame {
                     }
                 }
             }
-            persons.setElementAt(name, indexP);
-            PartyManager.party.getAttendee(name).setBlacklistP(memberbl);
-            PartyManager.party.getAttendee(name).setName(name);
+            persons.setElementAt(name, indexP);                     //edit the persons list
+            PartyManager.party.getAttendee(name).setBlacklistP(memberbl);//edit the blacklist
+            PartyManager.party.getAttendee(name).setName(name);//edit the name
             
         }
     }
-    else
+    else    //give pop up when trying to create a person without a name
     {
         popupText.setText("A person needs a name");
         popup.setVisible(true);
     }
-        Edit_PersonName.setText("");
-        EditB.removeAllElements();
+        Edit_PersonName.setText("");    //reset textfield
+        EditB.removeAllElements();      //reset list
     }//GEN-LAST:event_Person_saveActionPerformed
 
-    private void Edit_PersonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_PersonNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Edit_PersonNameActionPerformed
-
     private void Person_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Person_deleteActionPerformed
-       if(PersonList.getSelectedValue() != null)
+       if(PersonList.getSelectedValue() != null) //xgexk if a person has been selected
        {
-           if(!PartyManager.partyDetails.getAdmin().equalsIgnoreCase(PersonList.getSelectedValue()))
+           if(!PartyManager.partyDetails.getAdmin().equalsIgnoreCase(PersonList.getSelectedValue()))// check if it is the admin if not you can delete the person
            {
             RemovedItemPer.setText(PersonList.getSelectedValue());
-            WarningPopUp2.setVisible(true);
+            WarningPopUp2.setVisible(true);             //give warning that you are deleting someone
            }
-           else
+           else //ggive warning that you cannot delete the admin
            {
                popupText.setText("You cannot delete the Admin");
                popup.setVisible(true);
@@ -1655,12 +1663,12 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Person_deleteActionPerformed
 
     private void Add_PBlackListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_PBlackListActionPerformed
-       B_Owner.setText(Edit_PersonName.getText());
+       B_Owner.setText(Edit_PersonName.getText()); //start editing blacklist
        setupBlackList(Edit_PersonName.getText());
     }//GEN-LAST:event_Add_PBlackListActionPerformed
 
     private void Add_BlackListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_BlackListButtonActionPerformed
-       if(BlackList_all.getSelectedValue() != null && (BlackLists.getSize() != 1))
+       if(BlackList_all.getSelectedValue() != null && (BlackLists.getSize() != 1)) //add person to blacklist and remove from unblacklisted persons, you cannot blacklist everyone
        {
             BlackList_P.setModel(BlackListEdit);
             int adding = BlackList_all.getSelectedIndex();
@@ -1668,7 +1676,7 @@ public class admin extends javax.swing.JFrame {
             BlackListEdit.addElement(name);
             BlackLists.removeElementAt(adding);
        } 
-       else
+       else     //give a warning that you cannot blacklist everyone
         {
             popupText.setText("You can't blacklist everyone");
             popup.setVisible(true);
@@ -1677,7 +1685,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Add_BlackListButtonActionPerformed
 
     private void BlacklistPButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlacklistPButtonActionPerformed
-        if(PersonList.getSelectedValue() != null)
+        if(PersonList.getSelectedValue() != null)//if a person is selected start editing its blacklist
         {
         B_Owner.setText(PersonList.getSelectedValue());
         setupBlackList(PersonList.getSelectedValue());
@@ -1685,7 +1693,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_BlacklistPButtonActionPerformed
 
     private void Remove_BlacklistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Remove_BlacklistButtonActionPerformed
-        if(BlackList_P.getSelectedValue() != null)
+        if(BlackList_P.getSelectedValue() != null)//remove a person from the blacklist and add him/her back to the unblacklisted persons
         {
             int removing = BlackList_P.getSelectedIndex();
             String name = BlackList_P.getSelectedValue();
@@ -1700,9 +1708,9 @@ public class admin extends javax.swing.JFrame {
         {
                 EditB.addElement(BlackListEdit.elementAt(k));
         }
-        Edit_PBlackList.setModel(EditB);
+        Edit_PBlackList.setModel(EditB);    //setup the blacklist list with all blacklisted persons
         BlackListDialog.setVisible(false);
-        for(int i=0;i<BlackListEdit.size();i++)
+        for(int i=0;i<BlackListEdit.size();i++) //for the size of your blacklist add people to it
         {
             if(!AddPersonDialog.isVisible())
             {
@@ -1712,20 +1720,20 @@ public class admin extends javax.swing.JFrame {
                 for(Iterator<String> it = black.iterator(); it.hasNext();)
                 {
                     name = it.next();
-                    if(!BlackListEdit.contains(name))
-                        it.remove(); 
+                    if(!BlackListEdit.contains(name)) //check if the old blacklist contains a person who is not on the new balcklist
+                        it.remove();                  // if it has remove it
                 }
                 for(int j=0; j<BlackListEdit.getSize();j++)
                 {
-                    if(!black.contains(BlackListEdit.getElementAt(j).toString()))
-                        black.add(BlackListEdit.getElementAt(j).toString());
+                    if(!black.contains(BlackListEdit.getElementAt(j).toString()))   //check if the old blacklist contains a person from the new blacklist
+                        black.add(BlackListEdit.getElementAt(j).toString());        //if not add the new person to the blacklist
                 }
                 PartyManager.party.getAttendee(name).setBlacklistP(black);
             }
         }
-        if(BlackListEdit.size() == 0 && !AddPersonDialog.isVisible() )
+        if(BlackListEdit.size() == 0 && !AddPersonDialog.isVisible() )  //check if the blacklist is empty and a new person is not being added
         {
-            String name = PersonList.getSelectedValue();
+            String name = PersonList.getSelectedValue();                //remove all persons from the blacklist
                 Person per = PartyManager.party.getAttendee(name);
                 ArrayList<String> black = per.getBlacklistP();
                 for(Iterator<String> it = black.iterator(); it.hasNext();)
@@ -1742,31 +1750,31 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Save_BlacklistActionPerformed
 
     private void AddPersonDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AddPersonDialogWindowClosing
-        add = false;
-        Edit_PersonName.setText("");
-        EditB.removeAllElements();
+        add = false;    //when dialog colses set the boolean back to false
+        Edit_PersonName.setText("");//reset textfield
+        EditB.removeAllElements();  //reset blacklist model
         System.out.println("add turned off"); //checkprint
     }//GEN-LAST:event_AddPersonDialogWindowClosing
 
     private void BlackListDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_BlackListDialogWindowClosing
-        BlackLists.removeAllElements();
+        BlackLists.removeAllElements();//reset blacklistmodels
         BlackListEdit.removeAllElements();
     }//GEN-LAST:event_BlackListDialogWindowClosing
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        PartyManager.groups.forEach((grp) -> {
-            grp.groupToBlacklistP();
+        PartyManager.groups.forEach((grp) -> {  
+            grp.groupToBlacklistP();            //add poeple from teh groups to the respective blacklists
         });
         List temp = new List();
-        temp = action.divide(PartyManager.party);
-        if(temp != null)
+        temp = action.divide(PartyManager.party);// give everyone a person to buy a present for
+        if(temp != null)    //if ok teel that matching has been doen
         {
             PartyManager.party = temp;
             popupText.setText("Matching succesfull");
             popup.setVisible(true);
             action.exportPassword();
         }
-        else
+        else    //tell that there were no matches
         {
             popupText.setText("Unable to match");
             popup.setVisible(true);
@@ -1775,32 +1783,32 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void ExportADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportADActionPerformed
-        int result = ExportFileFrame.showSaveDialog(this);
-        if(result == JFileChooser.APPROVE_OPTION)
+        int result = ExportFileFrame.showSaveDialog(this); //show filechooser to export file to a directory
+        if(result == JFileChooser.APPROVE_OPTION)   //export when save is clicked
         {
              File file = ExportFileFrame.getSelectedFile();
              String path = file.getAbsolutePath();
-        if(path.contains("."))
+        if(path.contains("."))  //if the person already added .ser or another extention himself remove it
         {
         String[] check = path.split("\\.");
         String test = check[0];
         path = test;
         }
         
-         path = path.concat(".ser");
+         path = path.concat(".ser"); //add .ser extention
         action.ExportFile(path,PartyManager.party.getAttendees());
         }
         ImportFileFrame.setSelectedFile(new File(""));
     }//GEN-LAST:event_ExportADActionPerformed
 
     private void SaveAdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveAdActionPerformed
-        action.saveFile(PartyManager.party.getAttendees());
+        action.saveFile(PartyManager.party.getAttendees()); //save hashmap to savefile
         
     }//GEN-LAST:event_SaveAdActionPerformed
 
     private void ImportAdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportAdActionPerformed
-        int result = ImportFileFrame.showOpenDialog(this);
-        if(result == JFileChooser.APPROVE_OPTION)
+        int result = ImportFileFrame.showOpenDialog(this); //open filechooser
+        if(result == JFileChooser.APPROVE_OPTION)           //impport file
         {
             File file = ImportFileFrame.getSelectedFile();
             action.ImportFile(file);
@@ -1811,7 +1819,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_ImportAdActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        int pane = jTabbedPane1.getSelectedIndex();
+        int pane = jTabbedPane1.getSelectedIndex(); //when you change tabs update the lists inside them
         switch(pane)
         {
             case 0: updateParty();
@@ -1824,24 +1832,17 @@ public class admin extends javax.swing.JFrame {
                     break;
             case 5: updateWishlist(); break;
             
-            case 6: if(PartyManager.party.getAttendee(PartyManager.partyDetails.getAdmin()).hasChosen())
+            case 6: if(PartyManager.party.getAttendee(PartyManager.partyDetails.getAdmin()).hasChosen()) //check if the divide button has been clicked
                         updateWishlistDrawn(); 
                     break;
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void editGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editGroupsActionPerformed
-        if(group_List.getSelectedValue() != null)
+        if(group_List.getSelectedValue() != null) //if group has been selected
         {
         groupfield.setText(group_List.getSelectedValue());
-//        for(Group grp: PartyManager.groups)
-//        {
-//            if(grp.getName().equals(group_List.getSelectedValue()))
-//            {
-//                groupExists = true;
-//            }
-//        }
-        groupExists = true;
+        groupExists = true; //enable boolean that checks if the group already existed
         indexG = group_List.getSelectedIndex();
         editGroup(group_List.getSelectedValue());
         
@@ -1856,7 +1857,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_addGroupActionPerformed
 
     private void removeGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeGroupActionPerformed
-        if(group_List.getSelectedValue() != null)
+        if(group_List.getSelectedValue() != null)//if group is selected give warning that they want to delete a group
         {
             RemovedItem.setText(group_List.getSelectedValue());
             WarningPopUp.setVisible(true);
@@ -1864,7 +1865,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_removeGroupActionPerformed
 
     private void acceptremActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptremActionPerformed
-        int removing = group_List.getSelectedIndex();
+        int removing = group_List.getSelectedIndex(); //if they accept to remove start removing  group
         Iterator<Group> it = PartyManager.groups.iterator();
         while(it.hasNext()) 
         {
@@ -1874,7 +1875,7 @@ public class admin extends javax.swing.JFrame {
                     String name = group.getMembers().get(i);
                     for (int j=0;j<group.getMembers().size();j++) {
                        String remove = group.getMembers().get(j);
-                       if (!remove.equals(name)) {
+                       if (!remove.equals(name)) {                  //if group is removed also remove each other from each others blacklists
                            PartyManager.party.getAttendee(name).RemoveBlacklistName(remove);
                        }
                     }
@@ -1888,30 +1889,30 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_acceptremActionPerformed
 
     private void Save_Group1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_Group1ActionPerformed
-        if(!groupfield.getText().equals(""))
+        if(!groupfield.getText().equals("")) // check if the group has a name
         {  
         Group group = new Group(groupfield.getText());
-        for(int i =0;i<newG.size();i++)
+        for(int i =0;i<newG.size();i++)             //create temporary group
         {
             group.addMember(newG.get(i).toString());
         }   
-        if(groupExists == true)
+        if(groupExists == true) //if the group existed edit group
         {  
             for(int i =0;i<PartyManager.groups.size();i++)
             {                
-                if(PartyManager.groups.get(i).getName().equals((selectG.getElementAt(indexG).toString())))
+                if(PartyManager.groups.get(i).getName().equals((selectG.getElementAt(indexG).toString()))) //get the group that needs to be edited
                 {
                     PartyManager.groups.get(i).setName(groupfield.getText());
                     for(int j = 0;j<group.getMembers().size();j++)
                     {
                         String name = group.getMembers().get(j);
-                        if(!PartyManager.groups.get(i).getMembers().contains(name))
-                                PartyManager.groups.get(i).addMember(name);
+                        if(!PartyManager.groups.get(i).getMembers().contains(name)) //if old group does not contain new groupmemeber
+                                PartyManager.groups.get(i).addMember(name);         // addd the member
                     }
-                    for(int j=PartyManager.groups.get(i).getMembers().size();j>0;j--)
+                    for(int j=PartyManager.groups.get(i).getMembers().size();j>0;j--)//if old group contains a member that the new group does not 
                     {
                         String name2 = PartyManager.groups.get(i).getMembers().get(j-1);
-                        if(!group.getMembers().contains(name2))
+                        if(!group.getMembers().contains(name2))                      //remove the member
                             PartyManager.groups.get(i).removeMember(name2);
                     }
 //                   for(String name : group.getMembers())
@@ -1924,19 +1925,19 @@ public class admin extends javax.swing.JFrame {
             selectG.setElementAt(groupfield.getText(),indexG);
             
         }
-        else
+        else    //create new group
         {
             for(Group grp : PartyManager.groups)
             {
-                if(grp.getName().equalsIgnoreCase(groupfield.getText()))
+                if(grp.getName().equalsIgnoreCase(groupfield.getText()))    //check if the name is not already in use
                    groupExists = true;
             }
-                if(!groupExists)
+                if(!groupExists)    //if not in use create new group
                 {
                     PartyManager.groups.add(group);
                     selectG.addElement(groupfield.getText());
                 }
-                else
+                else    //enable popup that you can't give two groups the same name
                 {
                     popupText.setText("You can't add two groups with the same name");
                     popup.setVisible(true);
@@ -1952,13 +1953,13 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Save_Group1ActionPerformed
 
     private void Remove_GroupButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Remove_GroupButton2ActionPerformed
-        if(New_groupL.getSelectedValue() != null && (newG.getSize() != 1)) {
+        if(New_groupL.getSelectedValue() != null && (newG.getSize() != 1)) { //i f a person is removed from the group also remove them from the blacklist, a group can also not be empty
             int removing = New_groupL.getSelectedIndex();
             String name = New_groupL.getSelectedValue();
             AllpersGroup.addElement(name);      
             newG.removeElementAt(removing);
             
-            for(int i =0;i<PartyManager.groups.size();i++) {                
+            for(int i =0;i<PartyManager.groups.size();i++) {                //remove person from group and other peoples blacklist
                 if(PartyManager.groups.get(i).getName().equals(groupfield.getText())) {
                     Group group = PartyManager.groups.get(i);
                     for(int j = 0;j<group.getMembers().size();j++) {
@@ -1980,7 +1981,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Remove_GroupButton2ActionPerformed
 
     private void Add_GroupButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_GroupButton1ActionPerformed
-        if(AllGroups_l.getSelectedValue() != null && (AllpersGroup.getSize() != 1))
+        if(AllGroups_l.getSelectedValue() != null && (AllpersGroup.getSize() != 1))//add a person to the group, not everybody can be in a group
        {
             //New_groupL.setModel(newG);
             int adding = AllGroups_l.getSelectedIndex();
@@ -1998,7 +1999,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Add_GroupButton1ActionPerformed
 
     private void denyRemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denyRemActionPerformed
-        WarningPopUp.setVisible(false);
+        WarningPopUp.setVisible(false);// if not chosen to remove hide popup and do nothing
     }//GEN-LAST:event_denyRemActionPerformed
 
     private void groupfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupfieldActionPerformed
@@ -2010,7 +2011,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_WarningPopUpWindowClosing
 
     private void AddGroupDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AddGroupDialogWindowClosing
-        groupExists = false;
+        groupExists = false; //cahnge boolean to a new group is being added
         newG.removeAllElements();
         AllpersGroup.removeAllElements();
         updateAllpersons();
@@ -2022,7 +2023,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void acceptremPersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptremPersActionPerformed
-        String name = PersonList.getSelectedValue();
+        String name = PersonList.getSelectedValue(); // remove person from the party
         indexP = PersonList.getSelectedIndex();
         persons.remove(indexP);
         PartyManager.party.deletepartyMember(name);
@@ -2030,20 +2031,20 @@ public class admin extends javax.swing.JFrame {
         Iterator<String> it = k.iterator();
         while(it.hasNext())
         {
-            Person p = PartyManager.party.getAttendee(it.next());
+            Person p = PartyManager.party.getAttendee(it.next());   //remove the person from the blacklist of the other persons
             if(p.getBlacklistP().contains(name))
                 p.getBlacklistP().remove(name);
         }
         for(int i = 0;i<PartyManager.groups.size();i++)
         {
-            if(PartyManager.groups.get(i).containsMember(name))
+            if(PartyManager.groups.get(i).containsMember(name))   // remove person from the groups they were part of
                 PartyManager.groups.get(i).removeMember(name);
         }
         WarningPopUp2.setVisible(false);
     }//GEN-LAST:event_acceptremPersActionPerformed
 
     private void denyRemPersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_denyRemPersActionPerformed
-        WarningPopUp2.setVisible(false);
+        WarningPopUp2.setVisible(false);//hide popup and do nothing
     }//GEN-LAST:event_denyRemPersActionPerformed
 
     private void WarningPopUp2WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_WarningPopUp2WindowClosing
@@ -2051,7 +2052,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_WarningPopUp2WindowClosing
 
     private void Wishlist_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_AddActionPerformed
-        if(NewItem.getText() != null || NewItem.getText() != "") {
+        if(NewItem.getText() != null || NewItem.getText() != "") { //add new item to wishlist
             Wishlist.setModel(WishlistAd);
             String item = NewItem.getText();
             person.AddWhishlistItem(item);
@@ -2061,7 +2062,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Wishlist_AddActionPerformed
 
     private void Wishlist_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_DeleteActionPerformed
-        if(Wishlist.getSelectedValue() != null)
+        if(Wishlist.getSelectedValue() != null)//delete item from wishlist
         {
             //Wishlist.setModel(WishListEdit);
             int removing = Wishlist.getSelectedIndex();
@@ -2072,23 +2073,23 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Wishlist_DeleteActionPerformed
 
     private void Wishlist_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Wishlist_SaveActionPerformed
-        ArrayList<String> temp = PartyManager.party.getAttendee(PartyManager.partyDetails.getAdmin()).getWhishlist();
+        ArrayList<String> temp = PartyManager.party.getAttendee(PartyManager.partyDetails.getAdmin()).getWhishlist();//save the wishlist
         for(int i = 0;i<WishlistAd.size();i++)
         {
             boolean check = true;
             for(String x : temp)
             {
-                if(x.equalsIgnoreCase(WishlistAd.getElementAt(i).toString()));
-                    check = false;
+                if(x.equalsIgnoreCase(WishlistAd.getElementAt(i).toString()))
+                    check = false; 
             }
-            if(check == true)
+            if(check == true)   //if the wishlist does not contain the item add it
                 PartyManager.party.getAttendee(p.getAdmin()).AddWhishlistItem(WishlistAd.getElementAt(i).toString());
         }
         Iterator<String> it = temp.iterator();
         while(it.hasNext())
         {
             String item = it.next();
-            if(!WishlistAd.contains(item))
+            if(!WishlistAd.contains(item))//if item that is on the old wishlist is not on the new one remove it
                 it.remove();
         }           
         NewItem.setText("");
@@ -2096,7 +2097,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Wishlist_SaveActionPerformed
 
     private void RevealHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevealHideActionPerformed
-        if (RevealHide.isSelected()) {
+        if (RevealHide.isSelected()) { //reveal or hide which person has been drawn
             PersonName.setText(PartyManager.party.getAttendee(p.getAdmin()).getChosen());
             PersonName.setVisible(true);
             RevealHide.setText("Hide");
@@ -2108,7 +2109,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_RevealHideActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        ExitDialog.setVisible(true);
+        ExitDialog.setVisible(true); //when closing the program show save dialog
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -2117,11 +2118,11 @@ public class admin extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         action.saveFile(PartyManager.party.getAttendees());
-        System.exit(0);
+        System.exit(0); // if yes has been selected save and exit
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void ExitDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_ExitDialogWindowClosing
-        this.setVisible(true);
+        this.setVisible(true);//if you close the exitdialog with th red X don't close the program
     }//GEN-LAST:event_ExitDialogWindowClosing
 
     private void PersonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PersonListMouseClicked

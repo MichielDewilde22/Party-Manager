@@ -11,8 +11,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Andredur
+ * Defines the User GUI
+ * @author Andreas Durt, Michiel Dewilde
  */
 public class User extends javax.swing.JFrame {
     private Party p = PartyManager.partyDetails;
@@ -25,7 +25,8 @@ public class User extends javax.swing.JFrame {
     private DefaultListModel WishListEdit = new DefaultListModel();
     private DefaultListModel WishListDrawn = new DefaultListModel();
     /**
-     * Creates new form User
+     * Creates a new form of User with the details of the given person
+     * @param name name of the person who is accesing the gui
      */
     public User(String name) {
         person = party.getAttendee(name);
@@ -392,7 +393,9 @@ public class User extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Updates the defaultlistmodel of the partydetails list
+     */
     public void updateParty()
     {
         DefaultTableModel model = (DefaultTableModel) Party_Table.getModel();
@@ -403,7 +406,9 @@ public class User extends javax.swing.JFrame {
         model.setValueAt(p.getMinPrice(), 4, 1);
         model.setValueAt(p.getMaxPrice(), 5, 1);
     }
-    
+    /**
+     * updates the defaultlistmodel of the whishlist of the person list
+     */
     public void updateWishlist() {
         WishLists.clear();
         WishListEdit.clear();
@@ -414,7 +419,9 @@ public class User extends javax.swing.JFrame {
         }
         
     }
-    
+    /**
+     * updates the defaultlistmodel of the whishlist of the person for who you need to buy a present list
+     */
     public void updateWishlistDrawn() {
         if (person.getChosen()!=null) {
             WishListDrawn.clear();
@@ -551,14 +558,11 @@ public class User extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new User("test").setVisible(true);
-                setup();
+                
             }
         });
     }
-    public static void setup()
-    {
     
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ChangeButton;
     private javax.swing.JDialog ChangePin;

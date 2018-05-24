@@ -8,15 +8,13 @@ package partymanager;
 import java.util.ArrayList;
 
 /**
- *
- * @author Andredur
+ *Defines the login GUI
+ * @author Andreas Durt,Michiel Dewilde
  */
 public class login extends javax.swing.JFrame {
     /**
      * Creates new form login
-     */
-    //login.getRootPane().setDefaultButton(LoginButton);
-    
+     */    
     public login() {
         initComponents();
         WrongPassword.setVisible(false);
